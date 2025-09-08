@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Workshops & Events</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;500&family=Rock+Salt&display=swap" rel="stylesheet" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./main.css" />
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <a class="brand-left" href="#about">Carl Larsson</a>
+      <nav class="header-nav" aria-label="Top">
+        <a href="#contact" class="top-link">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN (sidebar + slider) -->
+  <main class="page">
+    <aside class="sidebar" aria-label="Sections">
+      <nav class="nav" role="tablist" aria-label="Gallerier">
+        <button class="nav-link" role="tab" aria-selected="true"  data-gallery="kurser">Kurser & Workshops</button>
+        <button class="nav-link" role="tab" aria-selected="false" data-gallery="events">Events</button>
+        <button class="nav-link" role="tab" aria-selected="false" data-gallery="dj">DJ</button>
+        <button class="nav-link" role="tab" aria-selected="false" data-gallery="mural">Muralmålningar</button>
+      </nav>
+
+      <div class="signature" aria-hidden="true">
+        <img src="./assets/signature.png" alt="Signature" />
+      </div>
+    </aside>
+
+    <section class="scroller" aria-label="Bildgalleri">
+      <div class="track" id="track"></div>
+    </section>
+  </main>
+
+  <!-- ABOUT & CONTENT -->
+  <section class="about-section" id="about">
+    <h2 class="about-title">Carl Larsson</h2>
+
+    <!-- Kurser & Workshops -->
+    <div class="subsection">
+      <h3 class="sub-title">Kurser & Workshops</h3>
+      <p class="sub-description">
+        Vi erbjuder kreativa kurser inom huvudsakligen konst och DJ:ande, men även i samarbete med andra aktörer, foto- och filmskapande.
+        Vi har gott om kontakter inom kulturbranschen, så om ni har några funderingar kring andra teman kan vi säkerligen hitta kompetenta workshopledare åt er!
+        Vi har erfarenhet av att jobba med de flesta målgrupper och anpassar oss efter gruppens behov och situation, vad det nu än kan vara.
+      </p>
+      <h3 class="sub-title">Tidigare kurser och workshops</h3>
+      <ul class="sub-list">
+        <li>Streetart/spraykonst/graffiti. Passar dig som vill vara utomhus och röra på dig.</li>
+        <li>Husmanskonst, blandkonst med inriktning på återbruk och att skapa billig konst. Passar bra inomhus och på en budget.</li>
+        <li>Collage/klistermärkeskapande. Går att genomföra i alla åldrar och lämpar sig bra för funktionsvarierade målgrupper.</li>
+        <li>DJ-kurs eller workshop. Få en chans att prova på olika DJ-utrustningar och få en genomgång av vad det innebär att vara DJ.</li>
+        <li>Foto och filmskapande. Få chans att lära dig grunderna inom filmning och klippning samt att använda exempelvis telefonkamera för att få det att se professionellt ut.</li>
+      </ul>
+    </div>
+
+    <!-- Events -->
+    <div class="subsection">
+      <h3 class="sub-title">Events</h3>
+      <p class="sub-description">
+        Vi har erfarenhet av att planera och genomföra olika kulturevenemang – allt ifrån spelningar, fester, utställningar, fashion shows, föreläsningar och afterworks.
+      </p>
+      <p class="sub-description">
+        Kanske är ni sugna på en AW med DJ där ni får prova på streetart och något gott att dricka.
+        Eller kanske ett barnkalas eller en möhippa.
+        Vi är fulla av roliga idéer och bollar gärna fram något kul. Vill ni ha en rolig film av evenemanget efteråt?
+      </p>
+    </div>
+
+    <!-- DJ -->
+    <div class="subsection">
+      <h3 class="sub-title">DJ</h3>
+      <p class="sub-description">
+        Behöver ni en eller flera DJs? Vi kan spela vad ni vill, var ni vill!
+        Vi har tidigare spelat på allt ifrån klubbar, skoldiscon, mässor, catwalks, ravefester, restauranger, demonstrationer, teater, afterski osv.
+      </p>
+    </div>
+
+    <!-- Muralmålningar / markmålningar -->
+    <div class="subsection">
+      <h3 class="sub-title">Muralmålningar eller markmålningar</h3>
+      <p class="sub-description">
+        Har ni en tråkig asfaltsplätt eller ful vägg som behöver dekoreras?
+      </p>
+      <p class="sub-description">
+        Då kan vi erbjuda interaktiva tredimensionella hinderbanor på asfalt, till exempel på en skolgård eller kanske garageuppfarten.
+      </p>
+      <p class="sub-description">
+        Kanske står det en nedklottrad container eller finns ett barnrum som behöver fina färger och motiv. Vi jobbar gärna efter era förslag för att alla ska bli nöjda!
+      </p>
+    </div>
+
+    <!-- Contact -->
+    <div class="contact-section" id="contact">
+      <h3 class="contact-title">Contact</h3>
+      <p class="contact-description">
+        <a href="mailto:info@carllarsson.se">info@carllarsson.se</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <p>&copy; 2025 Carl Larsson — All rights reserved</p>
+  </footer>
+
+  <!-- JS -->
+  <script src="./app.js" defer></script>
+</body>
+</html>
