@@ -83,12 +83,12 @@ body {
   justify-content: space-between;
 }
 .logo img {
-  height: 32px;
+  height: 35px;
   width: auto;
   display: block;
 }
 .topnav__link {
-  font-size: 12px;
+  font-size: 12.5px;
   text-transform: uppercase;
   color: var(--fg);
   text-decoration: none;
@@ -136,7 +136,7 @@ body {
   margin-left: calc(50% - 50vw);
   height: var(--marquee-h);
   overflow: hidden;
-  background: var(--bg);
+  background: transparent;
   border-top: none;
   border-bottom: none;
   margin-top: 0;
@@ -224,9 +224,9 @@ body {
   transition: color 0.2s ease;
 }
 .roller__item.is-active {
-  color: var(--fg);
-  transform: translateZ(0) scale(1);
+  color: var(--fg) !important;
   opacity: 1;
+  transform: rotateX(0) translateZ(0) scale(1);
 }
 
 /* ========== Contact / footer ========== */
