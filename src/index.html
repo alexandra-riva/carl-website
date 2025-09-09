@@ -6,62 +6,51 @@
   <title>Carl Larsson — Workshops & Events</title>
 
   <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100..900;1,100..900&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100..900;1,100..900&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="./main.css" />
 </head>
 <body>
-  <!-- Top bar -->
   <header class="topbar" role="banner">
     <div class="topbar__inner">
-      <!-- Signature far left, clicks to marquee -->
       <a class="logo" href="#marquee" data-scroll>
-        <img src="./assets/signature.png" alt="Signature logo">
+        <img src="./assets/signature.png" alt="Signature logo" />
       </a>
-      <!-- Menu far right -->
       <nav class="topnav" aria-label="Top navigation">
         <a href="#marquee" class="topnav__link" data-scroll>Work</a>
-        <a href="#roller"  class="topnav__link" data-scroll>About</a>
+        <a href="#roller" class="topnav__link" data-scroll>About</a>
         <a href="#contact" class="topnav__link" data-scroll>Contact</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <!-- Hero title -->
+    <!-- HERO with sticky title + tabs -->
     <section class="hero" aria-label="Intro">
       <h1 class="hero__title">CARL LARSSON</h1>
+    
+    </section> 
 
-      <!-- Tabs above gallery -->
-      <nav class="tabs" aria-label="Work categories">
-        <button class="tab is-active" data-target="workshops">WORKSHOPS</button>
-        <button class="tab" data-target="events">EVENTS</button>
-        <button class="tab" data-target="dj">DJ</button>
-        <button class="tab" data-target="murals">MURALS</button>
-      </nav>
-
-      <!-- Anchor for WORK link -->
-      <div id="marquee"></div>
-
-      <!-- Colorful gallery -->
-      <div class="marquee" id="workshops" data-marquee>
-        <div class="marquee__track" data-track>
-          <img src="./assets/project1_1.jpg" alt="Workshop image 1" loading="lazy">
-          <img src="./assets/project1_2.jpg" alt="Workshop image 2" loading="lazy">
-          <img src="./assets/project1_3.jpg" alt="Workshop image 3" loading="lazy">
-          <img src="./assets/project1_4.jpg" alt="Workshop image 4" loading="lazy">
-        </div>
+    <!-- Scrollable marquee below hero -->
+    <div id="marquee"></div>
+    <div class="marquee" id="workshops" data-marquee>
+      <div class="marquee__track" data-track>
+        <img src="./assets/project1_1.jpg" alt="Workshop image 1" loading="lazy" />
+        <img src="./assets/project1_2.jpg" alt="Workshop image 2" loading="lazy" />
+        <img src="./assets/project1_3.jpg" alt="Workshop image 3" loading="lazy" />
+        <img src="./assets/project1_4.jpg" alt="Workshop image 4" loading="lazy" />
       </div>
+    </div>
 
-      <!-- Hidden placeholders for future categories -->
-      <div class="marquee marquee--empty" id="events" hidden></div>
-      <div class="marquee marquee--empty" id="dj" hidden></div>
-      <div class="marquee marquee--empty" id="murals" hidden></div>
-    </section>
+    <div class="marquee marquee--empty" id="events" hidden></div>
+    <div class="marquee marquee--empty" id="dj" hidden></div>
+    <div class="marquee marquee--empty" id="murals" hidden></div>
 
-    <!-- ROLLER MENU (under the pictures) -->
+    
+
+    <!-- Normal roller section below -->
     <section class="roller" id="roller" aria-label="Section menu">
       <div class="roller__viewport">
         <ul class="roller__list" id="rollerMenu">
@@ -74,15 +63,14 @@
       </div>
     </section>
 
-    <!-- Contact / footer -->
     <section id="contact" class="contact">
-      <hr class="rule" aria-hidden="true">
+      <hr class="rule" aria-hidden="true" />
       <h2 class="contact__title">SAY HELLO</h2>
       <p class="contact__mail">
         <a href="mailto:info@carlLarsson.se">info@carlLarsson.se</a>
       </p>
       <p class="contact__sig">
-        <img src="./assets/signature.png" alt="Signature">
+        <img src="./assets/signature.png" alt="Signature" />
       </p>
       <p class="copyright">2025 Carl Larsson — All rights reserved</p>
     </section>

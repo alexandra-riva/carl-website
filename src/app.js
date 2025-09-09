@@ -7,39 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
   if (marquee) {
     const track = marquee.querySelector('[data-track]');
     if (track && track.children.length) {
+      // Clear existing children, then double the track cleanly
+      marquee.innerHTML = '';
       const clone = track.cloneNode(true);
       clone.setAttribute('aria-hidden', 'true');
-      marquee.appendChild(clone);
 
       const wrapper = document.createElement('div');
       wrapper.className = 'marquee__track';
-      wrapper.append(...Array.from(marquee.children));
-      marquee.replaceChildren(wrapper);
+      wrapper.appendChild(track);
+      wrapper.appendChild(clone);
+      marquee.appendChild(wrapper);
     }
   }
-
-  /* ===== Tabs (keep Workshops visible for now) ===== */
-  const tabs = document.querySelectorAll('.tab');
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('is-active'));
-      tab.classList.add('is-active');
-
-      const id = tab.getAttribute('data-target');
-      document.querySelectorAll('.marquee, .marquee--empty').forEach(sec => {
-        sec.hidden = sec.id !== id;
-      });
-
-      // restart animation when switching back
-      const active = document.getElementById(id);
-      const t = active && active.querySelector('.marquee__track');
-      if (t) {
-        t.style.animation = 'none';
-        void t.offsetHeight;
-        t.style.animation = '';
-      }
-    });
-  });
 
   /* ===== Roller menu: original (best) effect — scale + opacity ===== */
   const viewport = document.querySelector('.roller__viewport');
@@ -55,15 +34,18 @@ document.addEventListener('DOMContentLoaded', () => {
       items.forEach(li => {
         const r = li.getBoundingClientRect();
         const itemMid = r.top + r.height / 2;
-        const d = Math.abs(itemMid - midY);                 // distance to center
-        const norm = Math.min(1, d / (rect.height * 0.45)); // 0..1
+        const d = Math.abs(itemMid - midY);
+        const norm = Math.min(1, d / (rect.height * 0.45));
 
-        const scale = 1 - norm * 0.18;                      // 1 → 0.82
-        const opacity = 1 - norm * 0.55;                    // 1 → 0.45
+        const scale = 1 - norm * 0.18;
+        const opacity = 1 - norm * 0.55;
         li.style.transform = `translateZ(0) scale(${scale.toFixed(3)})`;
         li.style.opacity = opacity.toFixed(3);
 
-        if (d < closestDist) { closestDist = d; closest = li; }
+        if (d < closestDist) {
+          closestDist = d;
+          closest = li;
+        }
       });
 
       items.forEach(li => li.classList.remove('is-active'));
@@ -74,7 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let raf = null;
     const onScroll = () => {
       if (raf) return;
-      raf = requestAnimationFrame(() => { update(); raf = null; });
+      raf = requestAnimationFrame(() => {
+        update();
+        raf = null;
+      });
     };
     viewport.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
@@ -82,9 +67,10 @@ document.addEventListener('DOMContentLoaded', () => {
     items.forEach(li => {
       li.addEventListener('click', () => {
         li.scrollIntoView({ block: 'center', behavior: 'smooth' });
-        const targetId = li.getAttribute('data-id');
-        const tab = document.querySelector(`.tab[data-target="${targetId}"]`);
-        if (tab) tab.click();
+        // No 'id' variable here, so disabled the old logic to click tab
+        // const targetId = li.getAttribute('data-id');
+        // const tab = document.querySelector(`.tab[data-target="${targetId}"]`);
+        // if (tab) tab.click();
       });
     });
   }
@@ -92,12 +78,13 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ===== Smooth scroll for header links with sticky offset ===== */
   const getStickyTop = () => {
     const raw = getComputedStyle(document.documentElement)
-      .getPropertyValue('--sticky-topbar').trim();
+      .getPropertyValue('--sticky-topbar')
+      .trim();
     const n = parseFloat(raw);
     return isNaN(n) ? 60 : n;
   };
 
-  document.addEventListener('click', (e) => {
+  document.addEventListener('click', e => {
     const link = e.target.closest('[data-scroll]');
     if (!link) return;
 
@@ -113,3 +100,40 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo({ top: y, behavior: 'smooth' });
   });
 });
+(function heroVisibilityController() {
+  const hero = document.querySelector('.hero');
+  const marquee = document.querySelector('.marquee');
+  if (!hero || !marquee) return;
+
+  const getStickyTop = () => {
+    const raw = getComputedStyle(document.documentElement)
+      .getPropertyValue('--sticky-topbar')
+      .trim();
+    const n = parseFloat(raw);
+    return isNaN(n) ? 60 : n;
+  };
+
+  let raf = null;
+  const update = () => {
+    const stickyTop = getStickyTop();
+    const marqueeRect = marquee.getBoundingClientRect();
+
+    // when the marquee's top edge reaches hero's midpoint, hide hero
+    const heroMid = hero.getBoundingClientRect().top + hero.offsetHeight / 2;
+
+    if (marqueeRect.top <= heroMid - stickyTop) {
+      hero.classList.add('hero--hidden');
+    } else {
+      hero.classList.remove('hero--hidden');
+    }
+
+    raf = null;
+  };
+
+  const onScroll = () => {
+    if (!raf) raf = requestAnimationFrame(update);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+})();
