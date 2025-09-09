@@ -3,120 +3,91 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Workshops & Events</title>
+  <title>Carl Larsson — Workshops & Events</title>
 
   <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;500&family=Rock+Salt&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100..900;1,100..900&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
   <link rel="stylesheet" href="./main.css" />
 </head>
 <body>
-  <!-- HEADER -->
-  <header class="site-header" role="banner">
-    <div class="header-inner">
-      <a class="brand-left" href="#about">Carl Larsson</a>
-      <nav class="header-nav" aria-label="Top">
-        <a href="#contact" class="top-link">Contact</a>
+  <!-- Top bar -->
+  <header class="topbar" role="banner">
+    <div class="topbar__inner">
+      <!-- Signature far left, clicks to marquee -->
+      <a class="logo" href="#marquee" data-scroll>
+        <img src="./assets/signature.png" alt="Signature logo">
+      </a>
+      <!-- Menu far right -->
+      <nav class="topnav" aria-label="Top navigation">
+        <a href="#marquee" class="topnav__link" data-scroll>Work</a>
+        <a href="#roller"  class="topnav__link" data-scroll>About</a>
+        <a href="#contact" class="topnav__link" data-scroll>Contact</a>
       </nav>
     </div>
   </header>
 
-  <!-- MAIN (sidebar + slider) -->
-  <main class="page">
-    <aside class="sidebar" aria-label="Sections">
-      <nav class="nav" role="tablist" aria-label="Gallerier">
-        <button class="nav-link" role="tab" aria-selected="true"  data-gallery="kurser">Kurser & Workshops</button>
-        <button class="nav-link" role="tab" aria-selected="false" data-gallery="events">Events</button>
-        <button class="nav-link" role="tab" aria-selected="false" data-gallery="dj">DJ</button>
-        <button class="nav-link" role="tab" aria-selected="false" data-gallery="mural">Muralmålningar</button>
+  <main>
+    <!-- Hero title -->
+    <section class="hero" aria-label="Intro">
+      <h1 class="hero__title">CARL LARSSON</h1>
+
+      <!-- Tabs above gallery -->
+      <nav class="tabs" aria-label="Work categories">
+        <button class="tab is-active" data-target="workshops">WORKSHOPS</button>
+        <button class="tab" data-target="events">EVENTS</button>
+        <button class="tab" data-target="dj">DJ</button>
+        <button class="tab" data-target="murals">MURALS</button>
       </nav>
 
-      <div class="signature" aria-hidden="true">
-        <img src="./assets/signature.png" alt="Signature" />
-      </div>
-    </aside>
+      <!-- Anchor for WORK link -->
+      <div id="marquee"></div>
 
-    <section class="scroller" aria-label="Bildgalleri">
-      <div class="track" id="track"></div>
+      <!-- Colorful gallery -->
+      <div class="marquee" id="workshops" data-marquee>
+        <div class="marquee__track" data-track>
+          <img src="./assets/project1_1.jpg" alt="Workshop image 1" loading="lazy">
+          <img src="./assets/project1_2.jpg" alt="Workshop image 2" loading="lazy">
+          <img src="./assets/project1_3.jpg" alt="Workshop image 3" loading="lazy">
+          <img src="./assets/project1_4.jpg" alt="Workshop image 4" loading="lazy">
+        </div>
+      </div>
+
+      <!-- Hidden placeholders for future categories -->
+      <div class="marquee marquee--empty" id="events" hidden></div>
+      <div class="marquee marquee--empty" id="dj" hidden></div>
+      <div class="marquee marquee--empty" id="murals" hidden></div>
+    </section>
+
+    <!-- ROLLER MENU (under the pictures) -->
+    <section class="roller" id="roller" aria-label="Section menu">
+      <div class="roller__viewport">
+        <ul class="roller__list" id="rollerMenu">
+          <li class="roller__item is-active" data-id="workshops">WORKSHOPS</li>
+          <li class="roller__item" data-id="events">EVENTS</li>
+          <li class="roller__item" data-id="about">ABOUT</li>
+          <li class="roller__item" data-id="dj">DJ</li>
+          <li class="roller__item" data-id="murals">MURALS</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Contact / footer -->
+    <section id="contact" class="contact">
+      <hr class="rule" aria-hidden="true">
+      <h2 class="contact__title">SAY HELLO</h2>
+      <p class="contact__mail">
+        <a href="mailto:info@carlLarsson.se">info@carlLarsson.se</a>
+      </p>
+      <p class="contact__sig">
+        <img src="./assets/signature.png" alt="Signature">
+      </p>
+      <p class="copyright">2025 Carl Larsson — All rights reserved</p>
     </section>
   </main>
 
-  <!-- ABOUT & CONTENT -->
-  <section class="about-section" id="about">
-    <h2 class="about-title">Carl Larsson</h2>
-
-    <!-- Kurser & Workshops -->
-    <div class="subsection">
-      <h3 class="sub-title">Kurser & Workshops</h3>
-      <p class="sub-description">
-        Vi erbjuder kreativa kurser inom huvudsakligen konst och DJ:ande, men även i samarbete med andra aktörer, foto- och filmskapande.
-        Vi har gott om kontakter inom kulturbranschen, så om ni har några funderingar kring andra teman kan vi säkerligen hitta kompetenta workshopledare åt er!
-        Vi har erfarenhet av att jobba med de flesta målgrupper och anpassar oss efter gruppens behov och situation, vad det nu än kan vara.
-      </p>
-      <h3 class="sub-title">Tidigare kurser och workshops</h3>
-      <ul class="sub-list">
-        <li>Streetart/spraykonst/graffiti. Passar dig som vill vara utomhus och röra på dig.</li>
-        <li>Husmanskonst, blandkonst med inriktning på återbruk och att skapa billig konst. Passar bra inomhus och på en budget.</li>
-        <li>Collage/klistermärkeskapande. Går att genomföra i alla åldrar och lämpar sig bra för funktionsvarierade målgrupper.</li>
-        <li>DJ-kurs eller workshop. Få en chans att prova på olika DJ-utrustningar och få en genomgång av vad det innebär att vara DJ.</li>
-        <li>Foto och filmskapande. Få chans att lära dig grunderna inom filmning och klippning samt att använda exempelvis telefonkamera för att få det att se professionellt ut.</li>
-      </ul>
-    </div>
-
-    <!-- Events -->
-    <div class="subsection">
-      <h3 class="sub-title">Events</h3>
-      <p class="sub-description">
-        Vi har erfarenhet av att planera och genomföra olika kulturevenemang – allt ifrån spelningar, fester, utställningar, fashion shows, föreläsningar och afterworks.
-      </p>
-      <p class="sub-description">
-        Kanske är ni sugna på en AW med DJ där ni får prova på streetart och något gott att dricka.
-        Eller kanske ett barnkalas eller en möhippa.
-        Vi är fulla av roliga idéer och bollar gärna fram något kul. Vill ni ha en rolig film av evenemanget efteråt?
-      </p>
-    </div>
-
-    <!-- DJ -->
-    <div class="subsection">
-      <h3 class="sub-title">DJ</h3>
-      <p class="sub-description">
-        Behöver ni en eller flera DJs? Vi kan spela vad ni vill, var ni vill!
-        Vi har tidigare spelat på allt ifrån klubbar, skoldiscon, mässor, catwalks, ravefester, restauranger, demonstrationer, teater, afterski osv.
-      </p>
-    </div>
-
-    <!-- Muralmålningar / markmålningar -->
-    <div class="subsection">
-      <h3 class="sub-title">Muralmålningar eller markmålningar</h3>
-      <p class="sub-description">
-        Har ni en tråkig asfaltsplätt eller ful vägg som behöver dekoreras?
-      </p>
-      <p class="sub-description">
-        Då kan vi erbjuda interaktiva tredimensionella hinderbanor på asfalt, till exempel på en skolgård eller kanske garageuppfarten.
-      </p>
-      <p class="sub-description">
-        Kanske står det en nedklottrad container eller finns ett barnrum som behöver fina färger och motiv. Vi jobbar gärna efter era förslag för att alla ska bli nöjda!
-      </p>
-    </div>
-
-    <!-- Contact -->
-    <div class="contact-section" id="contact">
-      <h3 class="contact-title">Contact</h3>
-      <p class="contact-description">
-        <a href="mailto:info@carllarsson.se">info@carllarsson.se</a>
-      </p>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="site-footer" role="contentinfo">
-    <p>&copy; 2025 Carl Larsson — All rights reserved</p>
-  </footer>
-
-  <!-- JS -->
   <script src="./app.js" defer></script>
 </body>
 </html>
