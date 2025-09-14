@@ -1,0 +1,86 @@
+/* Header: full-bleed, white, no bottom line, smaller text, corners tight */
+
+:root{
+  /* falls back if not in base.css */
+  --fg: #0a0a0a;
+}
+
+/* sticky, white, NO divider line */
+.topbar{
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #ffffff;
+  /* no border-bottom */
+}
+
+/* full-width inner, tight to viewport edges */
+.topbar__inner{
+  width: 100%;
+  margin: 5px;
+
+  /* top/bottom 10px, left 8px, right 24px */
+  padding: 2px 24px 2px 8px;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Signature logo size a bit smaller */
+.brand img{
+  display: block;
+  height: 40px;                      /* tweak up/down to match your screenshot */
+  width: auto;
+  margin-left: 20px;  
+}
+
+/* Center menu */
+.mainnav{
+  display: flex;
+  justify-content: center;
+  gap: clamp(12px, 2.4vw, 26px);
+}
+
+/* Grey by default, smaller */
+.nav-link{
+  font-family: "DM Mono", ui-monospace, monospace;
+  font-weight: 400;
+  font-size: 13px;                   /* smaller letters */
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #9F9F9F;                    /* figma grey */
+  transition: color .15s ease;
+}
+
+/* Turn black on hover/focus/active */
+.nav-link:hover,
+.nav-link:focus,
+.nav-link.is-active{
+  color: #000;
+  outline: none;
+}
+
+/* Right side: Contact is always black */
+.contactnav .contact-link{
+  font-family: "DM Mono", ui-monospace, monospace;
+  font-weight: 400;
+  font-size: 13px;                   
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000;
+}
+
+@media (min-width: 1024px){
+  .topbar__inner{
+    /* top/bottom 14px, left 10px, right 32px */
+    padding: 6px 32px 6px 10px;
+    gap: 16px;
+  }
+  .brand img{ height: 40px; }
+  .nav-link, .contactnav .contact-link{ font-size: 14px; }
+  .mainnav{ gap: clamp(16px, 2.8vw, 32px); }
+}

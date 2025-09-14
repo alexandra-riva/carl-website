@@ -1,0 +1,67 @@
+/* ================== BASE STYLES ================== */
+
+/* ---------- Variables ---------- */
+:root {
+  --page-max: 1200px;             /* max content width */
+  --shell-x: max(24px, 6vw);      /* horizontal padding for shells */
+
+  --fg: #0a0a0a;                  /* default text color */
+  --muted: #9f9f9f;               /* muted grey (e.g. nav links) */
+  --line: #eaeaea;                /* divider lines */
+  --bg: #ffffff;                  /* background color */
+  --accent: #000000;              /* black accents (active links, big titles) */
+
+  --sticky-topbar: 60px;          /* header height for scroll offset */
+  --small: clamp(13px, 1.6vw, 15px); /* small text size */
+}
+
+/* ---------- Reset & Box Model ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--fg);
+  background: var(--bg);
+  font-family: "DM Mono", ui-monospace, monospace;
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------- Typography helpers ---------- */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: inherit;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+/* ---------- Layout helpers ---------- */
+.shell {
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: var(--shell-x);
+}
+
+/* ---------- Divider lines ---------- */
+.rule {
+  border: 0;
+  height: 1px;
+  background: var(--line);
+}
+
+/* ---------- Scroll offset for sticky header ---------- */
+section, footer {
+  scroll-margin-top: calc(var(--sticky-topbar) + 12px);
+}

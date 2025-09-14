@@ -1,0 +1,101 @@
+.hero {
+  background: #f9f9f9;
+  color: #000;
+  padding-top: 20px;
+  padding-bottom: 0;
+}
+
+.hero__flex {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  min-height: 80vh;
+  margin-left: 20px
+}
+
+.hero__lead {
+  font-family: "Fragment Mono", ui-monospace, monospace;
+  font-weight: 300;
+  font-size: 16px; /* SMALL and subtle */
+  line-height: 1.5;
+  max-width: 800px;
+  flex: 0 0 800px;
+  margin-bottom: 70px; /* ensure it's lower than headline */
+  align-self: flex-end;
+}
+
+.hero__lead p {
+  margin: 0 0 28px;
+}
+
+.hero__title-diag {
+  position: relative;
+  flex: 1 1 60vw;
+  height: 420px; /* control vertical space for position */
+  min-width: 500px;
+  /* ensure words have their own 'column' */
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.hero__title {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero__title .w1,
+.hero__title .w2,
+.hero__title .w3 {
+  position: absolute;
+  font-size: 120px;
+  line-height: 0.85;
+  color: #000;
+}
+
+.hero__title .w1 {
+  font-family: 'Azeret Mono', ui-monospace, monospace;
+  font-weight: 800;
+  top: -140px;
+  left: 5%;
+}
+
+.hero__title .w2 {
+  font-family: 'Fugaz One', system-ui, sans-serif;
+  font-weight: 400;
+  top: 16%;  /* stagger down diagonally */
+  left: 45%;
+}
+
+.hero__title .w3 {
+  font-family: 'Azeret Mono', ui-monospace, monospace;
+  font-weight: 800;
+  top: 60%;  /* lowest, furthest right */
+  left: 70%;
+}
+
+@media (max-width: 900px) {
+  .hero__flex {
+    flex-direction: column-reverse;  /* title comes first, then text */
+    min-height: 0;
+  }
+  .hero__title-diag { height: auto; min-width: 0; width: 100%; }
+  .hero__title {
+    position: static;
+    min-height: 0;
+    height: auto;
+    width: auto;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0;
+    text-align: center;
+  }
+  .hero__title .w1, .hero__title .w2, .hero__title .w3 {
+    position: static;
+    font-size: 72px;
+    left: unset;
+    top: unset;
+  }
+}
+

@@ -3,79 +3,42 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Carl Larsson — Workshops & Events</title>
+  <title>Carl Website</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100..900;1,100..900&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;700&family=Rock+Salt&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@800&family=Fragment+Mono&family=Fugaz+One&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;900&family=Fragment+Mono&family=Fugaz+One&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="./main.css" />
+  <!-- Styles -->
+  <link rel="stylesheet" href="./css/base.css" />
+  <link rel="stylesheet" href="./css/sections/header.css" />
+  <link rel="stylesheet" href="./css/sections/hero.css" />
+  <!-- <link rel="stylesheet" href="./css/sections/info.css" /> -->
+  <link rel="stylesheet" href="./css/sections/how.css" />
+  <link rel="stylesheet" href="./css/sections/gallery.css" />
+  <link rel="stylesheet" href="./css/sections/footer.css" />
 </head>
 <body>
-  <header class="topbar" role="banner">
-    <div class="topbar__inner">
-      <a class="logo" href="#marquee" data-scroll>
-        <img src="./assets/signature.png" alt="Signature logo" />
-      </a>
-      <nav class="topnav" aria-label="Top navigation">
-        <a href="#marquee" class="topnav__link" data-scroll>Work</a>
-        <a href="#roller" class="topnav__link" data-scroll>About</a>
-        <a href="#contact" class="topnav__link" data-scroll>Contact</a>
-      </nav>
-    </div>
-  </header>
+  <!-- Include slots (partials will replace these) -->
+  <div data-include="sections/header.html"></div>
+  <main id="top">
+    <div data-include="sections/hero.html"></div>
 
-  <main>
-    <!-- HERO with sticky title + tabs -->
-    <section class="hero" aria-label="Intro">
-      <h1 class="hero__title">CARL LARSSON</h1>
-    
-    </section> 
+    <!-- If you don't have this file yet, comment this line out -->
+    <div data-include="sections/marquee.html"></div>
 
-    <!-- Scrollable marquee below hero -->
-    <div id="marquee"></div>
-    <div class="marquee" id="workshops" data-marquee>
-      <div class="marquee__track" data-track>
-        <img src="./assets/project1_1.jpg" alt="Workshop image 1" loading="lazy" />
-        <img src="./assets/project1_2.jpg" alt="Workshop image 2" loading="lazy" />
-        <img src="./assets/project1_3.jpg" alt="Workshop image 3" loading="lazy" />
-        <img src="./assets/project1_4.jpg" alt="Workshop image 4" loading="lazy" />
-      </div>
-    </div>
+    <!-- If you commented out info.css, you can also comment this: -->
+    <!-- <div data-include="sections/info.html"></div> -->
 
-    <div class="marquee marquee--empty" id="events" hidden></div>
-    <div class="marquee marquee--empty" id="dj" hidden></div>
-    <div class="marquee marquee--empty" id="murals" hidden></div>
-
-    
-
-    <!-- Normal roller section below -->
-    <section class="roller" id="roller" aria-label="Section menu">
-      <div class="roller__viewport">
-        <ul class="roller__list" id="rollerMenu">
-          <li class="roller__item is-active" data-id="workshops">WORKSHOPS</li>
-          <li class="roller__item" data-id="events">EVENTS</li>
-          <li class="roller__item" data-id="about">ABOUT</li>
-          <li class="roller__item" data-id="dj">DJ</li>
-          <li class="roller__item" data-id="murals">MURALS</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="contact" class="contact">
-      <hr class="rule" aria-hidden="true" />
-      <h2 class="contact__title">SAY HELLO</h2>
-      <p class="contact__mail">
-        <a href="mailto:info@carlLarsson.se">info@carlLarsson.se</a>
-      </p>
-      <p class="contact__sig">
-        <img src="./assets/signature.png" alt="Signature" />
-      </p>
-      <p class="copyright">2025 Carl Larsson — All rights reserved</p>
-    </section>
+    <div data-include="sections/how.html"></div>
+    <div data-include="sections/gallery.html"></div>
   </main>
+  <div data-include="sections/footer.html"></div>
 
+  <!-- Scripts -->
   <script src="./app.js" defer></script>
 </body>
 </html>

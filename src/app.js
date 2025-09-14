@@ -1,210 +1,246 @@
-/**
- * Marquee + Roller interactions
- * - Marquee: seamless loop
- * - Roller: 3D wheel; centers ABOUT only when the roller comes into view
- */
-document.addEventListener('DOMContentLoaded', () => {
-  /* ===== Marquee: duplicate for seamless loop ===== */
-  const marquee = document.querySelector('[data-marquee]');
-  if (marquee) {
-    const track = marquee.querySelector('[data-track]');
-    if (track && track.children.length) {
-      marquee.innerHTML = '';
-      const clone = track.cloneNode(true);
-      clone.setAttribute('aria-hidden', 'true');
+// ------------------ 1) Include partials first ------------------
+async function includePartials() {
+  const slots = [...document.querySelectorAll("[data-include]")];
+  await Promise.all(
+    slots.map(async (el) => {
+      const url = el.getAttribute("data-include");
+      try {
+        const res = await fetch(url, { cache: "no-cache" });
+        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+        const html = await res.text();
+        el.outerHTML = html; // replace placeholder with section markup
+      } catch (e) {
+        console.error("Include failed:", url, e);
+        el.outerHTML = ""; // remove placeholder so layout continues
+      }
+    })
+  );
+}
 
-      const wrapper = document.createElement('div');
-      wrapper.className = 'marquee__track';
-      wrapper.appendChild(track);
-      wrapper.appendChild(clone);
-      marquee.appendChild(wrapper);
+// ------------------ 2) HOW WE WORK logic ------------------
+function initHow() {
+  const root = document.querySelector("#how-we-work");
+  if (!root) return null;
+
+  const descEl  = root.querySelector("#how-desc");
+  const trackEl = root.querySelector("#how-track");
+  const menu    = root.querySelector(".how__menu");
+  if (!descEl || !trackEl || !menu) return null;
+
+  // Swedish copy
+  const DESCRIPTIONS = {
+    workshops: [
+  "Vi erbjuder kreativa workshops inom konst, DJ-ing, foto och film – och kan även samarbeta med andra aktörer för olika teman. Innehållet anpassas alltid efter målgruppen och dess behov.",
+  "Tidigare workshops har bland annat handlat om streetart/graffiti, återbrukskonst, collage och klistermärken, DJ-introduktioner samt foto- och filmproduktion med mobilkamera. Våra upplägg fungerar för alla åldrar och grupper, även funktionsvarierade, och kan hållas både inomhus och utomhus."
+],
+    events: [
+      "Vi planerar och genomför en bredd av kulturevenemang – från spelningar, fester och utställningar till föreläsningar, afterworks och privata firanden.",
+      "Vill ni ha en AW med DJ och street art, ett barnkalas eller en möhippa? Vi idéutvecklar gärna tillsammans och kan även filma/dokumentera ert event."
+    ],
+    dj: [
+      "Behöver ni en eller flera DJs? Vi spelar det ni vill – där ni vill!",
+      "Erfarenhet från klubbar, skoldiscon, mässor, catwalks, rave, restauranger, demonstrationer, teater, afterski och mycket mer."
+    ],
+    murals: [
+      "Vi förvandlar tråkiga ytor till levande konstverk.",
+      "Det kan vara muralmålningar, interaktiva markmålningar (t.ex. hinderbanor på asfalt) eller att ge nytt liv åt containrar, skolmiljöer eller barnrum – alltid i dialog med era idéer."
+    ]
+  };
+
+  // Filenames: we try lowercase ".jpg" first; on error we fall back to uppercase ".JPG".
+  const IMG_MAP = {
+    workshops: rangeNames("w", 1, 14),
+    events:    rangeNames("e", 1, 7),
+    dj:        rangeNames("dj", 1, 8),
+    murals:    rangeNames("m", 1, 10),
+  };
+
+  function rangeNames(prefix, start, end) {
+    const arr = [];
+    for (let i = start; i <= end; i++) {
+      arr.push(`${prefix}${i}`);
+    }
+    return arr;
+  }
+
+  function makeImg(name) {
+    const img = new Image();
+    img.decoding = "async";
+    img.loading = "lazy";
+    const lower = `assets/${name}.jpg`;
+    const upper = `assets/${name}.JPG`;
+    img.src = lower;
+    img.onerror = () => {
+      if (img.src.endsWith(".jpg")) {
+        img.src = upper; // fallback to .JPG if .jpg missing
+      } else {
+        img.style.display = "none";
+      }
+    };
+    return img;
+  }
+
+  function setDescription(cat) {
+    const paras = DESCRIPTIONS[cat] || [];
+    descEl.innerHTML = paras.map((p) => `<p>${p}</p>`).join("");
+  }
+
+  // --- Marquee state ---
+  let rafId = null;
+  let offset = 0;
+  const speed = 60; // px per second
+  let lastT = 0;
+
+  function clearTicker() {
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = null;
+    offset = 0;
+    trackEl.style.transform = "translateX(0)";
+    lastT = 0;
+  }
+
+  function startTicker() {
+    clearTicker();
+    const gapPx = getComputedStyle(trackEl).gap
+      ? parseFloat(getComputedStyle(trackEl).gap)
+      : 12;
+
+    function step(t) {
+      if (!lastT) lastT = t;
+      const dt = (t - lastT) / 1000;
+      lastT = t;
+
+      // Move left
+      offset -= speed * dt;
+      trackEl.style.transform = `translateX(${offset}px)`;
+
+      // Recycle first item when fully out of view (plus gap)
+      const first = trackEl.firstElementChild;
+      if (first) {
+        const firstW = first.getBoundingClientRect().width + gapPx;
+        if (-offset >= firstW) {
+          offset += firstW;
+          trackEl.appendChild(first);
+          trackEl.style.transform = `translateX(${offset}px)`;
+        }
+      }
+
+      rafId = requestAnimationFrame(step);
+    }
+
+    rafId = requestAnimationFrame(step);
+  }
+
+  function populateOnce(namesArr) {
+    // Add each image once (no duplicates); uppercase fallback handled in onerror.
+    const frag = document.createDocumentFragment();
+    namesArr.forEach((n) => frag.appendChild(makeImg(n)));
+    trackEl.appendChild(frag);
+  }
+
+  function ensureEnoughWidth() {
+    // Duplicate the current children until total width >= 2x viewport
+    // (for smooth cycling without empty gaps)
+    const minTotal = window.innerWidth * 2;
+    const measure = () =>
+      Array.from(trackEl.children).reduce((sum, el) => sum + el.getBoundingClientRect().width, 0) +
+      Math.max(0, trackEl.children.length - 1) * (parseFloat(getComputedStyle(trackEl).gap) || 12);
+
+    let total = measure();
+    if (total === 0) return;
+
+    // Duplicate batches of current children (not just one image)
+    while (total < minTotal) {
+      const batch = Array.from(trackEl.children).map((n) => n.cloneNode(true));
+      const frag = document.createDocumentFragment();
+      batch.forEach((n) => frag.appendChild(n));
+      trackEl.appendChild(frag);
+      total = measure();
     }
   }
 
-  /* ===== Roller: 3D wheel (rotateX + translateZ) ===== */
-  const viewport = document.querySelector('.roller__viewport');
-  const listEl   = document.querySelector('.roller__list');
-  const items    = Array.from(document.querySelectorAll('.roller__item'));
+  function setMarquee(cat) {
+    // reset
+    clearTicker();
+    trackEl.innerHTML = "";
 
-  if (viewport && listEl && items.length) {
-    // Ensure first & last can reach the exact center of the viewport
-    const setRollerSpacers = () => {
-      const tallest = items.reduce((m, el) => {
-        const r = el.getBoundingClientRect();
-        return Math.max(m, r.height || el.offsetHeight || 0);
-      }, 0);
-      const vpH = viewport.clientHeight || 0;
+    const namesArr = IMG_MAP[cat] || [];
 
-      // Enough space so an item's CENTER can align with viewport CENTER
-      const padByMath = Math.round((vpH - tallest) / 2);
-      const minPad = Math.round(vpH * 0.5);
-      const pad = Math.max(0, Math.max(padByMath, minPad));
-      listEl.style.paddingTop = pad + 'px';
-      listEl.style.paddingBottom = pad + 'px';
-    };
+    // 1) Populate once (no visible duplicates)
+    populateOnce(namesArr);
 
-    // Wheel feel (use your previous values; adjust as you like)
-    const maxAngleDeg = 20;  // tilt at edges
-    const frontZ = 70;       // forward at center
-    const backZ  = -90;      // recede at edges
-    const scaleMin = 0.92;   // smallest scale at far edges
-    const scaleMax = 1.00;   // scale at center
+    // 2) After images have layout, ensure width then start
+    // Use a micro-wait + imagesComplete
+    const imgs = Array.from(trackEl.querySelectorAll("img"));
 
-    const update = () => {
-      const rect = viewport.getBoundingClientRect();
-      const midY = rect.top + rect.height / 2;
+    const ready = Promise.all(
+      imgs.map(
+        (img) =>
+          new Promise((res) => {
+            if (img.complete) return res();
+            img.addEventListener("load", res, { once: true });
+            img.addEventListener("error", res, { once: true });
+          })
+      )
+    );
 
-      let closest = null;
-      let closestDist = Infinity;
-
-      items.forEach(li => {
-        const r = li.getBoundingClientRect();
-        const itemMid = r.top + r.height / 2;
-
-        const delta = itemMid - midY; // + below, – above
-        const normAbs = Math.min(1, Math.abs(delta) / (rect.height * 0.45));
-        const normSigned = Math.max(-1, Math.min(1, delta / (rect.height * 0.45)));
-
-        const angle = -normSigned * maxAngleDeg;
-
-        // depth curve: 1 at center → 0 at edges
-        const depthEase = Math.cos(Math.abs(normSigned) * Math.PI / 2);
-        const z = frontZ * depthEase + backZ * (1 - depthEase);
-
-        const scale = scaleMin + (scaleMax - scaleMin) * depthEase;
-
-        // fade toward near-white at edges
-        const fade = Math.min(1, Math.pow(normAbs, 0.9)) * 0.9;
-        const ch = Math.round(184 + (255 - 184) * fade); // #b8 → #fff
-        const color = `rgb(${ch}, ${ch}, ${ch})`;
-
-        const opacity = (1 - normAbs * 0.25);
-
-        li.style.transform = `rotateX(${angle.toFixed(2)}deg) translateZ(${z.toFixed(1)}px) scale(${scale.toFixed(3)})`;
-        li.style.color = color;
-        li.style.opacity = opacity.toFixed(3);
-
-        const d = Math.abs(delta);
-        if (d < closestDist) { closestDist = d; closest = li; }
-      });
-
-      items.forEach(li => li.classList.remove('is-active'));
-      if (closest) closest.classList.add('is-active');
-    };
-
-    // Listeners (attach now; we'll trigger first paint after ABOUT-centering)
-    let raf = null;
-    const onScroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => { update(); raf = null; });
-    };
-    viewport.addEventListener('scroll', onScroll, { passive: true });
-
-    const onResize = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => { setRollerSpacers(); update(); raf = null; });
-    };
-    window.addEventListener('resize', onResize);
-
-    // IntersectionObserver: only center ABOUT when roller comes into view
-    let centeredOnce = false;
-    setRollerSpacers(); // do an initial pass so IO measures correctly
-
-    const io = new IntersectionObserver((entries) => {
-      const entry = entries[0];
-      if (!entry || !entry.isIntersecting || centeredOnce) return;
-
-      // Recompute spacers now that it's visible (accurate sizes)
-      setRollerSpacers();
-
-      // Center ABOUT inside the roller viewport (does NOT scroll the page)
-      const aboutItem = items.find(li => li.textContent.trim().toLowerCase() === 'about');
-      if (aboutItem) {
-        aboutItem.scrollIntoView({ block: 'center', behavior: 'auto' });
-      }
-
-      // First paint with ABOUT centered
-      update();
-
-      centeredOnce = true;
-      io.disconnect();
-    }, { root: null, threshold: 0.4 }); // ~40% of viewport visible
-
-    io.observe(viewport);
-
-    // (Optional) also center ABOUT if user jumps directly to #roller via anchor
-    window.addEventListener('hashchange', () => {
-      if (location.hash === '#roller' && !centeredOnce) {
-        setRollerSpacers();
-        const aboutItem = items.find(li => li.textContent.trim().toLowerCase() === 'about');
-        if (aboutItem) aboutItem.scrollIntoView({ block: 'center', behavior: 'auto' });
-        update();
-        centeredOnce = true;
-        io.disconnect();
-      }
+    ready.then(() => {
+      ensureEnoughWidth();
+      startTicker();
     });
   }
 
-  /* ===== Smooth scroll for header links with sticky offset ===== */
-  const getStickyTop = () => {
-    const raw = getComputedStyle(document.documentElement)
-      .getPropertyValue('--sticky-topbar')
-      .trim();
-    const n = parseFloat(raw);
-    return isNaN(n) ? 60 : n;
-  };
+  function setCategory(cat) {
+    root
+      .querySelectorAll(".how__menu button")
+      .forEach((b) => b.classList.toggle("is-active", b.dataset.cat === cat));
+    setDescription(cat);
+    setMarquee(cat);
+  }
 
-  document.addEventListener('click', e => {
-    const link = e.target.closest('[data-scroll]');
-    if (!link) return;
-
-    const href = link.getAttribute('href');
-    if (!href || !href.startsWith('#')) return;
-
-    const target = document.querySelector(href);
-    if (!target) return;
-
-    e.preventDefault();
-    const topOffset = getStickyTop() + 8;
-    const y = window.scrollY + target.getBoundingClientRect().top - topOffset;
-    window.scrollTo({ top: y, behavior: 'smooth' });
+  // menu clicks inside section
+  menu.addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-cat]");
+    if (!btn) return;
+    setCategory(btn.dataset.cat);
   });
+
+  // Rebuild marquee on resize (debounced)
+  let resizeTimer = null;
+  window.addEventListener("resize", () => {
+    if (resizeTimer) cancelAnimationFrame(resizeTimer);
+    resizeTimer = requestAnimationFrame(() => {
+      const active = root.querySelector(".how__menu button.is-active")?.dataset.cat || "workshops";
+      setMarquee(active);
+    });
+  });
+
+  // initial
+  setCategory("workshops");
+
+  // expose API so header links can switch category
+  return { setCategory, root };
+}
+
+// ------------------ 3) Wire header links to HOW ------------------
+function wireHeaderToHow(howAPI) {
+  const links = document.querySelectorAll('[data-goto-how]');
+  if (!links.length || !howAPI) return;
+
+  links.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const cat = link.getAttribute('data-goto-how');
+      howAPI.root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      howAPI.setCategory(cat);
+      history.replaceState(null, '', '#how-we-work');
+    });
+  });
+}
+
+// ------------------ 4) Boot: includes → init how → wire header ------------------
+document.addEventListener("DOMContentLoaded", async () => {
+  await includePartials();
+  const howAPI = initHow();
+  wireHeaderToHow(howAPI);
 });
-
-/* ===== Hero visibility: hide a bit later (with buffer) ===== */
-(function heroVisibilityController() {
-  const hero = document.querySelector('.hero');
-  const marquee = document.querySelector('.marquee');
-  if (!hero || !marquee) return;
-
-  const getStickyTop = () => {
-    const raw = getComputedStyle(document.documentElement)
-      .getPropertyValue('--sticky-topbar')
-      .trim();
-    const n = parseFloat(raw);
-    return isNaN(n) ? 60 : n;
-  };
-
-  const extraDelayPx = 200; 
-
-  let raf = null;
-  const update = () => {
-    const stickyTop = getStickyTop();
-    const marqueeRect = marquee.getBoundingClientRect();
-    const heroMid = hero.getBoundingClientRect().top + hero.offsetHeight / 2;
-
-    const hideThreshold = heroMid - stickyTop - extraDelayPx;
-
-    if (marqueeRect.top <= hideThreshold) {
-      hero.classList.add('hero--hidden');
-    } else {
-      hero.classList.remove('hero--hidden');
-    }
-    raf = null;
-  };
-
-  const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  update();
-})();
