@@ -2,7 +2,7 @@
 
 /* ---------- Variables ---------- */
 :root {
-  --page-max: 1200px;             /* max content width */
+  --page-max: 1000px;             /* max content width */
   --shell-x: max(24px, 6vw);      /* horizontal padding for shells */
 
   --fg: #0a0a0a;                  /* default text color */
