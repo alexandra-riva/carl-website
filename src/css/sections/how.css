@@ -114,13 +114,21 @@
 
 /* Mobile */
 @media (max-width: 900px) {
-  .how__grid {
-    grid-template-columns: 1fr;
+  /* Hero adjustments */
+  .hero__lead {
+    margin-bottom: 12px;   /* tighter under hero text */
+  }
+  .hero__title .w1,
+  .hero__title .w2,
+  .hero__title .w3 {
+    font-size: 80px;       /* big title still, but not crazy */
+  }
+
+  /* HOW WE WORK adjustments */
+  .how__title {
+    margin: 12px 0 20px;   /* much less space above/below */
   }
   .how__desc {
-    max-width: none;
-  }
-  .how__track img {
-    height: 240px; /* slightly bigger on mobile too */
+    margin-bottom: 24px;   /* smaller gap below description */
   }
 }

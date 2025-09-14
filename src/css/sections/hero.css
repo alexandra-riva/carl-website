@@ -80,7 +80,17 @@
     flex-direction: column-reverse;  /* title comes first, then text */
     min-height: 0;
   }
-  .hero__title-diag { height: auto; min-width: 0; width: 100%; }
+
+  .hero__lead {
+    margin-bottom: 16px;   /* smaller gap under text on mobile */
+  }
+
+  .hero__title-diag { 
+    height: auto; 
+    min-width: 0; 
+    width: 100%; 
+  }
+
   .hero__title {
     position: static;
     min-height: 0;
@@ -91,9 +101,12 @@
     gap: 0;
     text-align: center;
   }
-  .hero__title .w1, .hero__title .w2, .hero__title .w3 {
+
+  .hero__title .w1,
+  .hero__title .w2,
+  .hero__title .w3 {
     position: static;
-    font-size: 72px;
+    font-size: 80px; 
     left: unset;
     top: unset;
   }
