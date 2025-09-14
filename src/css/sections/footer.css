@@ -1,0 +1,48 @@
+.footer {
+  background: #f9f9f9;   /* as you wanted */
+  text-align: center;
+  padding-block: clamp(28px, 6vw, 48px);
+}
+
+.footer__title {
+  font-family: "DM Mono", monospace;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  color: #111;
+}
+
+.footer__email a {
+  font-family: "Fragment Mono", monospace;
+  font-size: 12px;
+  text-decoration: none;
+  color: #666;
+}
+
+.footer__social {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer__social img {
+  width: 28px;
+  height: 28px;
+  display: block;
+  filter: grayscale(100%);
+  transition: filter .2s ease;
+}
+
+.footer__social a:hover img {
+  filter: grayscale(0%);
+}
+
+.footer__copy {
+  font-family: "Fragment Mono", monospace;
+  font-size: 10px;
+  color: #888;
+  margin-top: 100px;
+}

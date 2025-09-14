@@ -16,11 +16,12 @@
 
 /* full-width inner, tight to viewport edges */
 .topbar__inner{
+  box-sizing: border-box;
   width: 100%;
-  margin: 5px;
+  margin: 5px auto;
 
   /* top/bottom 10px, left 8px, right 24px */
-  padding: 2px 24px 2px 8px;
+ padding: 2px 12px 2px 8px;  
 
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -77,7 +78,7 @@
 @media (min-width: 1024px){
   .topbar__inner{
     /* top/bottom 14px, left 10px, right 32px */
-    padding: 6px 32px 6px 10px;
+    padding: 6px 20px 6px 10px; 
     gap: 16px;
   }
   .brand img{ height: 40px; }

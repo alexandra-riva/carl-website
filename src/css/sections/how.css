@@ -1,99 +1,100 @@
 /* ================= HOW WE WORK ================= */
 
 /* Header / frame */
-.how{
-  background:#fff;
-  padding-block: clamp(26px,6vw,40px);
+.how {
+  background: #fff;
+  padding-block: clamp(26px, 6vw, 40px);
 }
 
 /* Title uses Azeret; spans = THIN, strong = BLACK */
-.how__title{
-  margin: clamp(18px,3.5vw,28px) 0;
-  text-align:center;
+.how__title {
+  /* combined margin shorthand to fix duplication */
+  margin: clamp(18px, 3.5vw, 28px) 0 clamp(40px, 6vw, 70px);
+  text-align: center;
   font-family: "Azeret Mono", monospace;
   font-size: 56px;
-  letter-spacing:.06em;
+  letter-spacing: .06em;
   text-transform: uppercase;
   font-synthesis: none;           /* don’t fake bold/weight */
-  margin: clamp(18px,3.5vw,28px) 0 clamp(40px,6vw,70px);
 }
 
-.how__title span{
+.how__title span {
   font-weight: 100;               /* HOW + WORK = thin */
   font-family: "Azeret Mono", monospace;
 }
 
-.how__title strong{
+.how__title strong {
   font-weight: 900;               /* WE = black */
   font-family: "Azeret Mono", monospace;
 }
 
 /* Layout */
-.how__grid{
-  display:grid;
-  grid-template-columns: minmax(220px,0.7fr) 1.3fr;
+.how__grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.7fr) 1.3fr;
   gap: clamp(6px, 1.5vw, 16px);
-  align-items:start;
+  align-items: start;
 }
 
 /* Left menu */
-.how__menu{
-  list-style:none;
-  padding:0;
-  margin:0;
-  font-family:"Fugaz One", system-ui, sans-serif;
-   
+.how__menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: "Fugaz One", system-ui, sans-serif;
 }
-.how__menu li{ margin: 8px 0; }
-.how__menu button{
+.how__menu li {
+  margin: 8px 0;
+}
+.how__menu button {
   all: unset;
   cursor: pointer;
   display: inline-flex;
   align-items: baseline;
   gap: 10px;
   font-size: clamp(17px, 2.4vw, 24px);
-  color:#bdbdbd;
+  color: #bdbdbd;
   transition: color .15s ease;
 }
-.how__menu button span{
+.how__menu button span {
   font-family: "DM Mono", ui-monospace, monospace;
-  letter-spacing:.06em;
-  color:#c8c8c8;
+  letter-spacing: .06em;
+  color: #c8c8c8;
 }
-.how__menu button:is(:hover,:focus){ color:#111; }
+.how__menu button:is(:hover, :focus) {
+  color: #111;
+}
 .how__menu .is-active {
   color: #111;
   font-weight: 700;
 }
-
 .how__menu .is-active span {
   color: #111;   /* make number black too */
 }
 
 /* Right copy */
-.how__desc{
+.how__desc {
   font-family: "Fragment Mono", ui-monospace, monospace;
   font-size: 15px;
   line-height: 1.7;
-  letter-spacing:.01em;
-  color:#111;
+  letter-spacing: .01em;
+  color: #111;
   max-width: 70ch;
-  margin-left: -25px; 
+  margin-left: -25px;
   margin-bottom: clamp(48px, 6vw, 80px);
 }
 
 /* ================= MARQUEE (full-bleed) ================= */
-.how__marquee{
-  margin-top: clamp(14px,3.5vw,22px);
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
+.how__marquee {
+  margin-top: clamp(14px, 3.5vw, 22px);
+  width: 100%;
   overflow: hidden;
-  background:#fff;
+  background: #fff;
   border-top: none;
   border-bottom: none;
 }
 
-.how__track{
+.how__track {
   display: flex;
   gap: 12px;
   padding: 10px;
@@ -101,19 +102,25 @@
   transform: translateX(0);
 }
 
-.how__track img{
+.how__track img {
   height: 360px;           /* slightly bigger */
   width: auto;
   object-fit: cover;
   flex: 0 0 auto;
-  background:#f2f2f2;
+  background: #f2f2f2;
   user-select: none;
   -webkit-user-drag: none;
 }
 
 /* Mobile */
-@media (max-width: 900px){
-  .how__grid{ grid-template-columns: 1fr; }
-  .how__desc{ max-width: none; }
-  .how__track img{ height: 240px; } /* slightly bigger on mobile too */
+@media (max-width: 900px) {
+  .how__grid {
+    grid-template-columns: 1fr;
+  }
+  .how__desc {
+    max-width: none;
+  }
+  .how__track img {
+    height: 240px; /* slightly bigger on mobile too */
+  }
 }
