@@ -16,11 +16,11 @@
 .hero__lead {
   font-family: "Fragment Mono", ui-monospace, monospace;
   font-weight: 300;
-  font-size: 16px; /* SMALL and subtle */
+  font-size: 16px; 
   line-height: 1.5;
   max-width: 800px;
   flex: 0 0 800px;
-  margin-bottom: 70px; /* ensure it's lower than headline */
+  margin-bottom: 70px; 
   align-self: flex-end;
 }
 
@@ -31,9 +31,8 @@
 .hero__title-diag {
   position: relative;
   flex: 1 1 60vw;
-  height: 420px; /* control vertical space for position */
+  height: 420px; 
   min-width: 500px;
-  /* ensure words have their own 'column' */
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
@@ -64,25 +63,25 @@
 .hero__title .w2 {
   font-family: 'Fugaz One', system-ui, sans-serif;
   font-weight: 400;
-  top: 16%;  /* stagger down diagonally */
+  top: 16%;  
   left: 45%;
 }
 
 .hero__title .w3 {
   font-family: 'Azeret Mono', ui-monospace, monospace;
   font-weight: 800;
-  top: 60%;  /* lowest, furthest right */
+  top: 60%; 
   left: 70%;
 }
 
 @media (max-width: 900px) {
   .hero__flex {
-    flex-direction: column-reverse;  /* title comes first, then text */
+    flex-direction: column-reverse;  
     min-height: 0;
   }
 
   .hero__lead {
-    margin-bottom: 16px;   /* smaller gap under text on mobile */
+    margin-bottom: 16px;   
   }
 
   .hero__title-diag { 

@@ -1,5 +1,5 @@
 .footer {
-  background: #f9f9f9;   /* as you wanted */
+  background: #f9f9f9; 
   text-align: center;
   padding-block: clamp(28px, 6vw, 48px);
 }

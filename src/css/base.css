@@ -1,31 +1,27 @@
-/* ================== BASE STYLES ================== */
+/* ---------- BASE ---------- */
 
-/* ---------- Variables ---------- */
 :root {
-  --page-max: 1000px;             /* max content width */
-  --shell-x: max(24px, 6vw);      /* horizontal padding for shells */
+  --page-max: 1000px;             
+  --shell-x: max(24px, 6vw);      
 
-  --fg: #0a0a0a;                  /* default text color */
-  --muted: #9f9f9f;               /* muted grey (e.g. nav links) */
-  --line: #eaeaea;                /* divider lines */
-  --bg: #ffffff;                  /* background color */
-  --accent: #000000;              /* black accents (active links, big titles) */
+  --fg: #0a0a0a;                  
+  --muted: #9f9f9f;               
+  --line: #eaeaea;                
+  --bg: #ffffff;                  
+  --accent: #000000;             
 
-  --sticky-topbar: 60px;          /* header height for scroll offset */
-  --small: clamp(13px, 1.6vw, 15px); /* small text size */
+  --sticky-topbar: 60px;          
+  --small: clamp(13px, 1.6vw, 15px); 
 }
 
-/* ---------- Reset & Box Model ---------- */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-/* Remove blue highlight on iOS Safari */
 * { -webkit-tap-highlight-color: transparent; }
 
-/* ---------- Link reset ---------- */
 a,
 a:visited,
 a:active {
@@ -122,7 +118,7 @@ section, footer {
 }
 
 /* ================== CUSTOM CURSOR ================== */
-/* Hide the default cursor on devices that support hover */
+
 @media (hover: hover) and (pointer: fine) {
   html, body { cursor: none; }
 }

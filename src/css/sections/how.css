@@ -6,9 +6,8 @@
   padding-block: clamp(26px, 6vw, 40px);
 }
 
-/* Title uses Azeret; spans = THIN, strong = BLACK */
+
 .how__title {
-  /* combined margin shorthand to fix duplication */
   margin: clamp(18px, 3.5vw, 28px) 0 clamp(40px, 6vw, 70px);
   text-align: center;
   font-family: "Azeret Mono", monospace;
@@ -20,12 +19,12 @@
 }
 
 .how__title span {
-  font-weight: 100;               /* HOW + WORK = thin */
+  font-weight: 100;               
   font-family: "Azeret Mono", monospace;
 }
 
 .how__title strong {
-  font-weight: 900;               /* WE = black */
+  font-weight: 900;              
   font-family: "Azeret Mono", monospace;
 }
 
@@ -70,7 +69,7 @@
   font-weight: 700;
 }
 .how__menu .is-active span {
-  color: #111;   /* make number black too */
+  color: #111;   /
 }
 
 /* Right copy */
@@ -104,7 +103,7 @@
 }
 
 .how__track img {
-  height: 360px;           /* slightly bigger */
+  height: 360px;           
   width: auto;
   object-fit: cover;
   flex: 0 0 auto;
@@ -117,19 +116,19 @@
 @media (max-width: 900px) {
   /* Hero adjustments */
   .hero__lead {
-    margin-bottom: 12px;   /* tighter under hero text */
+    margin-bottom: 12px;   
   }
   .hero__title .w1,
   .hero__title .w2,
   .hero__title .w3 {
-    font-size: 80px;       /* big title still, but not crazy */
+    font-size: 80px;       
   }
 
   /* HOW WE WORK adjustments */
   .how__title {
-    margin: 12px 0 20px;   /* much less space above/below */
+    margin: 12px 0 20px; 
   }
   .how__desc {
-    margin-bottom: 24px;   /* smaller gap below description */
+    margin-bottom: 24px;   
   }
 }

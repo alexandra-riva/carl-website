@@ -1,7 +1,4 @@
-/* Header: full-bleed, white, no bottom line, smaller text, corners tight */
-
 :root{
-  /* falls back if not in base.css */
   --fg: #9f9f9f;
 }
 
@@ -21,7 +18,7 @@
   margin: auto;
 
   /* top/bottom 10px, left 8px, right 24px */
- padding: 2px 12px 2px 8px;  
+  padding: 2px 12px 2px 8px;
 
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -32,9 +29,9 @@
 /* Signature logo size a bit smaller */
 .brand img{
   display: block;
-  height: 40px;                      /* tweak up/down to match your screenshot */
+  height: 40px;
   width: auto;
-  margin-left: 20px;  
+  margin-left: 20px;
 }
 
 /* Center menu */
@@ -42,17 +39,18 @@
   display: flex;
   justify-content: center;
   gap: clamp(12px, 2.4vw, 26px);
+  min-width: 0;                 /* avoid pushing right cluster to a new line */
 }
 
 /* Grey by default, smaller */
 .nav-link{
   font-family: "DM Mono", ui-monospace, monospace;
   font-weight: 400;
-  font-size: 13px;                   /* smaller letters */
+  font-size: 13px;
   letter-spacing: 0.02em;
   text-decoration: none;
   text-transform: uppercase;
-  color: #9F9F9F;                    /* figma grey */
+  color: #9F9F9F;
   transition: color .15s ease;
 }
 
@@ -64,17 +62,26 @@
   outline: none;
 }
 
-/* Right side: Contact is always black */
+/* Right side: keep items on one line */
+.contactnav{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;          /* prevents EN from dropping under */
+}
+
+/* Contact is always black */
 .contactnav .contact-link{
   font-family: "DM Mono", ui-monospace, monospace;
   font-weight: 400;
-  font-size: 13px;                   
+  font-size: 13px;
   letter-spacing: 0.06em;
   text-decoration: none;
   text-transform: uppercase;
   color: #000;
 }
 
+/* Language toggle — same style as contact */
 .langswitch{
   margin-left: 12px;
   border: none;
@@ -85,15 +92,39 @@
   letter-spacing: .06em;
   padding: 4px 8px;
   cursor: pointer;
+  color: #000;                   /* always black */
+  text-decoration: none;         /* no underline */
+  appearance: none;
+  -webkit-appearance: none;
 }
 
+/* Hover/active state like other links */
+.langswitch:hover,
+.langswitch:focus{
+  color: #000;
+  outline: none;
+}
+.langswitch.is-active{          /* optional: current language = black */
+  color: #000;
+}
+
+/* Make all header links inherit their intended colors (no blue) */
+.topbar a{
+  color: inherit;
+}
+
+/* Respect small screens but keep right cluster intact */
+@media (max-width: 420px){
+  .mainnav{ gap: 12px; }
+}
+
+/* Larger screens */
 @media (min-width: 1024px){
   .topbar__inner{
-    /* top/bottom 14px, left 10px, right 32px */
-    padding: 6px 20px 6px 10px; 
+    padding: 6px 20px 6px 10px;
     gap: 16px;
   }
   .brand img{ height: 40px; }
-  .nav-link, .contactnav .contact-link{ font-size: 14px; }
+  .nav-link, .contactnav .contact-link, .langswitch{ font-size: 14px; }
   .mainnav{ gap: clamp(16px, 2.8vw, 32px); }
 }

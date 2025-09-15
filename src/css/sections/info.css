@@ -21,13 +21,13 @@
 .info__title {
   font-family: 'Fugaz One', cursive, sans-serif;
   font-size: 18px;
-  font-weight: 400; /* Regular thickness for Fugaz One */
+  font-weight: 400; 
   margin-bottom: 4px;
 }
 
 .info__desc {
   font-family: "Fragment Mono", ui-monospace, monospace;
-  font-size: 14px; /* Matches .hero__lead! */
+  font-size: 14px; 
   font-weight: 300;
   line-height: 1.5;
 }
