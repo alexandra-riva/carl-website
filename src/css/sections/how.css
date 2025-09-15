@@ -15,7 +15,8 @@
   font-size: 56px;
   letter-spacing: .06em;
   text-transform: uppercase;
-  font-synthesis: none;           /* don’t fake bold/weight */
+  font-synthesis: none;
+  color: #111;
 }
 
 .how__title span {

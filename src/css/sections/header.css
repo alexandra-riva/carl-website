@@ -2,7 +2,7 @@
 
 :root{
   /* falls back if not in base.css */
-  --fg: #0a0a0a;
+  --fg: #9f9f9f;
 }
 
 /* sticky, white, NO divider line */
@@ -84,6 +84,7 @@
   font-weight: 400;
   letter-spacing: .06em;
   padding: 4px 8px;
+  cursor: pointer;
 }
 
 @media (min-width: 1024px){
