@@ -76,38 +76,56 @@
 
 @media (max-width: 900px) {
   .hero__flex {
-    flex-direction: column-reverse;  
+    flex-direction: column-reverse;
     min-height: 0;
+    margin-left: 0;
   }
 
   .hero__lead {
-    margin-bottom: 16px;   
+    margin-bottom: 16px;
+    max-width: 100vw;
+    flex: none;
   }
 
-  .hero__title-diag { 
-    height: auto; 
-    min-width: 0; 
-    width: 100%; 
+  .hero__title-diag {
+    height: auto;
+    min-width: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
   }
 
   .hero__title {
-    position: static;
-    min-height: 0;
-    height: auto;
-    width: auto;
     display: grid;
+    grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     gap: 0;
     text-align: center;
+    min-height: 0;
+    height: auto;
+    width: 100%;
+    position: static;
   }
 
   .hero__title .w1,
   .hero__title .w2,
   .hero__title .w3 {
     position: static;
-    font-size: 80px; 
+    font-size: clamp(72px, 12vw, 90px); 
     left: unset;
     top: unset;
+    margin: 0;
   }
 }
 
+/* For very small phones, ensure readability */
+@media (max-width: 480px) {
+  .hero__title .w1,
+  .hero__title .w2,
+  .hero__title .w3 {
+    font-size: clamp(68px, 14vw, 85px);
+  }
+}
