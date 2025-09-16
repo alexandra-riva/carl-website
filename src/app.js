@@ -171,19 +171,28 @@ function initHow() {
     return arr;
   }
 
-  function makeImg(name) {
-    const img = new Image();
-    img.decoding = "async";
-    img.loading = "lazy";
-    const lower = `assets/${name}.jpg`;
-    const upper = `assets/${name}.JPG`;
-    img.src = lower;
-    img.onerror = () => {
-      if (img.src.endsWith(".jpg")) img.src = upper;
-      else img.style.display = "none";
-    };
-    return img;
-  }
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const img = entry.target;
+      img.src = img.dataset.src;
+      observer.unobserve(img);
+    }
+  });
+});
+
+function makeImg(name) {
+  const img = new Image();
+  img.decoding = "async";
+  img.dataset.src = `assets/${name}.jpg`;
+  img.loading = "lazy";
+  img.src = ""; // empty initially
+  observer.observe(img);
+  img.onerror = () => {
+    img.src = `assets/${name}.JPG`;
+  };
+  return img;
+}
 
   function setDescription(cat) {
     const lang = document.documentElement.getAttribute("lang") || "sv";
