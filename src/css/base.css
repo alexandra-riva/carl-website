@@ -136,24 +136,18 @@ section, footer {
   border-radius: 999px;
   pointer-events: none;
   z-index: 9999;
-  background: rgba(170,170,170,0.10);
-  backdrop-filter: blur(50px) saturate(110%);
-  -webkit-backdrop-filter: blur(8px) saturate(110%);
-}
-#cursor.is-hidden { opacity: 0; }
-#cursor.is-down   { background: rgba(219,251,16,0.12); }
-
-
-/* Hide the native cursor everywhere */
-@media (hover: hover) and (pointer: fine) {
-  html, body, a, button, input, textarea, select {
-    cursor: none !important;
-  }
+  background: rgba(170, 170, 170, 0.18); 
+  backdrop-filter: blur(6px);             
+  -webkit-backdrop-filter: blur(6px);     
 }
 
-/* Accessibility: respect reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  #cursor { transition: none; }
+#cursor.is-hover,
+#cursor.is-down {
+  background: rgba(170, 170, 170, 0.18);  
+}
+
+#cursor.is-hidden {
+  opacity: 0;
 }
 
 @media (hover: hover) and (pointer: fine) {
