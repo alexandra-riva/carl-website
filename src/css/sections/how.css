@@ -112,23 +112,60 @@
   -webkit-user-drag: none;
 }
 
-/* Mobile */
 @media (max-width: 900px) {
-  /* Hero adjustments */
-  .hero__lead {
-    margin-bottom: 12px;   
+  .how {
+    padding-block: 12px; /* less vertical padding on mobile */
   }
-  .hero__title .w1,
-  .hero__title .w2,
-  .hero__title .w3 {
-    font-size: 80px;       
+  .how__title {
+    margin: 8px 0 12px;
+    font-size: 40px;
   }
 
-  /* HOW WE WORK adjustments */
-  .how__title {
-    margin: 12px 0 20px; 
+  /* Switch from grid to column layout */
+  .how__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: stretch;
   }
+
+  /* Menu below title, horizontal row */
+  .how__menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0 14px 0;
+    gap: 14px;
+    text-align: center;
+  }
+
+  .how__menu li {
+    margin: 0;
+    display: inline-block;
+  }
+
+  .how__menu button {
+    font-size: clamp(16px, 4vw, 22px);
+  }
+
+  /* Description text below menu */
+  .how__content {
+    width: 100%;
+    margin: 0 auto 18px auto;
+    text-align: center;
+  }
+
   .how__desc {
-    margin-bottom: 24px;   
+    margin-left: 0;
+    margin-bottom: 14px;
+    max-width: 100vw;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  /* Marquee below description */
+  .how__marquee {
+    margin-top: 10px;
   }
 }

@@ -113,9 +113,32 @@
   color: inherit;
 }
 
+/* Mobile improvements: smaller font size and reduce gaps to avoid overlap */
+@media (max-width: 900px) {
+  .mainnav {
+    gap: 8px;
+  }
+  .nav-link {
+    font-size: 11px;
+  }
+  .brand img {
+    height: 32px; 
+  }
+  .topbar__inner {
+    padding: 6px 8px;
+    gap: 8px;
+  }
+  .contactnav .contact-link,
+  .langswitch {
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+}
+
 /* Respect small screens but keep right cluster intact */
 @media (max-width: 420px){
-  .mainnav{ gap: 12px; }
+  .mainnav{ gap: 6px; }
+  .nav-link { font-size: 10px; }
 }
 
 /* Larger screens */

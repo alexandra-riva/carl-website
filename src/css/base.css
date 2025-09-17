@@ -73,6 +73,12 @@ section, footer {
   scroll-margin-top: calc(var(--sticky-topbar) + 12px);
 }
 
+@media (max-width: 600px) {
+  section, footer {
+    scroll-margin-top: calc(var(--sticky-topbar) + 4px);
+  }
+}
+
 /* ================== HEADER ================== */
 .header-inner {
   display:flex;
@@ -115,44 +121,4 @@ section, footer {
   .footer { padding-block: 20px; }
   .footer-nav { gap: 12px; }
   .footer-nav a { font-size: 12px; }
-}
-
-/* ================== CUSTOM CURSOR ================== */
-
-@media (hover: hover) and (pointer: fine) {
-  html, body { cursor: none; }
-}
-
-/* Cursor base */
-#cursor {
-  position: fixed;
-  left: 0; top: 0;
-  width: 19px; height: 19px;
-  border-radius: 999px;
-  pointer-events: none;             /* allow clicks through */
-  z-index: 9999;
-
-  /* Glassy, subtle */
-  background: rgba(170, 170, 170, 0.35);
-  backdrop-filter: blur(8px) saturate(110%);
-  -webkit-backdrop-filter: blur(8px) saturate(110%); /* Safari */
-}
-
-/* States */
-#cursor.is-hidden { opacity: 0; }
-#cursor.is-down   { 
-  transform: translate3d(var(--x,0), var(--y,0), 0) scale(.92); 
-  background: #dbfb10; 
-}
-
-/* Hide the native cursor everywhere */
-@media (hover: hover) and (pointer: fine) {
-  html, body, a, button, input, textarea, select {
-    cursor: none !important;
-  }
-}
-
-/* Accessibility: respect reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  #cursor { transition: none; }
 }

@@ -18,7 +18,7 @@ async function includePartials() {
 }
 
 /* ===================== 2) I18N ===================== */
-/* We DO NOT change your Swedish sentences. They’re copied verbatim below. */
+
 const I18N = {
   sv: {
     // Header nav (only used if you add data-i18n on links)
@@ -29,10 +29,11 @@ const I18N = {
     "nav.murals":    "MURALS",
     "nav.contact":   "CONTACT",
 
-    // Hero lead (exactly your Swedish text)
-    "hero.p1": "Vi skapar kulturella upplevelser som förenar människor genom konst, musik och kreativitet.",
-    "hero.p2": "Med bred erfarenhet och ett stort nätverk inom kulturlivet erbjuder vi allt från workshops och events till DJ-spelningar och muralmålningar.",
-    "hero.p3": "Vårt mål är att inspirera, engagera och lämna ett bestående intryck – oavsett om det handlar om en skola, ett företag, en festival eller ett privat arrangemang.",
+    // Hero lead (exactly your Swedish text, now 4 paragraphs)
+    "hero.p1": "Jag är Carl, och tillsammans med ett nätverk av kulturarbetare erbjuder jag kreativa tjänster för både offentliga och privata sammanhang. Genom workshops, events och konstnärlig utsmyckning skapar vi upplevelser som förenar människor i alla åldrar och miljöer.",
+    "hero.p2": "Vi arbetar med allt från interaktiva kurser i konst, musik, foto och film till DJ-spelningar, muralmålningar och unika kulturevenemang. Alltid med fokus på kvalitet, kreativitet och att alla inblandade ska känna sig delaktiga.",
+    "hero.p3": "Vi har erfarenhet av att arbeta med många olika grupper – barn, unga, vuxna och personer med särskilda behov – och anpassar alltid upplägget efter plats, människor och syfte. Med ett brett nätverk inom kulturlivet är vi alltid öppna för nya samarbeten och idéer.",
+    "hero.p4": "Ett kreativitetsfrämjande – med plats för alla.",
 
     // HOW title parts (only used if you add data-i18n on them)
     "how.title.part1": "HOW",
@@ -68,10 +69,11 @@ const I18N = {
     "nav.murals":    "MURALS",
     "nav.contact":   "CONTACT",
 
-    // Hero lead (faithful English translations of your Swedish text)
-    "hero.p1": "We create cultural experiences that bring people together through art, music, and creativity.",
-    "hero.p2": "With broad experience and a strong network in the cultural field, we offer everything from workshops and events to DJ sets and mural paintings.",
-    "hero.p3": "Our goal is to inspire, engage, and leave a lasting impression—whether it’s a school, a company, a festival, or a private event.",
+    // Hero lead (faithful English matching your new Swedish text, now 4 paragraphs)
+    "hero.p1": "I am Carl, and together with a network of cultural workers, I offer creative services for both public and private settings. Through workshops, events, and artistic decoration we create experiences that connect people across ages and environments.",
+    "hero.p2": "Our work spans interactive courses in art, music, photography, and film, as well as DJ performances, murals, and unique cultural events. Always with a focus on quality, creativity, and ensuring that everyone involved feels included.",
+    "hero.p3": "We have experience working with many different groups — from children and young people to adults and participants with special needs — and we adapt each project to the people, place, and purpose. With a wide network in the cultural field, we are always open to new collaborations and ideas.",
+    "hero.p4": "A hub that promotes creativity – open to all.",
 
     // HOW title parts
     "how.title.part1": "HOW",
@@ -85,10 +87,10 @@ const I18N = {
     "how.menu.murals": "MURALS",
 
     // HOW descriptions (English)
-    "how.workshops.1": "We offer creative workshops in art, DJ-ing, photo and film—and can collaborate with partners for other themes. Each program is tailored to the group’s needs.",
+    "how.workshops.1": "We offer creative workshops in art, DJ-ing, photo and film — and can collaborate with partners for other themes. Each program is tailored to the group’s needs.",
     "how.workshops.2": "Past workshops include street art/graffiti, upcycled art, collage and stickers, DJ introductions, and photo/film production with mobile cameras. Suitable for all ages and groups, indoors or outdoors.",
 
-    "how.events.1": "We plan and deliver a wide range of cultural events—from concerts, parties, and exhibitions to talks, afterworks, and private celebrations.",
+    "how.events.1": "We plan and deliver a wide range of cultural events — from concerts, parties, and exhibitions to talks, afterworks, and private celebrations.",
     "how.events.2": "Afterwork with a DJ and street art? A kids’ party or a bachelorette? We love co-creating ideas and can also film/document your event.",
 
     "how.dj.1": "Need one or several DJs? We play what you want—where you want!",
@@ -171,16 +173,25 @@ function initHow() {
     return arr;
   }
 
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        img.src = img.dataset.src;
+        observer.unobserve(img);
+      }
+    });
+  });
+
   function makeImg(name) {
     const img = new Image();
     img.decoding = "async";
+    img.dataset.src = `assets/${name}.jpg`;
     img.loading = "lazy";
-    const lower = `assets/${name}.jpg`;
-    const upper = `assets/${name}.JPG`;
-    img.src = lower;
+    img.src = ""; // empty initially
+    observer.observe(img);
     img.onerror = () => {
-      if (img.src.endsWith(".jpg")) img.src = upper;
-      else img.style.display = "none";
+      img.src = `assets/${name}.JPG`;
     };
     return img;
   }
