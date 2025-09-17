@@ -169,11 +169,3 @@
     margin-top: 10px;
   }
 }
-
-
-@media (hover: hover) and (pointer: fine) {
-  /* Hide OS cursor everywhere, including over menu buttons */
-  html, body, a, button, input, textarea, select, .how__menu button {
-    cursor: none !important;
-  }
-}
