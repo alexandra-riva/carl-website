@@ -19,7 +19,6 @@
   opacity: 0.50;         /* Adjust transparency: 0 (invisible) to 1 (opaque) */
 }
 
-
 .hero__flex {
   display: flex;
   flex-direction: row;
@@ -53,6 +52,16 @@
   justify-content: flex-end;
 }
 
+.hero__title span {
+  /* correct relative path from css/sections/hero.css to /assets/font.jpg */
+  background: url("../../assets/font.jpg") center/cover no-repeat, #000; /* #000 = fallback while image loads */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  display: inline-block; /* safer box for clipping */
+}
+
 .hero__title {
   position: relative;
   width: 100%;
@@ -65,7 +74,7 @@
   position: absolute;
   font-size: 120px;
   line-height: 0.85;
-  color: #000;
+ 
 }
 
 .hero__title .w1 {

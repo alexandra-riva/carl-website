@@ -17,96 +17,13 @@ async function includePartials() {
   );
 }
 
-/* ===================== 2) I18N ===================== */
-
-const I18N = {
-  sv: {
-    // Header nav (only used if you add data-i18n on links)
-    "nav.workshops": "WORKSHOPS",
-    "nav.events":    "EVENTS",
-    "nav.about":     "OM OSS",
-    "nav.dj":        "DJ",
-    "nav.murals":    "MURALS",
-    "nav.contact":   "CONTACT",
-
-    // Hero lead (exactly your Swedish text, now 4 paragraphs)
-    "hero.p1": "Jag är Carl, och tillsammans med ett nätverk av kulturarbetare erbjuder jag kreativa tjänster för både offentliga och privata sammanhang. Genom workshops, events och konstnärlig utsmyckning skapar vi upplevelser som förenar människor i alla åldrar och miljöer.",
-    "hero.p2": "Vi arbetar med allt från interaktiva kurser i konst, musik, foto och film till DJ-spelningar, muralmålningar och unika kulturevenemang. Alltid med fokus på kvalitet, kreativitet och att alla inblandade ska känna sig delaktiga.",
-    "hero.p3": "Vi har erfarenhet av att arbeta med många olika grupper – barn, unga, vuxna och personer med särskilda behov – och anpassar alltid upplägget efter plats, människor och syfte. Med ett brett nätverk inom kulturlivet är vi alltid öppna för nya samarbeten och idéer.",
-    "hero.p4": "Ett kreativitetsfrämjande – med plats för alla.",
-
-    // HOW title parts (only used if you add data-i18n on them)
-    "how.title.part1": "HOW",
-    "how.title.part2": "WE",
-    "how.title.part3": "WORK",
-
-    // HOW menu labels (only used if you add data-i18n on buttons)
-    "how.menu.workshops": "WORKSHOPS",
-    "how.menu.events": "EVENTS",
-    "how.menu.dj": "DJ",
-    "how.menu.murals": "MURALS",
-
-    // HOW descriptions (Swedish)
-    "how.workshops.1": "Vi erbjuder kreativa workshops inom konst, DJ-ing, foto och film – och kan även samarbeta med andra aktörer för olika teman. Innehållet anpassas alltid efter målgruppen och dess behov.",
-    "how.workshops.2": "Tidigare workshops har bland annat handlat om streetart/graffiti, återbrukskonst, collage och klistermärken, DJ-introduktioner samt foto- och filmproduktion med mobilkamera. Våra upplägg fungerar för alla åldrar och grupper, även funktionsvarierade, och kan hållas både inomhus och utomhus.",
-
-    "how.events.1": "Vi planerar och genomför en bredd av kulturevenemang – från spelningar, fester och utställningar till föreläsningar, afterworks och privata firanden.",
-    "how.events.2": "Vill ni ha en AW med DJ och street art, ett barnkalas eller en möhippa? Vi idéutvecklar gärna tillsammans och kan även filma/dokumentera ert event.",
-
-    "how.dj.1": "Behöver ni en eller flera DJs? Vi spelar det ni vill – där ni vill!",
-    "how.dj.2": "Erfarenhet från klubbar, skoldiscon, mässor, catwalks, rave, restauranger, demonstrationer, teater, afterski och mycket mer.",
-
-    "how.murals.1": "Vi förvandlar tråkiga ytor till levande konstverk.",
-    "how.murals.2": "Det kan vara muralmålningar, interaktiva markmålningar (t.ex. hinderbanor på asfalt) eller att ge nytt liv åt containrar, skolmiljöer eller barnrum – alltid i dialog med era idéer."
-  },
-
-  en: {
-    // Header nav
-    "nav.workshops": "WORKSHOPS",
-    "nav.events":    "EVENTS",
-    "nav.about":     "ABOUT",
-    "nav.dj":        "DJ",
-    "nav.murals":    "MURALS",
-    "nav.contact":   "CONTACT",
-
-    // Hero lead (faithful English matching your new Swedish text, now 4 paragraphs)
-    "hero.p1": "I am Carl, and together with a network of cultural workers, I offer creative services for both public and private settings. Through workshops, events, and artistic decoration we create experiences that connect people across ages and environments.",
-    "hero.p2": "Our work spans interactive courses in art, music, photography, and film, as well as DJ performances, murals, and unique cultural events. Always with a focus on quality, creativity, and ensuring that everyone involved feels included.",
-    "hero.p3": "We have experience working with many different groups — from children and young people to adults and participants with special needs — and we adapt each project to the people, place, and purpose. With a wide network in the cultural field, we are always open to new collaborations and ideas.",
-    "hero.p4": "A hub that promotes creativity – open to all.",
-
-    // HOW title parts
-    "how.title.part1": "HOW",
-    "how.title.part2": "WE",
-    "how.title.part3": "WORK",
-
-    // HOW menu labels
-    "how.menu.workshops": "WORKSHOPS",
-    "how.menu.events": "EVENTS",
-    "how.menu.dj": "DJ",
-    "how.menu.murals": "MURALS",
-
-    // HOW descriptions (English)
-    "how.workshops.1": "We offer creative workshops in art, DJ-ing, photo and film — and can collaborate with partners for other themes. Each program is tailored to the group’s needs.",
-    "how.workshops.2": "Past workshops include street art/graffiti, upcycled art, collage and stickers, DJ introductions, and photo/film production with mobile cameras. Suitable for all ages and groups, indoors or outdoors.",
-
-    "how.events.1": "We plan and deliver a wide range of cultural events — from concerts, parties, and exhibitions to talks, afterworks, and private celebrations.",
-    "how.events.2": "Afterwork with a DJ and street art? A kids’ party or a bachelorette? We love co-creating ideas and can also film/document your event.",
-
-    "how.dj.1": "Need one or several DJs? We play what you want—where you want!",
-    "how.dj.2": "Experience includes clubs, school discos, trade fairs, catwalks, raves, restaurants, demonstrations, theatre, après-ski, and more.",
-
-    "how.murals.1": "We transform dull surfaces into vibrant works of art.",
-    "how.murals.2": "This can be murals, interactive ground paintings (e.g., obstacle courses on asphalt), or giving new life to containers, schools, or children’s rooms—always in dialogue with your ideas."
-  }
-};
+/* ===================== 2) I18N (your dictionary must exist as I18N = { sv:{}, en:{} }) ===================== */
 
 function getInitialLang(){
   const params = new URLSearchParams(location.search);
   const stored = localStorage.getItem("lang");
   if (params.get("lang")) return params.get("lang");
   if (stored) return stored;
-  // default by browser
   const browser = (navigator.language || "sv").slice(0,2);
   return browser === "sv" ? "sv" : "en";
 }
@@ -115,7 +32,7 @@ function applyI18n(lang){
   document.documentElement.setAttribute("lang", lang);
   document.querySelectorAll("[data-i18n]").forEach(node => {
     const key = node.getAttribute("data-i18n");
-    const val = I18N?.[lang]?.[key];
+    const val = (window.I18N && I18N[lang] && I18N[lang][key]) || null;
     if (!val) return;
     const attr = node.getAttribute("data-i18n-attr") || "text";
     if (attr === "html") node.innerHTML = val;
@@ -136,222 +53,134 @@ function initI18n(){
       applyI18n(lang);
       btn.textContent = lang.toUpperCase();
 
-      // if HOW descriptions exist, re-render them in the new language
       if (window.__howAPI?.setCategory) {
-        const active =
-          document.querySelector(".how__menu .is-active")?.dataset.cat || "workshops";
-        window.__howAPI.setCategory(active);
+        const current =
+          document.querySelector(".how__card.is-flipped")?.getAttribute("data-category") || "workshops";
+        window.__howAPI.setCategory(current);
       }
     });
   }
 
-  // expose current lang getter if needed
   window.__getLang = () => lang;
 }
 
-/* ===================== 3) HOW WE WORK logic ===================== */
+/* ===================== 3) HOW WE WORK: cards + gallery ===================== */
+
 function initHow() {
   const root = document.querySelector("#how-we-work");
-  if (!root) return null;
+  if (!root) return;
 
-  const descEl  = root.querySelector("#how-desc");
-  const trackEl = root.querySelector("#how-track");
-  const menu    = root.querySelector(".how__menu");
-  if (!descEl || !trackEl || !menu) return null;
+  // Delay to ensure partials are present
+  setTimeout(() => {
+    const cards = root.querySelectorAll(".how__card");
+    const galleryEl = document.getElementById("how__gallery");
+    if (!cards.length || !galleryEl) return;
 
-  // Filenames (we try .jpg then fall back to .JPG)
-  const IMG_MAP = {
-    workshops: rangeNames("w", 1, 14),
-    events:    rangeNames("e", 1, 7),
-    dj:        rangeNames("dj", 1, 8),
-    murals:    rangeNames("m", 1, 10),
-  };
-
-  function rangeNames(prefix, start, end) {
-    const arr = [];
-    for (let i = start; i <= end; i++) arr.push(`${prefix}${i}`);
-    return arr;
-  }
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        img.src = img.dataset.src;
-        observer.unobserve(img);
-      }
-    });
-  });
-
-  function makeImg(name) {
-    const img = new Image();
-    img.decoding = "async";
-    img.dataset.src = `assets/${name}.jpg`;
-    img.loading = "lazy";
-    img.src = ""; // empty initially
-    observer.observe(img);
-    img.onerror = () => {
-      img.src = `assets/${name}.JPG`;
+    // Since ALL images live in /assets (no subfolders), list the filenames per category here.
+    // Use any names you already have in /assets. Examples below:
+    const imageMap = {
+      workshops: ["w1.jpg","w2.jpg","w3.jpg","w4.jpg","w5.jpg","w6.jpg","w7.jpg"],
+      events:    ["e1.jpg","e2.jpg","e3.jpg","e4.jpg","e5.jpg","e6.jpg"],
+      dj:        ["dj1.jpg","dj2.jpg","dj3.jpg","dj4.jpg"],
+      murals:    ["m1.jpg","m2.jpg","m3.jpg","m4.jpg","m5.jpg"]
     };
-    return img;
-  }
+    window.__imageMap = imageMap;
 
-  function setDescription(cat) {
-    const lang = document.documentElement.getAttribute("lang") || "sv";
-    const base = `how.${cat}`;
-    const paras = [I18N?.[lang]?.[`${base}.1`], I18N?.[lang]?.[`${base}.2`]]
-      .filter(Boolean);
-    descEl.innerHTML = paras.map((p) => `<p>${p}</p>`).join("");
-  }
-
-  // --- Marquee state ---
-  let rafId = null;
-  let offset = 0;
-  const speed = 60; // px per second
-  let lastT = 0;
-
-  function clearTicker() {
-    if (rafId) cancelAnimationFrame(rafId);
-    rafId = null;
-    offset = 0;
-    trackEl.style.transform = "translateX(0)";
-    lastT = 0;
-  }
-
-  function startTicker() {
-    clearTicker();
-    const styles = getComputedStyle(trackEl);
-    const gapPx = styles.gap ? parseFloat(styles.gap) : 12;
-
-    function step(t) {
-      if (!lastT) lastT = t;
-      const dt = (t - lastT) / 1000;
-      lastT = t;
-
-      offset -= speed * dt;
-      trackEl.style.transform = `translateX(${offset}px)`;
-
-      const first = trackEl.firstElementChild;
-      if (first) {
-        const firstW = first.getBoundingClientRect().width + gapPx;
-        if (-offset >= firstW) {
-          offset += firstW;
-          trackEl.appendChild(first);
-          trackEl.style.transform = `translateX(${offset}px)`;
+    const flipOnlyThis = (card) => {
+      cards.forEach(c => {
+        if (c !== card) {
+          c.classList.remove("is-flipped");
+          c.setAttribute("aria-pressed","false");
         }
+      });
+      const flipped = card.classList.toggle("is-flipped");
+      card.setAttribute("aria-pressed", flipped.toString());
+
+      const category = card.getAttribute("data-category");
+      if (flipped) showGallery(category, galleryEl, imageMap);
+      else galleryEl.innerHTML = "";
+    };
+
+    cards.forEach(card => {
+      // mouse
+      card.addEventListener("click", () => flipOnlyThis(card));
+      // keyboard
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          flipOnlyThis(card);
+        }
+      });
+    });
+
+    // Expose simple API (optional)
+    window.__howAPI = {
+      root,
+      setCategory: (cat) => {
+        const card = [...cards].find(c => c.getAttribute("data-category") === cat);
+        if (!card) return;
+        cards.forEach(c => { c.classList.remove("is-flipped"); c.setAttribute("aria-pressed","false"); });
+        card.classList.add("is-flipped");
+        card.setAttribute("aria-pressed","true");
+        showGallery(cat, galleryEl, imageMap);
       }
-      rafId = requestAnimationFrame(step);
-    }
+    };
 
-    rafId = requestAnimationFrame(step);
-  }
-
-  function populateOnce(namesArr) {
-    const frag = document.createDocumentFragment();
-    namesArr.forEach((n) => frag.appendChild(makeImg(n)));
-    trackEl.appendChild(frag);
-  }
-
-  function ensureEnoughWidth() {
-    const styles = getComputedStyle(trackEl);
-    const gap = parseFloat(styles.gap) || 12;
-
-    const totalWidth = () =>
-      Array.from(trackEl.children).reduce((sum, el) => sum + el.getBoundingClientRect().width, 0) +
-      Math.max(0, trackEl.children.length - 1) * gap;
-
-    const minTotal = window.innerWidth * 2; // enough to loop smoothly
-    let total = totalWidth();
-    if (total === 0) return;
-
-    while (total < minTotal) {
-      const batch = Array.from(trackEl.children).map((n) => n.cloneNode(true));
-      const frag = document.createDocumentFragment();
-      batch.forEach((n) => frag.appendChild(n));
-      trackEl.appendChild(frag);
-      total = totalWidth();
-    }
-  }
-
-  function setMarquee(cat) {
-    clearTicker();
-    trackEl.innerHTML = "";
-
-    const namesArr = IMG_MAP[cat] || [];
-    populateOnce(namesArr);
-
-    const imgs = Array.from(trackEl.querySelectorAll("img"));
-    const ready = Promise.all(
-      imgs.map(
-        (img) =>
-          new Promise((res) => {
-            if (img.complete) return res();
-            img.addEventListener("load", res, { once: true });
-            img.addEventListener("error", res, { once: true });
-          })
-      )
-    );
-
-    ready.then(() => {
-      ensureEnoughWidth();
-      startTicker();
-    });
-  }
-
-  function setCategory(cat) {
-    root
-      .querySelectorAll(".how__menu button")
-      .forEach((b) => b.classList.toggle("is-active", b.dataset.cat === cat));
-    setDescription(cat);
-    setMarquee(cat);
-  }
-
-  // menu clicks inside section
-  menu.addEventListener("click", (e) => {
-    const btn = e.target.closest("button[data-cat]");
-    if (!btn) return;
-    setCategory(btn.dataset.cat);
-  });
-
-  // Rebuild marquee on resize (debounced)
-  let resizeTimer = null;
-  window.addEventListener("resize", () => {
-    if (resizeTimer) cancelAnimationFrame(resizeTimer);
-    resizeTimer = requestAnimationFrame(() => {
-      const active = root.querySelector(".how__menu button.is-active")?.dataset.cat || "workshops";
-      setMarquee(active);
-    });
-  });
-
-  // initial
-  setCategory("workshops");
-
-  // expose API so header links can switch category
-  const api = { setCategory, root };
-  window.__howAPI = api;
-  return api;
+    // Optional default: open the first card
+    // window.__howAPI.setCategory("workshops");
+  }, 100);
 }
 
-/* ========== 4) Wire header links (data-goto-how="workshops|events|dj|murals") ========== */
-function wireHeaderToHow(howAPI) {
-  const links = document.querySelectorAll('[data-goto-how]');
-  if (!links.length || !howAPI) return;
+function showGallery(category, galleryEl, imageMap){
+  galleryEl.innerHTML = "";
+  const list = imageMap[category] || [];
+  if (!list.length) return;
+
+  // shuffle and take up to 6
+  const picks = [...list].sort(() => Math.random() - 0.5).slice(0, 6);
+  const sizes = ["s","m","l"];
+
+  picks.forEach((file, i) => {
+    const img = document.createElement("img");
+    // IMPORTANT: images are directly under /assets/
+    img.src = `assets/${file}`;
+    img.alt = `${category} ${i+1}`;
+    img.loading = "lazy";
+    img.decoding = "async";
+
+    // random heights
+    img.className = `how__img how__img--${sizes[Math.floor(Math.random()*sizes.length)]}`;
+
+    // Remove broken images (optional)
+    img.addEventListener("error", () => img.remove());
+
+    galleryEl.appendChild(img);
+  });
+}
+
+/* ===================== 4) Header links -> scroll & flip (optional) ===================== */
+
+function wireHeaderToHow() {
+  const root = document.querySelector("#how-we-work");
+  const links = document.querySelectorAll("[data-goto-how]");
+  if (!root || !links.length || !window.__howAPI) return;
 
   links.forEach(link => {
-    link.addEventListener('click', (e) => {
+    link.addEventListener("click", (e) => {
       e.preventDefault();
-      const cat = link.getAttribute('data-goto-how');
-      howAPI.root.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      howAPI.setCategory(cat);
+      const cat = link.getAttribute("data-goto-how");
+      root.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.__howAPI.setCategory(cat);
       history.replaceState(null, '', '#how-we-work');
     });
   });
 }
 
 /* ===================== 5) Boot ===================== */
+
 document.addEventListener("DOMContentLoaded", async () => {
   await includePartials();
-  initI18n();                   // apply lang to already-inserted DOM
-  const howAPI = initHow();     // uses I18N for descriptions
-  wireHeaderToHow(howAPI);
+  initI18n();
+  initHow();
+  setTimeout(wireHeaderToHow, 150);
 });

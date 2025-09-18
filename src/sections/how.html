@@ -1,49 +1,66 @@
-<section id="how-we-work" class="how">
-  <!-- removed top <hr> -->
+<section id="how-we-work" class="how" aria-label="How We Work Section">
+  <h2 class="how__title">
+    <span>HOW WE WORK</span>
+  </h2>
 
-  <div class="shell">
-    <h2 class="how__title">
-      <span data-i18n="how.title.part1">HOW</span>
-      <strong data-i18n="how.title.part2">WE</strong>
-      <span data-i18n="how.title.part3">WORK</span>
-    </h2>
+  <div class="how__cards">
+    <!-- Workshops -->
+    <div class="how__card" data-category="workshops" tabindex="0" role="button" aria-pressed="false" aria-label="Workshops">
+      <div class="how__card-inner">
+        <div class="how__card-front">
+          <h3 class="how__card-title">Workshops</h3>
+          <p class="how__card-desc">Creative workshops for all ages—graffiti, collage, DJ, and more.</p>
+          <div class="how__card-arrow" aria-hidden="true">→</div>
+        </div>
+        <div class="how__card-back">
+          <p>From street art to DJ workshops, we ignite creativity tailored to your group’s needs.</p>
+        </div>
+      </div>
+    </div>
 
-    <div class="how__grid">
-      <!-- Left: menu -->
-      <ol class="how__menu" aria-label="Category switcher">
-        <li>
-          <button data-cat="workshops" class="is-active" data-i18n="how.menu.workshops">
-            <span>01.</span> WORKSHOPS
-          </button>
-        </li>
-        <li>
-          <button data-cat="events" data-i18n="how.menu.events">
-            <span>02.</span> EVENTS
-          </button>
-        </li>
-        <li>
-          <button data-cat="dj" data-i18n="how.menu.dj">
-            <span>03.</span> DJ
-          </button>
-        </li>
-        <li>
-          <button data-cat="murals" data-i18n="how.menu.murals">
-            <span>04.</span> MURALS
-          </button>
-        </li>
-      </ol>
+    <!-- Events -->
+    <div class="how__card" data-category="events" tabindex="0" role="button" aria-pressed="false" aria-label="Events">
+      <div class="how__card-inner">
+        <div class="how__card-front">
+          <h3 class="how__card-title">Events</h3>
+          <p class="how__card-desc">Concerts, exhibitions, parties, and more with unique artistic touches.</p>
+          <div class="how__card-arrow" aria-hidden="true">→</div>
+        </div>
+        <div class="how__card-back">
+          <p>We organize vibrant cultural events tailored for all kinds of celebrations.</p>
+        </div>
+      </div>
+    </div>
 
-      <!-- Right: text -->
-      <div class="how__content">
-        <div class="how__desc" id="how-desc"></div>
+    <!-- DJ -->
+    <div class="how__card" data-category="dj" tabindex="0" role="button" aria-pressed="false" aria-label="DJ">
+      <div class="how__card-inner">
+        <div class="how__card-front">
+          <h3 class="how__card-title">DJ</h3>
+          <p class="how__card-desc">Experienced DJs for clubs, festivals, and private parties.</p>
+          <div class="how__card-arrow" aria-hidden="true">→</div>
+        </div>
+        <div class="how__card-back">
+          <p>Our DJs cover any genre and venue, bringing energy to your events.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Murals -->
+    <div class="how__card" data-category="murals" tabindex="0" role="button" aria-pressed="false" aria-label="Murals">
+      <div class="how__card-inner">
+        <div class="how__card-front">
+          <h3 class="how__card-title">Murals</h3>
+          <p class="how__card-desc">Transforming spaces with dynamic mural artwork.</p>
+          <div class="how__card-arrow" aria-hidden="true">→</div>
+        </div>
+        <div class="how__card-back">
+          <p>From blank walls to vibrant spaces, we create impactful public art.</p>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- FULL-BLEED MARQUEE -->
-  <div class="how__marquee" id="how-marquee" aria-label="Category gallery">
-    <div class="how__track" id="how-track"></div>
-  </div>
-
-  <!-- removed bottom <hr> -->
+  <!-- Gallery container -->
+  <div class="how__gallery" id="how__gallery" aria-live="polite" aria-label="Category Image Gallery"></div>
 </section>
