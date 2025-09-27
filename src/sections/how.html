@@ -1,6 +1,4 @@
 <section id="how-we-work" class="how">
-  <!-- removed top <hr> -->
-
   <div class="shell">
     <h2 class="how__title">
       <span data-i18n="how.title.part1">HOW</span>
@@ -8,42 +6,84 @@
       <span data-i18n="how.title.part3">WORK</span>
     </h2>
 
-    <div class="how__grid">
-      <!-- Left: menu -->
-      <ol class="how__menu" aria-label="Category switcher">
-        <li>
-          <button data-cat="workshops" class="is-active" data-i18n="how.menu.workshops">
-            <span>01.</span> WORKSHOPS
-          </button>
-        </li>
-        <li>
-          <button data-cat="events" data-i18n="how.menu.events">
-            <span>02.</span> EVENTS
-          </button>
-        </li>
-        <li>
-          <button data-cat="dj" data-i18n="how.menu.dj">
-            <span>03.</span> DJ
-          </button>
-        </li>
-        <li>
-          <button data-cat="murals" data-i18n="how.menu.murals">
-            <span>04.</span> MURALS
-          </button>
-        </li>
-      </ol>
+    <!-- Flip cards -->
+    <div class="how__cards" role="list">
+      <!-- Workshops -->
+      <article class="how-card" role="listitem">
+        <button class="how-card__btn" aria-expanded="false" aria-controls="how-panel-workshops" id="how-toggle-workshops" data-cat="workshops">
+          <div class="how-card__inner">
+            <div class="how-card__face how-card__front">
+              <div class="how-card__kicker"><span>01.</span></div>
+              <h3 class="how-card__title" data-i18n="how.menu.workshops">WORKSHOPS</h3>
+              <p class="how-card__hint">Click to flip</p>
+            </div>
+            <div class="how-card__face how-card__back" id="how-panel-workshops" role="region" aria-labelledby="how-toggle-workshops">
+              <div class="how-card__desc" data-i18n-attr="html" data-i18n="how.workshops.render"></div>
+              <span class="how-card__close" aria-hidden="true">⟵ Back</span>
+            </div>
+          </div>
+        </button>
+      </article>
 
-      <!-- Right: text -->
-      <div class="how__content">
-        <div class="how__desc" id="how-desc"></div>
+      <!-- Events -->
+      <article class="how-card" role="listitem">
+        <button class="how-card__btn" aria-expanded="false" aria-controls="how-panel-events" id="how-toggle-events" data-cat="events">
+          <div class="how-card__inner">
+            <div class="how-card__face how-card__front">
+              <div class="how-card__kicker"><span>02.</span></div>
+              <h3 class="how-card__title" data-i18n="how.menu.events">EVENTS</h3>
+              <p class="how-card__hint">Click to flip</p>
+            </div>
+            <div class="how-card__face how-card__back" id="how-panel-events" role="region" aria-labelledby="how-toggle-events">
+              <div class="how-card__desc" data-i18n-attr="html" data-i18n="how.events.render"></div>
+              <span class="how-card__close" aria-hidden="true">⟵ Back</span>
+            </div>
+          </div>
+        </button>
+      </article>
+
+      <!-- DJ -->
+      <article class="how-card" role="listitem">
+        <button class="how-card__btn" aria-expanded="false" aria-controls="how-panel-dj" id="how-toggle-dj" data-cat="dj">
+          <div class="how-card__inner">
+            <div class="how-card__face how-card__front">
+              <div class="how-card__kicker"><span>03.</span></div>
+              <h3 class="how-card__title" data-i18n="how.menu.dj">DJ</h3>
+              <p class="how-card__hint">Click to flip</p>
+            </div>
+            <div class="how-card__face how-card__back" id="how-panel-dj" role="region" aria-labelledby="how-toggle-dj">
+              <div class="how-card__desc" data-i18n-attr="html" data-i18n="how.dj.render"></div>
+              <span class="how-card__close" aria-hidden="true">⟵ Back</span>
+            </div>
+          </div>
+        </button>
+      </article>
+
+      <!-- Murals -->
+      <article class="how-card" role="listitem">
+        <button class="how-card__btn" aria-expanded="false" aria-controls="how-panel-murals" id="how-toggle-murals" data-cat="murals">
+          <div class="how-card__inner">
+            <div class="how-card__face how-card__front">
+              <div class="how-card__kicker"><span>04.</span></div>
+              <h3 class="how-card__title" data-i18n="how.menu.murals">MURALS</h3>
+              <p class="how-card__hint">Click to flip</p>
+            </div>
+            <div class="how-card__face how-card__back" id="how-panel-murals" role="region" aria-labelledby="how-toggle-murals">
+              <div class="how-card__desc" data-i18n-attr="html" data-i18n="how.murals.render"></div>
+              <span class="how-card__close" aria-hidden="true">⟵ Back</span>
+            </div>
+          </div>
+        </button>
+      </article>
+    </div>
+
+    <!-- Category gallery (appears/updates on card click) -->
+    <div class="how-gallery" id="how-gallery" aria-live="polite">
+      <div class="how-gallery__head">
+        <h3 class="how-gallery__title" id="how-gallery-title" data-i18n="how.menu.workshops">WORKSHOPS</h3>
+        <div class="how-gallery__status" id="how-gallery-status">Loading images…</div>
       </div>
+      <div class="how-gallery__grid" id="how-gallery-grid"></div>
     </div>
   </div>
-
-  <!-- FULL-BLEED MARQUEE -->
-  <div class="how__marquee" id="how-marquee" aria-label="Category gallery">
-    <div class="how__track" id="how-track"></div>
-  </div>
-
-  <!-- removed bottom <hr> -->
 </section>

@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;700&family=Rock+Salt&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@800&family=Fragment+Mono&family=Fugaz+One&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@300;900&family=Fragment+Mono&family=Fugaz+One&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Calistoga&display=swap" rel="stylesheet" />
 
@@ -17,22 +16,18 @@
   <link rel="stylesheet" href="./css/base.css" />
   <link rel="stylesheet" href="./css/sections/header.css" />
   <link rel="stylesheet" href="./css/sections/hero.css" />
-  <!-- <link rel="stylesheet" href="./css/sections/info.css" /> -->
   <link rel="stylesheet" href="./css/sections/how.css" />
   <link rel="stylesheet" href="./css/sections/gallery.css" />
   <link rel="stylesheet" href="./css/sections/footer.css" />
 </head>
 <body>
-  <!-- Include slots (partials will replace these) -->
+  <!-- Partials (replaced at runtime) -->
   <div data-include="sections/header.html"></div>
   <main id="top">
     <div data-include="sections/hero.html"></div>
 
-    <!-- If you don't have this file yet, comment this line out -->
+    <!-- Keep your existing marquee/gallery if you want -->
     <div data-include="sections/marquee.html"></div>
-
-    <!-- If you commented out info.css, you can also comment this: -->
-    <!-- <div data-include="sections/info.html"></div> -->
 
     <div data-include="sections/how.html"></div>
     <div data-include="sections/gallery.html"></div>
@@ -41,6 +36,5 @@
 
   <!-- Scripts -->
   <script src="./app.js" defer></script>
- 
 </body>
 </html>
