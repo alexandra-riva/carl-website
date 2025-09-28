@@ -5,6 +5,7 @@
   padding-block: clamp(26px, 6vw, 40px);
 }
 
+/* Section heading: "HOW WE DO" */
 .how__title {
   margin: clamp(18px, 3.5vw, 28px) 0 clamp(32px, 5vw, 56px);
   text-align: center;
@@ -12,8 +13,22 @@
   font-size: clamp(36px, 6vw, 56px);
   letter-spacing: .06em;
   text-transform: uppercase;
-  color: #111;
   font-synthesis: none;
+}
+
+/* Apply image fill to the parts of the title so the whole heading stays centered */
+.how__title span,
+.how__title strong {
+  display: inline-block;
+  background-image: url("../../assets/art.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #111; /* fallback */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 .how__title span { font-weight: 100; }
@@ -87,10 +102,23 @@
   color: #888;
 }
 
+/* Card titles: "WORKSHOPS", "EVENTS", "DJ", "MURALS" */
 .how-card__title {
   font-family: "Fugaz One", system-ui, sans-serif;
   font-size: clamp(22px, 3vw, 30px);
-  color: #111;
+
+  /* Keep titles centered and apply image fill */
+  display: block;               /* full width for centering */
+  text-align: center;
+  background-image: url("../../assets/art.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #111;       /* fallback */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 .how-card__hint {
@@ -155,12 +183,23 @@
   margin-bottom: clamp(8px, 2vw, 12px);
 }
 
+/* Small section heading in gallery */
 .how-gallery__title {
   font-family: "Azeret Mono", monospace;
   font-size: clamp(18px, 3vw, 22px);
   letter-spacing: .06em;
-  color: #111;
   text-transform: uppercase;
+
+  display: inline-block;
+  background-image: url("../../assets/art.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #111; /* fallback */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 .how-gallery__status {

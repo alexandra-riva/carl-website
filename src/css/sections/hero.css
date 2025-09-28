@@ -1,6 +1,6 @@
 .hero {
   position: relative;
-  background: none; /* remove any existing solid color */
+  background: #f9f9f9; 
   padding-top: 20px;
   padding-bottom: 0;
   color: #000;
@@ -63,9 +63,24 @@
 .hero__title .w2,
 .hero__title .w3 {
   position: absolute;
+  display: inline-block;
   font-size: 120px;
   line-height: 0.85;
-  color: #000;
+
+  /* image-in-text setup with correct path + fallback */
+  background-image: url("../../assets/art.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #111;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  z-index: 10;
+  pointer-events: none;
 }
 
 .hero__title .w1 {
