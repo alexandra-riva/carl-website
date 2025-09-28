@@ -30,7 +30,7 @@ const I18N = {
     "hero.p1": "Jag är Carl och, tillsammans med ett nätverk av kulturarbetare, erbjuder jag kreativa tjänster för offentliga och privata sammanhang. Genom workshops, events och utsmyckning skapar vi upplevelser som förenar människor i alla åldrar och miljöer.",
     "hero.p2": "Vi arbetar med kurser i konst, musik, foto och film, samt DJ-spelningar, muralmålningar och unika evenemang. Alltid med fokus på kvalitet, kreativitet och delaktighet.",
     "hero.p3": "Vi har erfarenhet av att arbeta med många olika grupper – barn, unga, vuxna och personer med särskilda behov – och anpassar alltid upplägget efter plats, människor och syfte. Med vårt breda nätverk är vi öppna för nya samarbeten och idéer.",
-    "hero.p4": "Ett kreativt nav – med plats för alla.",
+
 
     "how.title.part1": "HOW",
     "how.title.part2": "WE",
@@ -66,7 +66,7 @@ const I18N = {
     "hero.p1": "I am Carl and, together with a network of cultural workers, I offer creative services for public and private settings. Through workshops, events, and decoration we create experiences that bring people together across ages and environments.",
     "hero.p2": "We work with courses in art, music, photography, and film, as well as DJ performances, murals, and unique events. Always with a focus on quality, creativity, and inclusion.",
     "hero.p3": "We have experience working with many groups – children, youth, adults, and people with special needs – and always adapt the approach to the place, people, and purpose. With our wide network, we are open to new collaborations and ideas.",
-    "hero.p4": "A creative hub – open to all.",
+  
 
     "how.title.part1": "HOW",
     "how.title.part2": "WE",
@@ -324,3 +324,4 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Initial gallery (workshops by default)
   renderCategoryGallery("workshops");
 });
+

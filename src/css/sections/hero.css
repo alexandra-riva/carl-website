@@ -1,6 +1,6 @@
 .hero {
   position: relative;
-  background: #f2f2f2;
+  background: #f9f9f9; 
   padding-top: 20px;
   padding-bottom: 0;
   color: #000;
@@ -57,7 +57,7 @@
   position: relative;
   width: 100%;
   height: 100%;
-    transform: translate(-40px, -25px);
+    transform: translate(-40px, -60px);
 }
 
 .hero__title .w1,
@@ -152,11 +152,39 @@
   }
 }
 
-/* For very small phones, ensure readability */
 @media (max-width: 480px) {
+  .hero__title-diag {
+    justify-content: center !important;
+    align-items: center !important;
+    display: flex !important;
+    height: auto !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+  }
+
+  .hero__title {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    transform: none !important; /* Remove desktop translate */
+    width: 100%;
+    min-width: 0;
+    position: static !important; /* no absolute positioning */
+  }
+
   .hero__title .w1,
   .hero__title .w2,
   .hero__title .w3 {
-    font-size: clamp(68px, 14vw, 85px);
+    position: static !important;
+    font-size: clamp(72px, 16vw, 100px);
+    margin: 0 8px;
+    background-image: url("../../assets/art.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
 }
