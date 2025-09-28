@@ -4,35 +4,37 @@
   background: #fff;
   padding-block: clamp(26px, 6vw, 40px);
 }
-
 /* Section heading: "HOW WE DO" */
 .how__title {
   margin: clamp(18px, 3.5vw, 28px) 0 clamp(32px, 5vw, 56px);
   text-align: center;
-  font-family: "Azeret Mono", monospace;
-  font-size: clamp(36px, 6vw, 56px);
-  letter-spacing: .06em;
+
+  /* make it big + bold in Azeret */
+  font-family: 'Azeret Mono', ui-monospace, monospace;
+  font-weight: 800;
+  font-size: clamp(42px, 7vw, 72px); 
+  line-height: 0.9;
+  letter-spacing: .04em;
   text-transform: uppercase;
   font-synthesis: none;
 }
 
-/* Apply image fill to the parts of the title so the whole heading stays centered */
+/* image-in-text + inherit the heavy weight */
 .how__title span,
 .how__title strong {
   display: inline-block;
+  font: inherit;                  /* inherits Azeret 800 from .how__title */
+
   background-image: url("../../assets/art.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: #111; /* fallback */
+  background-color: #111;         /* fallback */
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
-
-.how__title span { font-weight: 100; }
-.how__title strong { font-weight: 900; }
 
 /* Grid of cards */
 .how__cards {
@@ -104,17 +106,19 @@
 
 /* Card titles: "WORKSHOPS", "EVENTS", "DJ", "MURALS" */
 .how-card__title {
-  font-family: "Fugaz One", system-ui, sans-serif;
-  font-size: clamp(22px, 3vw, 30px);
-
-  /* Keep titles centered and apply image fill */
-  display: block;               /* full width for centering */
+  font-family: 'Azeret Mono', ui-monospace, monospace;
+  font-weight: 800;
+  font-size: clamp(20px, 3.2vw, 34px); /* smaller than HOW WE DO */
+  line-height: 1.2;
   text-align: center;
+
+  /* image-in-text */
+  display: block;
   background-image: url("../../assets/art.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: #111;       /* fallback */
+  background-color: #111; /* fallback */
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
