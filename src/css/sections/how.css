@@ -11,7 +11,7 @@
 
   /* make it big + bold in Azeret */
   font-family: 'Azeret Mono', ui-monospace, monospace;
-  font-weight: 800;
+  font-weight: 300;
   font-size: clamp(42px, 7vw, 72px); 
   line-height: 0.9;
   letter-spacing: .04em;
@@ -19,21 +19,15 @@
   font-synthesis: none;
 }
 
-/* image-in-text + inherit the heavy weight */
 .how__title span,
 .how__title strong {
   display: inline-block;
-  font: inherit;                  /* inherits Azeret 800 from .how__title */
-
-  background-image: url("../../assets/art.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: #111;         /* fallback */
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+  font: inherit;
+  color: #000;               /* solid black */
+  background: none;          /* remove background image */
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  -webkit-text-fill-color: initial;
 }
 
 /* Grid of cards */
@@ -93,7 +87,7 @@
 
 /* Front */
 .how-card__front {
-  background: #fafafa;
+  background: #f2f2f2; 
   border: 1px solid #eee;
 }
 
@@ -181,7 +175,7 @@
 }
 
 .how-gallery__head {
-  display: flex;
+  display: none;
   align-items: baseline;
   justify-content: space-between;
   margin-bottom: clamp(8px, 2vw, 12px);

@@ -17,7 +17,6 @@ async function includePartials() {
   );
 }
 
-/* ===================== 2) I18N ===================== */
 const I18N = {
   sv: {
     "nav.workshops": "WORKSHOPS",
@@ -27,10 +26,11 @@ const I18N = {
     "nav.murals": "MURALS",
     "nav.contact": "CONTACT",
 
-    "hero.p1": "Jag är Carl, och tillsammans med ett nätverk av kulturarbetare erbjuder jag kreativa tjänster för både offentliga och privata sammanhang. Genom workshops, events och konstnärlig utsmyckning skapar vi upplevelser som förenar människor i alla åldrar och miljöer.",
-    "hero.p2": "Vi arbetar med allt från interaktiva kurser i konst, musik, foto och film till DJ-spelningar, muralmålningar och unika kulturevenemang. Alltid med fokus på kvalitet, kreativitet och att alla inblandade ska känna sig delaktiga.",
-    "hero.p3": "Vi har erfarenhet av att arbeta med många olika grupper – barn, unga, vuxna och personer med särskilda behov – och anpassar alltid upplägget efter plats, människor och syfte. Med ett brett nätverk inom kulturlivet är vi alltid öppna för nya samarbeten och idéer.",
-    "hero.p4": "Ett kreativitetsfrämjande – med plats för alla.",
+    // --- HERO (shortened SV) ---
+    "hero.p1": "Jag är Carl och, tillsammans med ett nätverk av kulturarbetare, erbjuder jag kreativa tjänster för offentliga och privata sammanhang. Genom workshops, events och utsmyckning skapar vi upplevelser som förenar människor i alla åldrar och miljöer.",
+    "hero.p2": "Vi arbetar med kurser i konst, musik, foto och film, samt DJ-spelningar, muralmålningar och unika evenemang. Alltid med fokus på kvalitet, kreativitet och delaktighet.",
+    "hero.p3": "Vi har erfarenhet av att arbeta med många olika grupper – barn, unga, vuxna och personer med särskilda behov – och anpassar alltid upplägget efter plats, människor och syfte. Med vårt breda nätverk är vi öppna för nya samarbeten och idéer.",
+    "hero.p4": "Ett kreativt nav – med plats för alla.",
 
     "how.title.part1": "HOW",
     "how.title.part2": "WE",
@@ -41,17 +41,17 @@ const I18N = {
     "how.menu.dj": "DJ",
     "how.menu.murals": "MURALS",
 
-    "how.workshops.1": "Vi erbjuder kreativa workshops som inspirerar till skapande och gemenskap. Bland våra teman finns streetart och graffiti, där deltagarna får prova på spraykonst i utomhusmiljöer – perfekt för ungdomar och vuxna som vill arbeta aktivt.",
-    "how.workshops.2": "Med återbruk och blandkonst visar vi hur konst kan skapas med enkla, återvunna material. Vi erbjuder också collage- och klistermärkes-workshops som är inkluderande för alla åldrar och särskilt anpassade för deltagare med funktionsvariationer. För musikintresserade finns DJ-kurser med både teori och praktik, samt foto- och filmworkshops som lär ut grunderna i filmning, redigering och mobilkamerateknik. Har ni egna idéer? Vi utvecklar dem gärna genom vårt breda kontaktnät inom kreativa områden.",
+    "how.workshops.1": "Vi håller skapande workshops som bygger gemenskap: streetart, graffiti, återbruk, collage och klistermärken.",
+    "how.workshops.2": "Vi erbjuder även DJ-kurser samt foto/film-grunder och anpassar alltid efter deltagarnas förutsättningar – kom gärna med egna idéer.",
 
-    "how.events.1": "Vi har lång erfarenhet av att genomföra kulturella evenemang – både på egen hand och i samarbete med andra. Våra arrangemang har sträckt sig från spelningar, musikframträdanden och konstutställningar till föreläsningar, afterworks, fester, barnkalas, möhippor och privata tillställningar. Varje event skräddarsys efter era behov och målgrupp – till exempel en afterwork med DJ:s, konstnärlig utsmyckning och festlig stämning, eller ett barnkalas med graffititema som lockar fram kreativitet och lek.",
-    "how.events.2": "Vill ni ha minnen som varar? Vi erbjuder videodokumentation som fångar stämningen och höjdpunkterna från ert evenemang – perfekt för sociala medier eller framtida presentationer. Vi älskar att tänka stort, lekfullt och nyskapande, men utgår alltid från era visioner. Hör av er – tillsammans skapar vi unika och minnesvärda upplevelser.",
+    "how.events.1": "Vi producerar kulturevenemang från spelningar och utställningar till föreläsningar, fester och privata tillställningar – alltid skräddarsytt.",
+    "how.events.2": "Vid behov dokumenterar vi med video och skapar minnen som håller – vi samskapar gärna utifrån er vision.",
 
-    "how.dj.1": "Behöver ni en eller flera DJs? Våra DJs har bred erfarenhet och anpassar alltid musiken efter publik, plats och tillfälle. Vi har spelat på nattklubbar, skoldiscon, ungdomsevent, företagsmässor, modevisningar, ravefester, temafester, restauranger, barer, teaterproduktioner, demonstrationer, afterski-aktiviteter och privata fester.",
-    "how.dj.2": "Oavsett om det handlar om ett större evenemang eller en intim samling skapar vi rätt stämning och energi för just er. Musiken blir en naturlig del av helhetsupplevelsen, och varje tillställning får en personlig prägel. Kontakta oss gärna för frågor, idéer eller bokningar – vi hjälper er att hitta den perfekta lösningen.",
+    "how.dj.1": "Våra DJs anpassar musiken efter publik och plats – för klubbar, skolor, företagsevent, modevisningar, fester och mer.",
+    "how.dj.2": "Stort eller litet sammanhang: vi sätter rätt stämning. Hör av er för frågor och bokning.",
 
-    "how.murals.1": "Har ni en vägg, byggnad eller asfaltsyta som behöver nytt liv? Vi erbjuder muralmålningar och markmålningar som förvandlar trista ytor till inspirerande och funktionella miljöer. Vi skapar bland annat interaktiva hinderbanor direkt på asfalt – perfekt för skolgårdar, lekplatser eller innergårdar – som uppmuntrar rörelse, lek och samspel.",
-    "how.murals.2": "Vi erbjuder även motivmålningar som anpassas helt efter plats och behov – kanske en nedklottrad container, ett barnrum som behöver färg, eller en vägg som saknar karaktär? Med kreativ design förvandlar vi miljöer på ett hållbart och unikt sätt."
+    "how.murals.1": "Vi målar muraler och markmålningar som förvandlar miljöer – inklusive interaktiva hinderbanor för skolgårdar och gårdar.",
+    "how.murals.2": "Vi skapar motiv efter plats och behov – från väggar och containrar till barnrum – hållbart och unikt."
   },
 
   en: {
@@ -62,10 +62,11 @@ const I18N = {
     "nav.murals": "MURALS",
     "nav.contact": "CONTACT",
 
-    "hero.p1": "I am Carl, and together with a network of cultural workers, I offer creative services for both public and private settings. Through workshops, events, and artistic decoration we create experiences that connect people across ages and environments.",
-    "hero.p2": "Our work spans interactive courses in art, music, photography, and film, as well as DJ performances, murals, and unique cultural events. Always with a focus on quality, creativity, and ensuring that everyone involved feels included.",
-    "hero.p3": "We have experience working with many different groups — from children and young people to adults and participants with special needs — and we adapt each project to the people, place, and purpose. With a wide network in the cultural field, we are always open to new collaborations and ideas.",
-    "hero.p4": "A hub that promotes creativity – open to all.",
+    // --- HERO (shortened EN, matching SV) ---
+    "hero.p1": "I am Carl and, together with a network of cultural workers, I offer creative services for public and private settings. Through workshops, events, and decoration we create experiences that bring people together across ages and environments.",
+    "hero.p2": "We work with courses in art, music, photography, and film, as well as DJ performances, murals, and unique events. Always with a focus on quality, creativity, and inclusion.",
+    "hero.p3": "We have experience working with many groups – children, youth, adults, and people with special needs – and always adapt the approach to the place, people, and purpose. With our wide network, we are open to new collaborations and ideas.",
+    "hero.p4": "A creative hub – open to all.",
 
     "how.title.part1": "HOW",
     "how.title.part2": "WE",
@@ -76,17 +77,17 @@ const I18N = {
     "how.menu.dj": "DJ",
     "how.menu.murals": "MURALS",
 
-    "how.workshops.1": "We offer creative workshops designed to inspire creativity and connection. Themes include street art and graffiti, where participants explore spray painting in outdoor settings—perfect for youth and adults who enjoy active expression.",
-    "how.workshops.2": "With recycled and mixed media art, we show how creativity can flourish using simple, repurposed materials. We also host collage and sticker workshops that are inclusive for all ages and specially adapted for participants with different abilities. For music lovers, we offer DJ courses covering both theory and practice, as well as photo and film workshops teaching the basics of filming, editing, and mobile camera techniques. Got your own ideas? We’re happy to develop them through our wide creative network.",
+    "how.workshops.1": "We run creative workshops that build community: street art, graffiti, reuse, collage, and stickers.",
+    "how.workshops.2": "We also offer DJ courses and photo/film basics, adapting to all abilities—bring your own ideas too.",
 
-    "how.events.1": "We have extensive experience organizing cultural events—both independently and in collaboration with others. Our work has included concerts, music performances, and art exhibitions, as well as lectures, afterworks, parties, children’s birthdays, bachelorette celebrations, and private gatherings. Every event is tailored to your needs and audience—for example, an afterwork featuring DJs, artistic decorations, and a festive atmosphere, or a children’s party with a graffiti theme that sparks creativity and play.",
-    "how.events.2": "Looking for lasting memories? We offer professional video documentation that captures the mood and highlights of your event—ideal for social media or future presentations. We thrive on bold, playful, and creative ideas, but we always start from your vision. Get in touch—together we’ll create something unique and unforgettable.",
+    "how.events.1": "We produce cultural events—from gigs and exhibitions to talks, parties, and private gatherings—always tailored.",
+    "how.events.2": "We can film for lasting memories and co-create from your vision.",
 
-    "how.dj.1": "Looking for one or more DJs? Our DJs have broad experience and always adapt the music to the audience, venue, and occasion. We’ve performed at nightclubs, school discos, youth events, trade shows, fashion shows, raves, theme parties, restaurants, bars, theater productions, demonstrations, after-ski events, and private parties.",
-    "how.dj.2": "Whether it’s a large event or an intimate gathering, we create the right atmosphere and energy for you. The music becomes an integral part of the experience, giving each occasion a personal touch. Feel free to contact us with questions, ideas, or bookings—we’ll gladly help you find the perfect solution.",
+    "how.dj.1": "Our DJs tailor music to audience and venue—for clubs, schools, corporate events, fashion shows, parties, and more.",
+    "how.dj.2": "Big or small, we set the mood. Get in touch to book or ask questions.",
 
-    "how.murals.1": "Do you have a wall, building, or asphalt surface in need of new life? We create murals and ground paintings that transform dull spaces into inspiring and functional environments. Our work includes interactive obstacle courses painted directly on asphalt—perfect for schoolyards, playgrounds, or courtyards—that encourage movement, play, and interaction.",
-    "how.murals.2": "We also offer customized artworks tailored to each location—whether it’s a graffiti-covered container, a children’s room in need of color, or a wall lacking character. With creative design, we breathe new life into spaces in a way that is both sustainable and unique."
+    "how.murals.1": "We create murals and ground paintings that transform spaces—including interactive obstacle courses for schoolyards and courtyards.",
+    "how.murals.2": "Custom motifs for walls, containers, and children’s rooms—sustainable and unique."
   }
 };
 
