@@ -10,7 +10,7 @@
   text-align: center;
 
   /* make it big + bold in Azeret */
-  font-family: 'Azeret Mono', ui-monospace, monospace;
+   font-family: "Fragment Mono", ui-monospace, monospace;
   font-weight: 300;
   font-size: clamp(42px, 7vw, 72px); 
   line-height: 0.9;
