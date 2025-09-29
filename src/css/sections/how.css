@@ -4,30 +4,26 @@
   background: #fff;
   padding-block: clamp(26px, 6vw, 40px);
 }
-/* Section heading: "HOW WE DO" */
 .how__title {
   margin: clamp(18px, 3.5vw, 28px) 0 clamp(32px, 5vw, 56px);
   text-align: center;
-
-  /* make it big + bold in Azeret */
-   font-family: "Fragment Mono", ui-monospace, monospace;
-  font-weight: 300;
+  font-family: "Azeret Mono", ui-monospace, monospace;
   font-size: clamp(42px, 7vw, 72px); 
   line-height: 0.9;
   letter-spacing: .04em;
   text-transform: uppercase;
   font-synthesis: none;
+  color: #000;
 }
 
-.how__title span,
+/* HOW + WORK → thin */
+.how__title span {
+  font-weight: 300; /* thin weight */
+}
+
+/* WE → thick / black */
 .how__title strong {
-  display: inline-block;
-  font: inherit;
-  color: #000;               /* solid black */
-  background: none;          /* remove background image */
-  -webkit-background-clip: initial;
-  background-clip: initial;
-  -webkit-text-fill-color: initial;
+  font-weight: 800; /* bold/black */
 }
 
 /* Grid of cards */

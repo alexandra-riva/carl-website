@@ -46,3 +46,33 @@
   color: #888;
   margin-top: 100px;
 }
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+
+  background: url("../../assets/art.jpg") center/cover no-repeat;
+
+  /* Use the SVG as a mask */
+  -webkit-mask: url("../../assets/instagram.svg") no-repeat center;
+  -webkit-mask-size: contain;
+  mask: url("../../assets/instagram.svg") no-repeat center;
+  mask-size: contain;
+
+  transition: transform 0.2s ease;
+}
+
+.social-icon:hover {
+  transform: scale(1.1);
+}
+
+.instagram {
+  -webkit-mask-image: url("../../assets/instagram.svg");
+  mask-image: url("../../assets/instagram.svg");
+}
+
+.soundcloud {
+  -webkit-mask-image: url("../../assets/soundcloud.svg");
+  mask-image: url("../../assets/soundcloud.svg");
+}
