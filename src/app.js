@@ -320,8 +320,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const howAPI = initHowFlipCards();
   wireHeaderToHow(howAPI);
-
-  // Initial gallery (workshops by default)
-  renderCategoryGallery("workshops");
 });
 
+const gallery = document.querySelector(".how-gallery");
+if (gallery) gallery.classList.add("is-visible");
