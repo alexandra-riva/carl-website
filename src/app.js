@@ -63,7 +63,7 @@ const I18N = {
     "nav.contact": "CONTACT",
 
     // --- HERO (shortened EN, matching SV) ---
-    "hero.p1": "I am Carl and, together with a network of cultural workers, I offer creative services for public and private settings. Through workshops, events, and decoration we create experiences that bring people together across ages and environments.",
+    "hero.p1": "I’m Carl and, together with a network of cultural workers, I offer creative services for public and private settings. Through workshops, events, and decorative projects, we create experiences that bring people together across ages and environments.",
     "hero.p2": "We work with courses in art, music, photography, and film, as well as DJ performances, murals, and unique events. Always with a focus on quality, creativity, and inclusion.",
     "hero.p3": "We have experience working with many groups – children, youth, adults, and people with special needs – and always adapt the approach to the place, people, and purpose. With our wide network, we are open to new collaborations and ideas.",
   
