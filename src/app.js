@@ -17,6 +17,7 @@ async function includePartials() {
   );
 }
 
+/* ===================== I18N (unchanged) ===================== */
 const I18N = {
   sv: {
     "nav.workshops": "WORKSHOPS",
@@ -26,11 +27,9 @@ const I18N = {
     "nav.murals": "MURALS",
     "nav.contact": "CONTACT",
 
-    // --- HERO (shortened SV) ---
     "hero.p1": "Jag är Carl och, tillsammans med ett nätverk av kulturarbetare, erbjuder jag kreativa tjänster för offentliga och privata sammanhang. Genom workshops, events och utsmyckning skapar vi upplevelser som förenar människor i alla åldrar och miljöer.",
     "hero.p2": "Vi arbetar med kurser i konst, musik, foto och film, samt DJ-spelningar, muralmålningar och unika evenemang. Alltid med fokus på kvalitet, kreativitet och delaktighet.",
     "hero.p3": "Vi har erfarenhet av att arbeta med många olika grupper – barn, unga, vuxna och personer med särskilda behov – och anpassar alltid upplägget efter plats, människor och syfte. Med vårt breda nätverk är vi öppna för nya samarbeten och idéer.",
-
 
     "how.title.part1": "HOW",
     "how.title.part2": "WE",
@@ -53,7 +52,6 @@ const I18N = {
     "how.murals.1": "Vi målar muraler och markmålningar som förvandlar miljöer – inklusive interaktiva hinderbanor för skolgårdar och gårdar.",
     "how.murals.2": "Vi skapar motiv efter plats och behov – från väggar och containrar till barnrum – hållbart och unikt."
   },
-
   en: {
     "nav.workshops": "WORKSHOPS",
     "nav.events": "EVENTS",
@@ -62,11 +60,9 @@ const I18N = {
     "nav.murals": "MURALS",
     "nav.contact": "CONTACT",
 
-    // --- HERO (shortened EN, matching SV) ---
     "hero.p1": "I’m Carl and, together with a network of cultural workers, I offer creative services for public and private settings. Through workshops, events, and decorative projects, we create experiences that bring people together across ages and environments.",
     "hero.p2": "We work with courses in art, music, photography, and film, as well as DJ performances, murals, and unique events. Always with a focus on quality, creativity, and inclusion.",
     "hero.p3": "We have experience working with many groups – children, youth, adults, and people with special needs – and always adapt the approach to the place, people, and purpose. With our wide network, we are open to new collaborations and ideas.",
-  
 
     "how.title.part1": "HOW",
     "how.title.part2": "WE",
@@ -79,13 +75,10 @@ const I18N = {
 
     "how.workshops.1": "We run creative workshops that build community: street art, graffiti, reuse, collage, and stickers.",
     "how.workshops.2": "We also offer DJ courses and photo/film basics, adapting to all abilities—bring your own ideas too.",
-
     "how.events.1": "We produce cultural events—from gigs and exhibitions to talks, parties, and private gatherings—always tailored.",
     "how.events.2": "We can film for lasting memories and co-create from your vision.",
-
     "how.dj.1": "Our DJs tailor music to audience and venue—for clubs, schools, corporate events, fashion shows, parties, and more.",
     "how.dj.2": "Big or small, we set the mood. Get in touch to book or ask questions.",
-
     "how.murals.1": "We create murals and ground paintings that transform spaces—including interactive obstacle courses for schoolyards and courtyards.",
     "how.murals.2": "Custom motifs for walls, containers, and children’s rooms—sustainable and unique."
   }
@@ -150,6 +143,7 @@ function initI18n() {
 }
 
 /* ===================== 3) HOW — flip cards ===================== */
+
 function initHowFlipCards() {
   const root = document.querySelector("#how-we-work");
   if (!root) return null;
@@ -157,29 +151,97 @@ function initHowFlipCards() {
   const buttons = [...root.querySelectorAll(".how-card__btn")];
 
   function collapseAll(exceptBtn = null) {
-    buttons.forEach((b) => { if (b !== exceptBtn) b.setAttribute("aria-expanded", "false"); });
+    buttons.forEach((b) => {
+      if (b !== exceptBtn) b.setAttribute("aria-expanded", "false");
+    });
   }
 
+  // Gallery show/hide helpers (works with CSS classes .is-visible and .is-closing)
+  function getGalleryEls() {
+    return {
+      gallery: document.getElementById("how-gallery"),
+      grid: document.getElementById("how-gallery-grid"),
+      status: document.getElementById("how-gallery-status")
+    };
+  }
+
+  function showGallery() {
+    const { gallery } = getGalleryEls();
+    if (!gallery) return;
+    gallery.classList.remove("is-closing");
+    // force reflow for reliable transition
+    // eslint-disable-next-line no-unused-expressions
+    gallery.offsetHeight;
+    gallery.classList.add("is-visible");
+  }
+
+  function hideGallery(clearAfter = true) {
+    const { gallery, grid, status } = getGalleryEls();
+    if (!gallery) return;
+
+    // If gallery is not visible, just ensure cleared
+    if (!gallery.classList.contains("is-visible")) {
+      if (clearAfter && grid) grid.innerHTML = "";
+      if (status) status.textContent = "";
+      gallery.classList.remove("is-closing");
+      return;
+    }
+
+    // Start closing animation
+    gallery.classList.add("is-closing");
+    gallery.classList.remove("is-visible");
+
+    // When transition ends, clear DOM (only once)
+    const onEnd = (e) => {
+      if (e.target !== gallery) return;
+      gallery.removeEventListener("transitionend", onEnd);
+      gallery.classList.remove("is-closing");
+      if (clearAfter && grid) grid.innerHTML = "";
+      if (status) status.textContent = "";
+    };
+    gallery.addEventListener("transitionend", onEnd);
+
+    // fallback: if browser doesn't fire transitionend, clear after timeout
+    setTimeout(() => {
+      if (gallery.classList.contains("is-closing")) {
+        gallery.classList.remove("is-closing");
+        if (clearAfter && grid) grid.innerHTML = "";
+        if (status) status.textContent = "";
+      }
+    }, 700);
+  }
+
+  // Toggle behaviour:
+  // - clicking closed card opens gallery and renders images
+  // - clicking the same open card closes gallery
+  // - clicking a different card updates images (keeps gallery open)
   function toggle(btn) {
     const isOpen = btn.getAttribute("aria-expanded") === "true";
+    const cat = btn.dataset.cat;
+
     if (isOpen) {
+      // if already open, close it (click again hides gallery)
       btn.setAttribute("aria-expanded", "false");
-    } else {
-      collapseAll(btn);
-      btn.setAttribute("aria-expanded", "true");
+      hideGallery();
+      return;
     }
-    // When a card toggles open, update gallery to that category
-    if (!isOpen) {
-      renderCategoryGallery(btn.dataset.cat);
-      updateGalleryTitle(btn.dataset.cat);
-    }
+
+    // otherwise open the clicked card and show images for it
+    collapseAll(btn);
+    btn.setAttribute("aria-expanded", "true");
+
+    // render images then show gallery
+    renderCategoryGallery(cat).then(() => {
+      showGallery();
+      updateGalleryTitle(cat);
+    });
   }
 
   buttons.forEach((btn) => {
     btn.addEventListener("click", () => toggle(btn));
     btn.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(btn); }
-      if (e.key === "Escape") { btn.setAttribute("aria-expanded", "false"); btn.focus(); }
+      if (e.key === "Escape") { btn.setAttribute("aria-expanded", "false"); btn.focus(); hideGallery(); }
     });
   });
 
@@ -188,12 +250,15 @@ function initHowFlipCards() {
     if (!target) return;
     collapseAll(target);
     target.setAttribute("aria-expanded", "true");
-    renderCategoryGallery(cat);
-    updateGalleryTitle(cat);
-    target.focus({ preventScroll: true });
+    // render and ensure gallery visible
+    renderCategoryGallery(cat).then(() => {
+      showGallery();
+      updateGalleryTitle(cat);
+      target.focus({ preventScroll: true });
+    });
   }
 
-  const api = { setCategory, root };
+  const api = { setCategory, root, showGallery, hideGallery };
   window.__howAPI = api;
   return api;
 }
@@ -209,26 +274,42 @@ function updateGalleryTitle(cat) {
   if (titleEl && I18N?.[lang]?.[key]) titleEl.textContent = I18N[lang][key];
 }
 
+/**
+ * Render category images:
+ * - shuffle order each render (Fisher-Yates)
+ * - staggered pop-in animation using transitionDelay
+ */
 async function renderCategoryGallery(cat) {
   const grid = document.getElementById("how-gallery-grid");
   const status = document.getElementById("how-gallery-status");
-  if (!grid) return;
+  if (!grid) return [];
 
+  // clear previous immediately to avoid stacking duplicates while loading new ones
   grid.innerHTML = "";
   if (status) status.textContent = "Loading images…";
 
   const prefix = PREFIX_MAP[cat] || "w";
-  const imgs = await loadCategoryImages(prefix);
+  let imgs = await loadCategoryImages(prefix);
 
   if (!imgs.length) {
     if (status) status.textContent = "No images found.";
-    return;
+    return [];
+  }
+
+  // Shuffle images (Fisher-Yates)
+  for (let i = imgs.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [imgs[i], imgs[j]] = [imgs[j], imgs[i]];
   }
 
   const frag = document.createDocumentFragment();
+  const baseDelay = 55; // ms, tweakable
+
   imgs.forEach((src, idx) => {
     const fig = document.createElement("figure");
     fig.className = "how-gallery__item";
+    // set per-item stagger delay
+    fig.style.transitionDelay = `${idx * baseDelay}ms`;
 
     const img = new Image();
     img.decoding = "async";
@@ -236,7 +317,23 @@ async function renderCategoryGallery(cat) {
     img.className = "how-gallery__img";
     img.alt = `${cat} ${idx + 1}`;
     img.src = src;
-    img.addEventListener("load", () => img.classList.add("is-loaded"), { once: true });
+
+    // when image loads, add both image fade and figure pop-in
+    img.addEventListener("load", () => {
+      img.classList.add("is-loaded");
+      // small timeout to let transitionDelay apply reliably
+      requestAnimationFrame(() => {
+        fig.classList.add("pop-in");
+      });
+    }, { once: true });
+
+    img.addEventListener("error", () => {
+      img.classList.add("is-loaded");
+      img.alt = `${cat} image ${idx + 1} failed to load`;
+      requestAnimationFrame(() => {
+        fig.classList.add("pop-in");
+      });
+    }, { once: true });
 
     fig.appendChild(img);
     frag.appendChild(fig);
@@ -244,6 +341,8 @@ async function renderCategoryGallery(cat) {
 
   grid.appendChild(frag);
   if (status) status.textContent = `${imgs.length} image${imgs.length === 1 ? "" : "s"}`;
+
+  return imgs;
 }
 
 /**
@@ -251,7 +350,6 @@ async function renderCategoryGallery(cat) {
  * We stop after encountering 'stopAfter' consecutive misses or after 'maxTries'.
  */
 function loadCategoryImages(prefix, maxTries = 40, stopAfter = 6) {
-  const attempts = [];
   let missesInRow = 0;
 
   function tryIndex(i) {
@@ -275,7 +373,6 @@ function loadCategoryImages(prefix, maxTries = 40, stopAfter = 6) {
         img.src = srcA;
       };
 
-      // Special case: if prefix already ends with 'j' (like 'dj'), still works
       test(lower, upper);
     });
   }
@@ -320,7 +417,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const howAPI = initHowFlipCards();
   wireHeaderToHow(howAPI);
-});
 
-const gallery = document.querySelector(".how-gallery");
-if (gallery) gallery.classList.add("is-visible");
+  // ensure gallery isn't forced visible on boot
+  const gallery = document.getElementById("how-gallery");
+  if (gallery) {
+    gallery.classList.remove("is-visible", "is-closing");
+  }
+});
