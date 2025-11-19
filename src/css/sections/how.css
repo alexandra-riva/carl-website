@@ -29,7 +29,6 @@
   grid-template-columns: repeat(var(--cols), minmax(220px, 1fr));
   gap: clamp(12px, 2vw, 20px);
 }
-
 @media (max-width: 1100px) { .how__cards { --cols: 2; } }
 @media (max-width: 560px)  { .how__cards { --cols: 1; } }
 
@@ -39,7 +38,6 @@
   position: relative;
   isolation: isolate;
 }
-
 .how-card__btn {
   all: unset;
   display: block;
@@ -50,7 +48,6 @@
   background: transparent;
   outline: none;
 }
-
 .how-card__inner {
   position: relative;
   transform-style: preserve-3d;
@@ -59,55 +56,37 @@
   border-radius: 5px;
   background: #fff;
 }
-
 .how-card__btn[aria-expanded="true"] .how-card__inner {
   transform: rotateY(180deg);
 }
-
 .how-card__face {
   position: absolute;
   inset: 0;
   padding: clamp(16px, 2.5vw, 26px);
   border-radius: 5px;
   backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
   display: grid;
   align-content: center;
   gap: 10px;
 }
-
 .how-card__front {
   background: #f2f2f2;
   border: 1px solid #eee;
 }
-
-.how-card__kicker {
-  font-family: "DM Mono", ui-monospace, monospace;
-  letter-spacing: .06em;
-  font-size: 14px;
-  color: #888;
-}
-
 .how-card__title {
   font-family: 'Azeret Mono', ui-monospace, monospace;
   font-weight: 800;
   font-size: clamp(24px, 4vw, 42px);
   line-height: 1.2;
   text-align: center;
-
-  /* image-in-text */
-  display: block;
   background-image: url("../../assets/art.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: #111; /* fallback */
+  color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
 }
-
 .how-card__hint {
   position: absolute;
   font-size: 12px;
@@ -117,14 +96,12 @@
   font-family: "Fragment Mono", ui-monospace, monospace;
   color: #777;
 }
-
 .how-card__back {
   background: #111;
   color: #fff;
   transform: rotateY(180deg);
   border: 1px solid #111;
 }
-
 .how-card__desc {
   font-family: "Fragment Mono", ui-monospace, monospace;
   font-size: clamp(11px, 1.2vw, 13px);
@@ -132,140 +109,59 @@
   letter-spacing: .01em;
   color: #f3f3f3;
 }
-
 .how-card__desc p + p { margin-top: 10px; }
 
-.how-card__close {
-  margin-top: 18px;
-  justify-self: start;
-  font-family: "DM Mono", ui-monospace, monospace;
-  font-size: 12px;
-  color: #ddd;
-}
+/* ================= Category Gallery ================= */
 
-.how-card__btn:focus-visible {
-  box-shadow: 0 0 0 3px #1113, 0 0 0 6px #00000018;
-  border-radius: 5px;
-}
-
-@media (hover:hover) {
-  .how-card__btn:hover .how-card__front {
-    transform: translateY(-2px);
-    transition: transform .25s ease;
-  }
-}
-
-/* ================= Category Gallery (Masonry) ================= */
-
-/* Gallery shell: we animate its collapse/open using max-height and opacity.
-   Make sure how-gallery has a defined transition to animate open/close nicely. */
 .how-gallery {
   margin-top: clamp(22px, 5vw, 36px);
   background: #fff;
-
-  /* collapsed by default in CSS; .is-visible will open */
   max-height: 0;
   opacity: 0;
   overflow: hidden;
   transition: max-height .45s cubic-bezier(.2,.8,.2,1), opacity .35s ease;
 }
-
-/* Visible state */
 .how-gallery.is-visible {
-  max-height: 1200px; /* large enough to contain gallery — safe upper bound */
+  max-height: 1400px;
   opacity: 1;
-  overflow: visible;
 }
-
-/* Closing state (shrinks smoothly) */
 .how-gallery.is-closing {
   max-height: 0;
   opacity: 0;
-  overflow: hidden;
 }
 
-/* Optional inner header (kept hidden on small screens by default) */
+/* Header hidden (same as original) */
 .how-gallery__head {
   display: none;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: clamp(8px, 2vw, 12px);
 }
 
-/* Small section heading in gallery */
-.how-gallery__title {
-  font-family: "Azeret Mono", monospace;
-  font-size: clamp(18px, 3vw, 22px);
-  letter-spacing: .06em;
-  text-transform: uppercase;
-
-  display: inline-block;
-  background-image: url("../../assets/art.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: #111; /* fallback */
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
-
-.how-gallery__status {
-  font-family: "DM Mono", ui-monospace, monospace;
-  font-size: 12px;
-  color: #888;
-}
-
-/* Masonry via CSS columns */
+/* GRID — simplified to one big image center aligned */
 .how-gallery__grid {
-  column-gap: 16px;
-  column-count: 4;
-  padding-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0 30px;
 }
 
-@media (max-width: 1200px) { .how-gallery__grid { column-count: 3; } }
-@media (max-width: 800px)  { .how-gallery__grid { column-count: 2; } }
-@media (max-width: 520px)  { .how-gallery__grid { column-count: 1; } }
-
-/* Each item has pop-in animation; JS adds inline transitionDelay AND .pop-in class */
-.how-gallery__item {
-  break-inside: avoid;
-  margin: 0 0 16px 0;
-  border-radius: 5px;
+/* ONE BIG ITEM */
+.how-gallery__item--single {
+  width: 100%;
+  max-width: 1300px;
+  border-radius: 8px;
   overflow: hidden;
-  background: #f5f5f5;
-  box-shadow: 0 4px 16px rgba(0,0,0,.06);
-
-  /* start hidden/offset — animate to visible when .pop-in is added */
-  opacity: 0;
-  transform: translateY(14px) scale(0.985);
-  transition: opacity .36s cubic-bezier(.2,.8,.2,1),
-              transform .45s cubic-bezier(.18,.9,.2,1),
-              box-shadow .25s ease;
+  opacity: 1; /* ensure visible */
 }
 
-/* final state */
-.how-gallery__item.pop-in {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.08);
-}
-
-/* image fade-in (preserve your previous behavior) */
-.how-gallery__img {
+/* ONE BIG IMAGE */
+.how-gallery__img--large {
   width: 100%;
   height: auto;
   display: block;
-  opacity: 0;
-  transition: opacity .35s ease;
+  opacity: 1 !important;
 }
-.how-gallery__img.is-loaded { opacity: 1; }
 
-/* small hover lift for desktop */
-@media (hover:hover) {
-  .how-gallery__item.pop-in:hover {
-    transform: translateY(-4px) scale(1.01);
-    box-shadow: 0 12px 36px rgba(0,0,0,0.12);
-  }
+/* remove old masonry behavior */
+.how-gallery__item {
+  break-inside: avoid;
+  box-shadow: none;
+  margin: 0;
 }

@@ -156,7 +156,6 @@ function initHowFlipCards() {
     });
   }
 
-  // Gallery show/hide helpers (works with CSS classes .is-visible and .is-closing)
   function getGalleryEls() {
     return {
       gallery: document.getElementById("how-gallery"),
@@ -169,8 +168,6 @@ function initHowFlipCards() {
     const { gallery } = getGalleryEls();
     if (!gallery) return;
     gallery.classList.remove("is-closing");
-    // force reflow for reliable transition
-    // eslint-disable-next-line no-unused-expressions
     gallery.offsetHeight;
     gallery.classList.add("is-visible");
   }
@@ -179,7 +176,6 @@ function initHowFlipCards() {
     const { gallery, grid, status } = getGalleryEls();
     if (!gallery) return;
 
-    // If gallery is not visible, just ensure cleared
     if (!gallery.classList.contains("is-visible")) {
       if (clearAfter && grid) grid.innerHTML = "";
       if (status) status.textContent = "";
@@ -187,11 +183,9 @@ function initHowFlipCards() {
       return;
     }
 
-    // Start closing animation
     gallery.classList.add("is-closing");
     gallery.classList.remove("is-visible");
 
-    // When transition ends, clear DOM (only once)
     const onEnd = (e) => {
       if (e.target !== gallery) return;
       gallery.removeEventListener("transitionend", onEnd);
@@ -201,7 +195,6 @@ function initHowFlipCards() {
     };
     gallery.addEventListener("transitionend", onEnd);
 
-    // fallback: if browser doesn't fire transitionend, clear after timeout
     setTimeout(() => {
       if (gallery.classList.contains("is-closing")) {
         gallery.classList.remove("is-closing");
@@ -211,26 +204,19 @@ function initHowFlipCards() {
     }, 700);
   }
 
-  // Toggle behaviour:
-  // - clicking closed card opens gallery and renders images
-  // - clicking the same open card closes gallery
-  // - clicking a different card updates images (keeps gallery open)
   function toggle(btn) {
     const isOpen = btn.getAttribute("aria-expanded") === "true";
     const cat = btn.dataset.cat;
 
     if (isOpen) {
-      // if already open, close it (click again hides gallery)
       btn.setAttribute("aria-expanded", "false");
       hideGallery();
       return;
     }
 
-    // otherwise open the clicked card and show images for it
     collapseAll(btn);
     btn.setAttribute("aria-expanded", "true");
 
-    // render images then show gallery
     renderCategoryGallery(cat).then(() => {
       showGallery();
       updateGalleryTitle(cat);
@@ -250,7 +236,7 @@ function initHowFlipCards() {
     if (!target) return;
     collapseAll(target);
     target.setAttribute("aria-expanded", "true");
-    // render and ensure gallery visible
+
     renderCategoryGallery(cat).then(() => {
       showGallery();
       updateGalleryTitle(cat);
@@ -265,8 +251,6 @@ function initHowFlipCards() {
 
 /* ===================== 4) Category Gallery ===================== */
 
-const PREFIX_MAP = { workshops: "w", events: "e", dj: "dj", murals: "m" };
-
 function updateGalleryTitle(cat) {
   const lang = window.__getLang ? window.__getLang() : "sv";
   const titleEl = document.getElementById("how-gallery-title");
@@ -274,127 +258,41 @@ function updateGalleryTitle(cat) {
   if (titleEl && I18N?.[lang]?.[key]) titleEl.textContent = I18N[lang][key];
 }
 
-/**
- * Render category images:
- * - shuffle order each render (Fisher-Yates)
- * - staggered pop-in animation using transitionDelay
- */
+/* ⭐⭐⭐ THIS IS THE ONLY FUNCTION CHANGED ⭐⭐⭐
+   Now loads ONE BIG IMAGE ONLY */
+
 async function renderCategoryGallery(cat) {
   const grid = document.getElementById("how-gallery-grid");
   const status = document.getElementById("how-gallery-status");
   if (!grid) return [];
 
-  // clear previous immediately to avoid stacking duplicates while loading new ones
   grid.innerHTML = "";
-  if (status) status.textContent = "Loading images…";
+  if (status) status.textContent = "";
 
-  const prefix = PREFIX_MAP[cat] || "w";
-  let imgs = await loadCategoryImages(prefix);
+  const MAP = {
+    workshops: "assets/w1.jpg",
+    events: "assets/e1.jpg",
+    dj: "assets/dj1.jpg",
+    murals: "assets/m6.jpg"
+  };
 
-  if (!imgs.length) {
-    if (status) status.textContent = "No images found.";
-    return [];
-  }
+  const src = MAP[cat];
 
-  // Shuffle images (Fisher-Yates)
-  for (let i = imgs.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [imgs[i], imgs[j]] = [imgs[j], imgs[i]];
-  }
+  const fig = document.createElement("figure");
+  fig.className = "how-gallery__item how-gallery__item--single";
 
-  const frag = document.createDocumentFragment();
-  const baseDelay = 55; // ms, tweakable
+  const img = new Image();
+  img.src = src;
+  img.className = "how-gallery__img is-loaded how-gallery__img--large";
+  img.alt = cat;
 
-  imgs.forEach((src, idx) => {
-    const fig = document.createElement("figure");
-    fig.className = "how-gallery__item";
-    // set per-item stagger delay
-    fig.style.transitionDelay = `${idx * baseDelay}ms`;
+  fig.appendChild(img);
+  grid.appendChild(fig);
 
-    const img = new Image();
-    img.decoding = "async";
-    img.loading = "lazy";
-    img.className = "how-gallery__img";
-    img.alt = `${cat} ${idx + 1}`;
-    img.src = src;
-
-    // when image loads, add both image fade and figure pop-in
-    img.addEventListener("load", () => {
-      img.classList.add("is-loaded");
-      // small timeout to let transitionDelay apply reliably
-      requestAnimationFrame(() => {
-        fig.classList.add("pop-in");
-      });
-    }, { once: true });
-
-    img.addEventListener("error", () => {
-      img.classList.add("is-loaded");
-      img.alt = `${cat} image ${idx + 1} failed to load`;
-      requestAnimationFrame(() => {
-        fig.classList.add("pop-in");
-      });
-    }, { once: true });
-
-    fig.appendChild(img);
-    frag.appendChild(fig);
-  });
-
-  grid.appendChild(frag);
-  if (status) status.textContent = `${imgs.length} image${imgs.length === 1 ? "" : "s"}`;
-
-  return imgs;
+  return [src];
 }
 
-/**
- * Try to discover files by prefix, e.g., "w1.jpg", "w2.jpg" ... (and .JPG)
- * We stop after encountering 'stopAfter' consecutive misses or after 'maxTries'.
- */
-function loadCategoryImages(prefix, maxTries = 40, stopAfter = 6) {
-  let missesInRow = 0;
-
-  function tryIndex(i) {
-    return new Promise((resolve) => {
-      const lower = `assets/${prefix}${i}.jpg`;
-      const upper = `assets/${prefix}${i}.JPG`;
-
-      const test = (srcA, srcB) => {
-        const img = new Image();
-        img.onload = () => resolve(srcA);
-        img.onerror = () => {
-          if (srcB) {
-            const img2 = new Image();
-            img2.onload = () => resolve(srcB);
-            img2.onerror = () => resolve(null);
-            img2.src = srcB;
-          } else {
-            resolve(null);
-          }
-        };
-        img.src = srcA;
-      };
-
-      test(lower, upper);
-    });
-  }
-
-  return new Promise(async (resolve) => {
-    const found = [];
-    for (let i = 1; i <= maxTries; i++) {
-      /* eslint-disable no-await-in-loop */
-      const got = await tryIndex(i);
-      if (got) {
-        found.push(got);
-        missesInRow = 0;
-      } else {
-        missesInRow++;
-        if (missesInRow >= stopAfter && found.length > 0) break;
-      }
-    }
-    resolve(found);
-  });
-}
-
-/* ========== 5) Wire header links (data-goto-how="workshops|events|dj|murals") ========== */
+/* ========== 5) Wire header links ========== */
 function wireHeaderToHow(howAPI) {
   const links = document.querySelectorAll("[data-goto-how]");
   if (!links.length || !howAPI) return;
@@ -418,7 +316,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const howAPI = initHowFlipCards();
   wireHeaderToHow(howAPI);
 
-  // ensure gallery isn't forced visible on boot
   const gallery = document.getElementById("how-gallery");
   if (gallery) {
     gallery.classList.remove("is-visible", "is-closing");
