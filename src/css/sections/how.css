@@ -4,6 +4,7 @@
   background: #fff;
   padding-block: clamp(26px, 6vw, 40px);
 }
+
 .how__title {
   margin: clamp(18px, 3.5vw, 28px) 0 clamp(32px, 5vw, 56px);
   text-align: center;
@@ -19,7 +20,7 @@
 /* HOW + WORK → thin */
 .how__title span { font-weight: 300; }
 
-/* WE → thick / black */
+/* WE → thick */
 .how__title strong { font-weight: 800; }
 
 /* Grid of cards */
@@ -38,6 +39,7 @@
   position: relative;
   isolation: isolate;
 }
+
 .how-card__btn {
   all: unset;
   display: block;
@@ -46,8 +48,8 @@
   border-radius: 5px;
   box-shadow: 0 6px 24px rgba(0,0,0,.06);
   background: transparent;
-  outline: none;
 }
+
 .how-card__inner {
   position: relative;
   transform-style: preserve-3d;
@@ -56,9 +58,12 @@
   border-radius: 5px;
   background: #fff;
 }
+
 .how-card__btn[aria-expanded="true"] .how-card__inner {
   transform: rotateY(180deg);
 }
+
+/* Card faces */
 .how-card__face {
   position: absolute;
   inset: 0;
@@ -69,16 +74,20 @@
   align-content: center;
   gap: 10px;
 }
+
 .how-card__front {
   background: #f2f2f2;
   border: 1px solid #eee;
 }
+
 .how-card__title {
   font-family: 'Azeret Mono', ui-monospace, monospace;
   font-weight: 800;
   font-size: clamp(24px, 4vw, 42px);
   line-height: 1.2;
   text-align: center;
+
+  /* text filled with image */
   background-image: url("../../assets/art.jpg");
   background-position: center;
   background-repeat: no-repeat;
@@ -87,21 +96,24 @@
   -webkit-background-clip: text;
   background-clip: text;
 }
+
 .how-card__hint {
   position: absolute;
   font-size: 12px;
   bottom: 16px;
   right: 16px;
   margin: 0;
-  font-family: "Fragment Mono", ui-monospace, monospace;
+  font-family: "Fragment Mono", monospace;
   color: #777;
 }
+
 .how-card__back {
   background: #111;
   color: #fff;
   transform: rotateY(180deg);
   border: 1px solid #111;
 }
+
 .how-card__desc {
   font-family: "Fragment Mono", ui-monospace, monospace;
   font-size: clamp(11px, 1.2vw, 13px);
@@ -109,46 +121,53 @@
   letter-spacing: .01em;
   color: #f3f3f3;
 }
+
 .how-card__desc p + p { margin-top: 10px; }
 
-/* ================= Category Gallery ================= */
+/* =========================== 
+      CATEGORY GALLERY 
+   =========================== */
 
 .how-gallery {
   margin-top: clamp(22px, 5vw, 36px);
   background: #fff;
+
+  /* collapsed by default */
   max-height: 0;
   opacity: 0;
   overflow: hidden;
   transition: max-height .45s cubic-bezier(.2,.8,.2,1), opacity .35s ease;
 }
+
 .how-gallery.is-visible {
-  max-height: 1400px;
+  max-height: 1500px;
   opacity: 1;
 }
+
 .how-gallery.is-closing {
   max-height: 0;
   opacity: 0;
 }
 
-/* Header hidden (same as original) */
+/* HEADER (hidden) */
 .how-gallery__head {
   display: none;
 }
 
-/* GRID — simplified to one big image center aligned */
+/* GRID → one big centered image */
 .how-gallery__grid {
   display: flex;
   justify-content: center;
   padding: 20px 0 30px;
 }
 
-/* ONE BIG ITEM */
+/* ITEM wrapper */
 .how-gallery__item--single {
   width: 100%;
   max-width: 1300px;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
-  opacity: 1; /* ensure visible */
+  margin: 0 auto;
 }
 
 /* ONE BIG IMAGE */
@@ -159,9 +178,44 @@
   opacity: 1 !important;
 }
 
-/* remove old masonry behavior */
+/* Remove any leftover masonry behavior */
 .how-gallery__item {
   break-inside: avoid;
   box-shadow: none;
   margin: 0;
+}
+
+/* ============================
+      MOBILE BEHAVIOR
+   Gallery moves beneath card
+   ============================ */
+
+@media (max-width: 700px) {
+
+  /* spacing when gallery moves under card */
+  .how-gallery {
+    margin-top: 16px;
+  }
+
+  /* ensure full-width image on mobile */
+  .how-gallery__item--single {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  /* override flex if needed */
+  .how-gallery__grid {
+    display: block;
+    padding-bottom: 10px;
+  }
+
+  /* smooth transition */
+  .how-gallery {
+    transition: margin-top .25s ease, max-height .45s cubic-bezier(.2,.8,.2,1), opacity .35s ease;
+  }
+
+  /* spacing between cards */
+  .how-card {
+    margin-bottom: 14px;
+  }
 }

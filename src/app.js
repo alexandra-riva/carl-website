@@ -205,23 +205,33 @@ function initHowFlipCards() {
   }
 
   function toggle(btn) {
-    const isOpen = btn.getAttribute("aria-expanded") === "true";
-    const cat = btn.dataset.cat;
+  const isOpen = btn.getAttribute("aria-expanded") === "true";
+  const cat = btn.dataset.cat;
 
-    if (isOpen) {
-      btn.setAttribute("aria-expanded", "false");
-      hideGallery();
-      return;
-    }
-
-    collapseAll(btn);
-    btn.setAttribute("aria-expanded", "true");
-
-    renderCategoryGallery(cat).then(() => {
-      showGallery();
-      updateGalleryTitle(cat);
-    });
+  if (isOpen) {
+    btn.setAttribute("aria-expanded", "false");
+    hideGallery();
+    return;
   }
+
+  collapseAll(btn);
+  btn.setAttribute("aria-expanded", "true");
+
+  renderCategoryGallery(cat).then(() => {
+    showGallery();
+    updateGalleryTitle(cat);
+
+    // ⭐ MOBILE: Move gallery under the opened card ⭐
+    if (window.innerWidth <= 700) {
+      const parentCard = btn.closest(".how-card");
+      const gallery = document.getElementById("how-gallery");
+
+      if (parentCard && gallery) {
+        parentCard.insertAdjacentElement("afterend", gallery);
+      }
+    }
+  });
+}
 
   buttons.forEach((btn) => {
     btn.addEventListener("click", () => toggle(btn));
