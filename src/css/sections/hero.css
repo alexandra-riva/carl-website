@@ -53,6 +53,7 @@
   min-width: 500px;
   display: flex;
   align-items: flex-start;
+  justify-content: flex-end;
 }
 
 .hero__title {
@@ -62,7 +63,9 @@
   transform: translate(-40px, -20px);
 }
 
-/* ================= HERO TITLES (image-in-text) ================= */
+/* ================= HERO TITLES (image-in-text) =================
+   Match the HOW style: same background-image, fallback, clip rules
+   -------------------------------------------------------------- */
 .hero__title .w1,
 .hero__title .w2,
 .hero__title .w3 {
@@ -71,60 +74,58 @@
   font-size: 155px;
   line-height: 0.85;
 
-  /* image-in-text (same as how__title) */
   background-image: url("../../assets/art.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: #111; /* fallback */
+  background-color: #111;
 
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
 
-  font-synthesis: none;
+  z-index: 10;
   pointer-events: none;
 }
 
 /* per-word placement */
 .hero__title .w1 {
-  font-family: 'Azeret Mono', ui-monospace, monospace;
+  font-family: "Azeret Mono", ui-monospace, monospace;
   font-weight: 800;
   top: -140px;
   left: 5%;
 }
 .hero__title .w2 {
-  font-family: 'Azeret Mono', ui-monospace, monospace;
+  font-family: "Azeret Mono", ui-monospace, monospace;
   font-weight: 800;
   top: 16%;
   left: 45%;
-
   text-transform: uppercase;
   letter-spacing: .04em;
   line-height: 0.85;
 }
 .hero__title .w3 {
-  font-family: 'Azeret Mono', ui-monospace, monospace;
+  font-family: "Azeret Mono", ui-monospace, monospace;
   font-weight: 800;
   top: 60%;
   left: 70%;
 }
 
-/* ========== Responsive: stack and center nicely on smaller screens ========== */
-
-@media (max-width: 1200px) and (min-width: 901px) {
+/* Intermediate laptop/tablet landscape screens: ensure lead and title fit gracefully */
+@media (max-width: 1300px) and (min-width: 901px) {
   .hero__title .w1,
   .hero__title .w2,
   .hero__title .w3 {
-    font-size: clamp(110px, 11vw, 155px);
+    font-size: clamp(105px, 9.5vw, 140px);
   }
   .hero__lead {
-    flex: 1 1 auto;
-    max-width: 480px;
+    flex: 1 1 50%;
+    max-width: 550px;
   }
 }
 
+/* ========== Responsive: stack and center nicely on smaller screens ========== */
 @media (max-width: 900px) {
   .hero {
     padding-top: 24px;
@@ -157,7 +158,6 @@
     padding: 0;
   }
 
-  /* Switch to stacked centered layout for the title */
   .hero__title {
     display: flex;
     flex-direction: column;
@@ -192,7 +192,7 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
-    font-family: 'Azeret Mono', ui-monospace, monospace;
+    font-family: "Azeret Mono", ui-monospace, monospace;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: .03em;
