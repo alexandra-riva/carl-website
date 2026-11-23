@@ -4,6 +4,7 @@
   background: #fff;
   padding-block: clamp(26px, 6vw, 40px);
 }
+
 .how__title {
   margin: clamp(18px, 3.5vw, 28px) 0 clamp(32px, 5vw, 56px);
   text-align: center;
@@ -19,7 +20,7 @@
 /* HOW + WORK → thin */
 .how__title span { font-weight: 300; }
 
-/* WE → thick / black */
+/* WE → thick */
 .how__title strong { font-weight: 800; }
 
 /* Grid of cards */
@@ -29,7 +30,6 @@
   grid-template-columns: repeat(var(--cols), minmax(220px, 1fr));
   gap: clamp(12px, 2vw, 20px);
 }
-
 @media (max-width: 1100px) { .how__cards { --cols: 2; } }
 @media (max-width: 560px)  { .how__cards { --cols: 1; } }
 
@@ -57,13 +57,14 @@
   transition: transform .6s cubic-bezier(.2,.65,.2,1);
   min-height: clamp(220px, 36vw, 360px);
   border-radius: 5px;
-  background: #fff;
+  background: #f2f2f2;
 }
 
 .how-card__btn[aria-expanded="true"] .how-card__inner {
   transform: rotateY(180deg);
 }
 
+/* Card faces */
 .how-card__face {
   position: absolute;
   inset: 0;
@@ -71,21 +72,16 @@
   border-radius: 5px;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  display: grid;
-  align-content: center;
-  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .how-card__front {
   background: #f2f2f2;
   border: 1px solid #eee;
-}
-
-.how-card__kicker {
-  font-family: "DM Mono", ui-monospace, monospace;
-  letter-spacing: .06em;
-  font-size: 14px;
-  color: #888;
 }
 
 .how-card__title {
@@ -94,17 +90,16 @@
   font-size: clamp(24px, 4vw, 42px);
   line-height: 1.2;
   text-align: center;
+  margin: 0;
 
-  /* image-in-text */
-  display: block;
+  /* text filled with image */
   background-image: url("../../assets/art.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: #111; /* fallback */
+  color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
   -webkit-text-fill-color: transparent;
 }
 
@@ -114,7 +109,7 @@
   bottom: 16px;
   right: 16px;
   margin: 0;
-  font-family: "Fragment Mono", ui-monospace, monospace;
+  font-family: "Fragment Mono", monospace;
   color: #777;
 }
 
@@ -123,11 +118,16 @@
   color: #fff;
   transform: rotateY(180deg);
   border: 1px solid #111;
+  text-align: left;
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow-y: auto;
+  padding: clamp(20px, 3vw, 28px);
 }
 
 .how-card__desc {
   font-family: "Fragment Mono", ui-monospace, monospace;
-  font-size: clamp(11px, 1.2vw, 13px);
+  font-size: clamp(11.5px, 1.2vw, 13.5px);
   line-height: 1.7;
   letter-spacing: .01em;
   color: #f3f3f3;
@@ -135,137 +135,100 @@
 
 .how-card__desc p + p { margin-top: 10px; }
 
-.how-card__close {
-  margin-top: 18px;
-  justify-self: start;
-  font-family: "DM Mono", ui-monospace, monospace;
-  font-size: 12px;
-  color: #ddd;
-}
-
 .how-card__btn:focus-visible {
-  box-shadow: 0 0 0 3px #1113, 0 0 0 6px #00000018;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
 }
 
-@media (hover:hover) {
+@media (hover: hover) {
   .how-card__btn:hover .how-card__front {
     transform: translateY(-2px);
     transition: transform .25s ease;
   }
 }
 
-/* ================= Category Gallery (Masonry) ================= */
+/* =========================== 
+      CATEGORY GALLERY 
+   =========================== */
 
-/* Gallery shell: we animate its collapse/open using max-height and opacity.
-   Make sure how-gallery has a defined transition to animate open/close nicely. */
 .how-gallery {
   margin-top: clamp(22px, 5vw, 36px);
   background: #fff;
 
-  /* collapsed by default in CSS; .is-visible will open */
+  /* collapsed by default */
   max-height: 0;
   opacity: 0;
   overflow: hidden;
   transition: max-height .45s cubic-bezier(.2,.8,.2,1), opacity .35s ease;
 }
 
-/* Visible state */
 .how-gallery.is-visible {
-  max-height: 1200px; /* large enough to contain gallery — safe upper bound */
+  max-height: 1500px;
   opacity: 1;
   overflow: visible;
 }
 
-/* Closing state (shrinks smoothly) */
 .how-gallery.is-closing {
   max-height: 0;
   opacity: 0;
   overflow: hidden;
 }
 
-/* Optional inner header (kept hidden on small screens by default) */
+/* HEADER (hidden) */
 .how-gallery__head {
   display: none;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: clamp(8px, 2vw, 12px);
 }
 
-/* Small section heading in gallery */
-.how-gallery__title {
-  font-family: "Azeret Mono", monospace;
-  font-size: clamp(18px, 3vw, 22px);
-  letter-spacing: .06em;
-  text-transform: uppercase;
-
-  display: inline-block;
-  background-image: url("../../assets/art.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: #111; /* fallback */
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
-
-.how-gallery__status {
-  font-family: "DM Mono", ui-monospace, monospace;
-  font-size: 12px;
-  color: #888;
-}
-
-/* Masonry via CSS columns */
+/* GRID → one big centered image */
 .how-gallery__grid {
-  column-gap: 16px;
-  column-count: 4;
-  padding-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0 30px;
 }
 
-@media (max-width: 1200px) { .how-gallery__grid { column-count: 3; } }
-@media (max-width: 800px)  { .how-gallery__grid { column-count: 2; } }
-@media (max-width: 520px)  { .how-gallery__grid { column-count: 1; } }
-
-/* Each item has pop-in animation; JS adds inline transitionDelay AND .pop-in class */
-.how-gallery__item {
-  break-inside: avoid;
-  margin: 0 0 16px 0;
-  border-radius: 5px;
+/* ITEM wrapper */
+.how-gallery__item--single {
+  width: 100%;
+  max-width: 1200px;
+  border-radius: 8px;
   overflow: hidden;
-  background: #f5f5f5;
-  box-shadow: 0 4px 16px rgba(0,0,0,.06);
-
-  /* start hidden/offset — animate to visible when .pop-in is added */
-  opacity: 0;
-  transform: translateY(14px) scale(0.985);
-  transition: opacity .36s cubic-bezier(.2,.8,.2,1),
-              transform .45s cubic-bezier(.18,.9,.2,1),
-              box-shadow .25s ease;
+  margin: 0 auto;
 }
 
-/* final state */
-.how-gallery__item.pop-in {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.08);
-}
-
-/* image fade-in (preserve your previous behavior) */
-.how-gallery__img {
+/* ONE BIG IMAGE */
+.how-gallery__img--large {
   width: 100%;
   height: auto;
   display: block;
-  opacity: 0;
-  transition: opacity .35s ease;
+  opacity: 1 !important;
 }
-.how-gallery__img.is-loaded { opacity: 1; }
 
-/* small hover lift for desktop */
-@media (hover:hover) {
-  .how-gallery__item.pop-in:hover {
-    transform: translateY(-4px) scale(1.01);
-    box-shadow: 0 12px 36px rgba(0,0,0,0.12);
+/* ============================
+      MOBILE BEHAVIOR
+   Gallery moves beneath card
+   ============================ */
+
+@media (max-width: 700px) {
+  /* spacing when gallery moves under card */
+  .how-gallery {
+    margin-top: 16px;
+  }
+
+  .how-gallery__item--single {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .how-gallery__grid {
+    display: block;
+    padding-bottom: 10px;
+  }
+
+  .how-gallery {
+    transition: margin-top .25s ease, max-height .45s cubic-bezier(.2,.8,.2,1), opacity .35s ease;
+  }
+
+  .how-card {
+    margin-bottom: 14px;
   }
 }

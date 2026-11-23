@@ -1,33 +1,35 @@
-:root{
+:root {
   --fg: #9f9f9f;
 }
 
 /* sticky, white, NO divider line */
-.topbar{
+.topbar {
   position: sticky;
   top: 0;
   z-index: 100;
   background: #ffffff;
-  /* no border-bottom */
 }
 
 /* full-width inner, tight to viewport edges */
-.topbar__inner{
+.topbar__inner {
   box-sizing: border-box;
   width: 100%;
   margin: auto;
-
-  /* top/bottom 10px, left 8px, right 24px */
   padding: 2px 12px 2px 8px;
-
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 12px;
 }
 
-/* Signature logo size a bit smaller */
-.brand img{
+/* Signature logo */
+.brand {
+  display: flex;
+  align-items: center;
+  line-height: 0;
+}
+
+.brand img {
   display: block;
   height: 40px;
   width: auto;
@@ -35,15 +37,15 @@
 }
 
 /* Center menu */
-.mainnav{
+.mainnav {
   display: flex;
   justify-content: center;
   gap: clamp(12px, 2.4vw, 26px);
-  min-width: 0;                 /* avoid pushing right cluster to a new line */
+  min-width: 0;
 }
 
 /* Grey by default, smaller */
-.nav-link{
+.nav-link {
   font-family: "DM Mono", ui-monospace, monospace;
   font-weight: 400;
   font-size: 13px;
@@ -52,26 +54,26 @@
   text-transform: uppercase;
   color: #9F9F9F;
   transition: color .15s ease;
+  white-space: nowrap;
 }
 
-/* Turn black on hover/focus/active */
 .nav-link:hover,
 .nav-link:focus,
-.nav-link.is-active{
+.nav-link.is-active {
   color: #000;
   outline: none;
 }
 
 /* Right side: keep items on one line */
-.contactnav{
+.contactnav {
   display: flex;
   align-items: center;
   gap: 12px;
-  white-space: nowrap;          /* prevents EN from dropping under */
+  white-space: nowrap;
 }
 
 /* Contact is always black */
-.contactnav .contact-link{
+.contactnav .contact-link {
   font-family: "DM Mono", ui-monospace, monospace;
   font-weight: 400;
   font-size: 13px;
@@ -81,39 +83,35 @@
   color: #000;
 }
 
-/* Language toggle — same style as contact */
-.langswitch{
+/* Language toggle — same style as contact, NO frame, NO border */
+.langswitch {
   margin-left: 12px;
   border: none;
-  background: #fff;
+  background: transparent;
   font-family: "DM Mono", ui-monospace, monospace;
   font-size: 13px;
   font-weight: 400;
   letter-spacing: .06em;
   padding: 4px 8px;
   cursor: pointer;
-  color: #000;                   /* always black */
-  text-decoration: none;         /* no underline */
+  color: #000;
+  text-decoration: none;
   appearance: none;
   -webkit-appearance: none;
 }
 
-/* Hover/active state like other links */
 .langswitch:hover,
-.langswitch:focus{
+.langswitch:focus {
   color: #000;
   outline: none;
-}
-.langswitch.is-active{          /* optional: current language = black */
-  color: #000;
+  background: transparent;
 }
 
-/* Make all header links inherit their intended colors (no blue) */
-.topbar a{
+.topbar a {
   color: inherit;
 }
 
-/* Mobile improvements: smaller font size and reduce gaps to avoid overlap */
+/* Mobile responsive */
 @media (max-width: 900px) {
   .mainnav {
     gap: 8px;
@@ -122,7 +120,8 @@
     font-size: 11px;
   }
   .brand img {
-    height: 32px; 
+    height: 32px;
+    margin-left: 8px;
   }
   .topbar__inner {
     padding: 6px 8px;
@@ -135,19 +134,26 @@
   }
 }
 
-/* Respect small screens but keep right cluster intact */
-@media (max-width: 420px){
-  .mainnav{ gap: 6px; }
+@media (max-width: 420px) {
+  .mainnav { gap: 6px; }
   .nav-link { font-size: 10px; }
 }
 
-/* Larger screens */
-@media (min-width: 1024px){
-  .topbar__inner{
+@media (min-width: 1024px) {
+  .topbar__inner {
     padding: 6px 20px 6px 10px;
     gap: 16px;
   }
-  .brand img{ height: 40px; }
-  .nav-link, .contactnav .contact-link, .langswitch{ font-size: 14px; }
-  .mainnav{ gap: clamp(16px, 2.8vw, 32px); }
+  .brand img {
+    height: 40px;
+    margin-left: 20px;
+  }
+  .nav-link,
+  .contactnav .contact-link,
+  .langswitch {
+    font-size: 14px;
+  }
+  .mainnav {
+    gap: clamp(16px, 2.8vw, 32px);
+  }
 }

@@ -74,12 +74,11 @@
   font-size: 155px;
   line-height: 0.85;
 
-  /* image-in-text (same as how__title) */
   background-image: url("../../assets/art.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: #111; /* fallback */
+  background-color: #111;
 
   -webkit-background-clip: text;
   background-clip: text;
@@ -92,44 +91,60 @@
 
 /* per-word placement */
 .hero__title .w1 {
-  font-family: 'Azeret Mono', ui-monospace, monospace;
+  font-family: "Azeret Mono", ui-monospace, monospace;
   font-weight: 800;
   top: -140px;
   left: 5%;
 }
 .hero__title .w2 {
-  /* now matches WHAT & DO */
-  font-family: 'Azeret Mono', ui-monospace, monospace;
+  font-family: "Azeret Mono", ui-monospace, monospace;
   font-weight: 800;
   top: 16%;
   left: 45%;
-
-  /* visual parity */
   text-transform: uppercase;
   letter-spacing: .04em;
   line-height: 0.85;
 }
 .hero__title .w3 {
-  font-family: 'Azeret Mono', ui-monospace, monospace;
+  font-family: "Azeret Mono", ui-monospace, monospace;
   font-weight: 800;
   top: 60%;
   left: 70%;
 }
 
-/* ========== Responsive: stack and center nicely on smaller screens ========== */
+/* Intermediate laptop/tablet landscape screens: ensure lead and title fit gracefully */
+@media (max-width: 1300px) and (min-width: 901px) {
+  .hero__title .w1,
+  .hero__title .w2,
+  .hero__title .w3 {
+    font-size: clamp(105px, 9.5vw, 140px);
+  }
+  .hero__lead {
+    flex: 1 1 50%;
+    max-width: 550px;
+  }
+}
 
-/* Tablet/mobile breakpoint: stack vertically & center */
+/* ========== Responsive: stack and center nicely on smaller screens ========== */
 @media (max-width: 900px) {
+  .hero {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+
   .hero__flex {
     flex-direction: column-reverse;
     min-height: 0;
     margin-left: 0;
+    gap: 20px;
   }
 
   .hero__lead {
     margin-bottom: 16px;
     max-width: 100vw;
     flex: none;
+    font-size: 13.5px;
+    line-height: 1.6;
   }
 
   .hero__title-diag {
@@ -143,7 +158,6 @@
     padding: 0;
   }
 
-  /* Switch to stacked centered layout for the title */
   .hero__title {
     display: flex;
     flex-direction: column;
@@ -156,6 +170,8 @@
     width: 100%;
     position: static;
     transform: none;
+    padding: 0;
+    margin: 0;
   }
 
   .hero__title .w1,
@@ -163,12 +179,11 @@
   .hero__title .w3 {
     position: static;
     display: block;
-    font-size: clamp(72px, 12vw, 90px);
+    font-size: clamp(72px, 14vw, 92px);
     left: unset;
     top: unset;
     margin: 0;
     line-height: 0.9;
-    /* keep image-in-text on mobile stacked words */
     background-image: url("../../assets/art.jpg");
     background-position: center;
     background-repeat: no-repeat;
@@ -177,33 +192,28 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
-    font-family: 'Azeret Mono', ui-monospace, monospace; /* ensure consistent family */
+    font-family: "Azeret Mono", ui-monospace, monospace;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: .03em;
   }
 }
 
-/* Smaller phones: slightly larger clamp for visual rhythm */
 @media (max-width: 480px) {
   .hero__lead {
-    font-size: 10px;
-    line-height: 1.45;
-    padding: 0 12px; /* optional: adds breathing room */
+    font-size: 13px;
+    line-height: 1.55;
+    padding: 0 4px;
   }
 
   .hero__lead p {
-    margin-bottom: 20px; /* tighter spacing for small screens */
-  }
-
-  .hero__title {
-    gap: 0.08em;
+    margin-bottom: 20px;
   }
 
   .hero__title .w1,
   .hero__title .w2,
   .hero__title .w3 {
-    font-size: clamp(72px, 16vw, 100px);
-    margin: 0 8px;
+    font-size: clamp(70px, 18vw, 90px);
+    margin: 0 4px;
   }
 }

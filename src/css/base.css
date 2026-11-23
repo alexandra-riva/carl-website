@@ -1,17 +1,17 @@
 /* ---------- BASE ---------- */
 
 :root {
-  --page-max: 1000px;             
-  --shell-x: max(24px, 6vw);      
+  --page-max: 1000px;
+  --shell-x: max(24px, 6vw);
 
-  --fg: #0a0a0a;                  
-  --muted: #9f9f9f;               
-  --line: #eaeaea;                
-  --bg: #ffffff;                  
-  --accent: #000000;             
+  --fg: #0a0a0a;
+  --muted: #9f9f9f;
+  --line: #eaeaea;
+  --bg: #ffffff;
+  --accent: #000000;
 
-  --sticky-topbar: 60px;          
-  --small: clamp(13px, 1.6vw, 15px); 
+  --sticky-topbar: 60px;
+  --small: clamp(13px, 1.6vw, 15px);
 }
 
 *,
@@ -20,38 +20,36 @@
   box-sizing: border-box;
 }
 
-* { -webkit-tap-highlight-color: transparent; }
-
-a,
-a:visited,
-a:active {
-  color: inherit;
-  text-decoration: none;
-}
-
 html {
+  font-size: 16px;
   scroll-behavior: smooth;
+  color-scheme: light;
 }
 
 body {
   margin: 0;
-  color: var(--fg);
+  padding: 0;
   background: var(--bg);
-  font-family: "DM Mono", ui-monospace, monospace;
-  font-weight: 400;
-  line-height: 1.6;
+  color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ---------- Typography helpers ---------- */
-h1, h2, h3, h4, h5, h6 {
-  margin: 0;
-  font-weight: inherit;
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
 }
 
 p {
-  margin: 0 0 1em;
+  margin: 0 0 1rem;
 }
 
 /* ---------- Layout helpers ---------- */
@@ -61,64 +59,21 @@ p {
   padding-inline: var(--shell-x);
 }
 
-/* ---------- Divider lines ---------- */
-.rule {
-  border: 0;
-  height: 1px;
-  background: var(--line);
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 
-/* ---------- Scroll offset for sticky header ---------- */
-section, footer {
-  scroll-margin-top: calc(var(--sticky-topbar) + 12px);
-}
-
-@media (max-width: 600px) {
+/* Smooth anchor offsets for sticky header */
+@supports (scroll-margin-top: 1rem) {
   section, footer {
     scroll-margin-top: calc(var(--sticky-topbar) + 4px);
   }
-}
-
-/* ================== HEADER ================== */
-.header-inner {
-  display:flex;
-  align-items:center;
-  gap: 16px;
-}
-
-.header-nav {
-  display:flex;
-  align-items:center;
-  gap: 20px;
-  flex: 1;
-  flex-wrap: nowrap;  /* keep in one line */
-  min-width: 0;
-}
-
-.header-lang {
-  margin-left: auto;
-  display:flex;
-  gap: 10px;
-  white-space: nowrap; /* “EN / SV” won’t break */
-}
-
-.header-nav > * { white-space: nowrap; }
-
-/* ================== FOOTER ================== */
-.footer-nav {
-  display:flex;
-  justify-content:center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.footer-nav a {
-  color: var(--muted);
-  font-size: 14px;
-}
-
-@media (max-width: 480px){
-  .footer { padding-block: 20px; }
-  .footer-nav { gap: 12px; }
-  .footer-nav a { font-size: 12px; }
 }
