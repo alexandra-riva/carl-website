@@ -98,15 +98,20 @@ function applyTranslations(lang) {
     }
   });
 
-  const sw = document.getElementById("lang-toggle");
-  if (sw) sw.textContent = lang === "sv" ? "EN" : "SV";
+  const opened = document.querySelector(".how-card__btn[aria-expanded='true']")?.dataset.cat;
+  if (opened) {
+    updateGalleryTitle(opened);
+  }
+
+  const sw = document.getElementById("langswitch") || document.getElementById("lang-toggle");
+  if (sw) sw.textContent = lang.toUpperCase();
 }
 
 function initI18n() {
   let currentLang = getInitialLang();
   applyTranslations(currentLang);
 
-  const sw = document.getElementById("lang-toggle");
+  const sw = document.getElementById("langswitch") || document.getElementById("lang-toggle");
   if (sw) {
     sw.addEventListener("click", () => {
       currentLang = currentLang === "sv" ? "en" : "sv";
@@ -117,6 +122,7 @@ function initI18n() {
       history.replaceState(null, "", `${location.pathname}?${params.toString()}${location.hash}`);
     });
   }
+  window.__getLang = () => currentLang;
 }
 
 /* ===================== 3) HOW — flip cards ===================== */
