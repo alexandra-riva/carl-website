@@ -1,153 +1,171 @@
-:root{
+:root {
   --fg: #9f9f9f;
 }
 
-/* sticky, white, NO divider line */
-.topbar{
+/* sticky, white with subtle blur and hairline border */
+.topbar {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: #ffffff;
-  /* no border-bottom */
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: background .2s ease;
 }
 
-/* full-width inner, tight to viewport edges */
-.topbar__inner{
+/* Centered inner aligned with .shell */
+.topbar__inner {
   box-sizing: border-box;
   width: 100%;
-  margin: auto;
-
-  /* top/bottom 10px, left 8px, right 24px */
-  padding: 2px 12px 2px 8px;
-
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--shell-x);
+  padding-block: 8px;
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 12px;
+  gap: clamp(12px, 2.5vw, 28px);
+  min-height: var(--sticky-topbar);
 }
 
-/* Signature logo size a bit smaller */
-.brand img{
+/* Signature logo */
+.brand {
+  display: flex;
+  align-items: center;
+  line-height: 0;
+}
+
+.brand img {
   display: block;
-  height: 40px;
+  height: clamp(32px, 3.5vw, 40px);
   width: auto;
-  margin-left: 20px;
+  margin-left: 0;
+  transition: transform .2s ease;
+}
+
+.brand:hover img {
+  transform: scale(1.03);
 }
 
 /* Center menu */
-.mainnav{
+.mainnav {
   display: flex;
   justify-content: center;
-  gap: clamp(12px, 2.4vw, 26px);
-  min-width: 0;                 /* avoid pushing right cluster to a new line */
+  gap: clamp(14px, 2.4vw, 28px);
+  min-width: 0;
 }
 
-/* Grey by default, smaller */
-.nav-link{
+/* Nav links */
+.nav-link {
   font-family: "DM Mono", ui-monospace, monospace;
   font-weight: 400;
   font-size: 13px;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   text-decoration: none;
   text-transform: uppercase;
-  color: #9F9F9F;
+  color: #8e8e8e;
   transition: color .15s ease;
+  white-space: nowrap;
 }
 
-/* Turn black on hover/focus/active */
 .nav-link:hover,
 .nav-link:focus,
-.nav-link.is-active{
+.nav-link.is-active {
   color: #000;
   outline: none;
 }
 
-/* Right side: keep items on one line */
-.contactnav{
+/* Right side: Contact + Language toggle */
+.contactnav {
   display: flex;
   align-items: center;
   gap: 12px;
-  white-space: nowrap;          /* prevents EN from dropping under */
+  white-space: nowrap;
 }
 
-/* Contact is always black */
-.contactnav .contact-link{
+.contactnav .contact-link {
   font-family: "DM Mono", ui-monospace, monospace;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 13px;
   letter-spacing: 0.06em;
   text-decoration: none;
   text-transform: uppercase;
   color: #000;
+  transition: opacity .15s ease;
 }
 
-/* Language toggle — same style as contact */
-.langswitch{
-  margin-left: 12px;
-  border: none;
+.contactnav .contact-link:hover {
+  opacity: 0.7;
+}
+
+/* Language toggle */
+.langswitch {
+  border: 1px solid #dcdcdc;
+  border-radius: 4px;
   background: #fff;
   font-family: "DM Mono", ui-monospace, monospace;
-  font-size: 13px;
-  font-weight: 400;
-  letter-spacing: .06em;
-  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  padding: 3px 8px;
   cursor: pointer;
-  color: #000;                   /* always black */
-  text-decoration: none;         /* no underline */
+  color: #000;
   appearance: none;
   -webkit-appearance: none;
+  transition: background .15s ease, border-color .15s ease;
 }
 
-/* Hover/active state like other links */
 .langswitch:hover,
-.langswitch:focus{
-  color: #000;
+.langswitch:focus {
+  background: #f4f4f4;
+  border-color: #000;
   outline: none;
 }
-.langswitch.is-active{          /* optional: current language = black */
-  color: #000;
-}
 
-/* Make all header links inherit their intended colors (no blue) */
-.topbar a{
+.topbar a {
   color: inherit;
 }
 
-/* Mobile improvements: smaller font size and reduce gaps to avoid overlap */
-@media (max-width: 900px) {
+/* Tablet & Mobile responsive */
+@media (max-width: 768px) {
+  .topbar__inner {
+    padding-block: 6px;
+    gap: 8px;
+  }
+  .brand img {
+    height: 30px;
+  }
   .mainnav {
     gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .mainnav::-webkit-scrollbar {
+    display: none;
   }
   .nav-link {
     font-size: 11px;
+    letter-spacing: 0.02em;
   }
-  .brand img {
-    height: 32px; 
-  }
-  .topbar__inner {
-    padding: 6px 8px;
-    gap: 8px;
-  }
-  .contactnav .contact-link,
-  .langswitch {
+  .contactnav .contact-link {
     font-size: 11px;
-    padding: 3px 6px;
+  }
+  .langswitch {
+    font-size: 10px;
+    padding: 2px 6px;
   }
 }
 
-/* Respect small screens but keep right cluster intact */
-@media (max-width: 420px){
-  .mainnav{ gap: 6px; }
-  .nav-link { font-size: 10px; }
-}
-
-/* Larger screens */
-@media (min-width: 1024px){
-  .topbar__inner{
-    padding: 6px 20px 6px 10px;
-    gap: 16px;
+@media (max-width: 480px) {
+  .topbar__inner {
+    gap: 6px;
   }
-  .brand img{ height: 40px; }
-  .nav-link, .contactnav .contact-link, .langswitch{ font-size: 14px; }
-  .mainnav{ gap: clamp(16px, 2.8vw, 32px); }
+  .mainnav {
+    gap: 6px;
+  }
+  .nav-link {
+    font-size: 10.5px;
+  }
 }

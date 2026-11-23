@@ -265,6 +265,24 @@ function initHowFlipCards() {
 
 /* ===================== 4) Category Gallery ===================== */
 
+const CATEGORY_ASSETS = {
+  workshops: [
+    "assets/w1.jpg", "assets/w2.jpg", "assets/w3.jpg", "assets/w4.jpg",
+    "assets/w5.jpg", "assets/w6.jpg", "assets/w7.jpg", "assets/w8.jpg", "assets/w10.jpg"
+  ],
+  events: [
+    "assets/e1.JPG", "assets/e2.JPG", "assets/e3.JPG", "assets/e4.jpg",
+    "assets/e5.jpg", "assets/e6.jpg", "assets/e7.jpg"
+  ],
+  dj: [
+    "assets/dj1.jpg", "assets/dj2.jpg", "assets/dj3.jpg", "assets/dj4.jpg", "assets/dj5.jpg"
+  ],
+  murals: [
+    "assets/m1.jpg", "assets/m2.jpg", "assets/m3.jpg", "assets/m4.jpg",
+    "assets/m5.jpg", "assets/m6.jpg", "assets/m7.jpg"
+  ]
+};
+
 const PREFIX_MAP = { workshops: "w", events: "e", dj: "dj", murals: "m" };
 
 function updateGalleryTitle(cat) {
@@ -288,8 +306,7 @@ async function renderCategoryGallery(cat) {
   grid.innerHTML = "";
   if (status) status.textContent = "Loading images…";
 
-  const prefix = PREFIX_MAP[cat] || "w";
-  let imgs = await loadCategoryImages(prefix);
+  let imgs = await loadCategoryImages(cat);
 
   if (!imgs.length) {
     if (status) status.textContent = "No images found.";
@@ -349,49 +366,8 @@ async function renderCategoryGallery(cat) {
  * Try to discover files by prefix, e.g., "w1.jpg", "w2.jpg" ... (and .JPG)
  * We stop after encountering 'stopAfter' consecutive misses or after 'maxTries'.
  */
-function loadCategoryImages(prefix, maxTries = 40, stopAfter = 6) {
-  let missesInRow = 0;
-
-  function tryIndex(i) {
-    return new Promise((resolve) => {
-      const lower = `assets/${prefix}${i}.jpg`;
-      const upper = `assets/${prefix}${i}.JPG`;
-
-      const test = (srcA, srcB) => {
-        const img = new Image();
-        img.onload = () => resolve(srcA);
-        img.onerror = () => {
-          if (srcB) {
-            const img2 = new Image();
-            img2.onload = () => resolve(srcB);
-            img2.onerror = () => resolve(null);
-            img2.src = srcB;
-          } else {
-            resolve(null);
-          }
-        };
-        img.src = srcA;
-      };
-
-      test(lower, upper);
-    });
-  }
-
-  return new Promise(async (resolve) => {
-    const found = [];
-    for (let i = 1; i <= maxTries; i++) {
-      /* eslint-disable no-await-in-loop */
-      const got = await tryIndex(i);
-      if (got) {
-        found.push(got);
-        missesInRow = 0;
-      } else {
-        missesInRow++;
-        if (missesInRow >= stopAfter && found.length > 0) break;
-      }
-    }
-    resolve(found);
-  });
+async function loadCategoryImages(cat) {
+  return CATEGORY_ASSETS[cat] ? [...CATEGORY_ASSETS[cat]] : [];
 }
 
 /* ========== 5) Wire header links (data-goto-how="workshops|events|dj|murals") ========== */

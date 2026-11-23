@@ -1,13 +1,14 @@
 .footer {
-  background: #f2f2f2;
+  background: #f6f6f6;
   text-align: center;
-  padding-block: clamp(28px, 6vw, 48px);
+  padding-block: clamp(36px, 6vw, 64px);
+  border-top: 1px solid var(--line);
 }
 
 .footer__title {
   font-family: "DM Mono", monospace;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 15px;
   letter-spacing: .08em;
   text-transform: uppercase;
   margin-bottom: 12px;
@@ -16,51 +17,31 @@
 
 .footer__email a {
   font-family: "Fragment Mono", monospace;
-  font-size: 12px;
+  font-size: clamp(13px, 1.2vw, 14px);
   text-decoration: none;
-  color: #666;
+  color: #555;
+  transition: color .15s ease;
+}
+
+.footer__email a:hover {
+  color: #000;
+  text-decoration: underline;
 }
 
 .footer__social {
-  margin: 20px 0;
+  margin: 24px 0 0;
   display: flex;
   justify-content: center;
   gap: 20px;
 }
 
-.footer__social img {
-  width: 28px;
-  height: 28px;
-  display: block;
-  filter: grayscale(100%);
-  transition: filter .2s ease;
-}
-
-.footer__social a:hover img {
-  filter: grayscale(0%);
-}
-
-.footer__copy {
-  font-family: "Fragment Mono", monospace;
-  font-size: 10px;
-  color: #888;
-  margin-top: 100px;
-}
-
 .social-icon {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   display: inline-block;
-
   background: url("../../assets/art.jpg") center/cover no-repeat;
-
-  /* Use the SVG as a mask */
-  -webkit-mask: url("../../assets/instagram.svg") no-repeat center;
-  -webkit-mask-size: contain;
-  mask: url("../../assets/instagram.svg") no-repeat center;
-  mask-size: contain;
-
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  cursor: pointer;
 }
 
 .social-icon:hover {
@@ -68,11 +49,23 @@
 }
 
 .instagram {
-  -webkit-mask-image: url("../../assets/instagram.svg");
-  mask-image: url("../../assets/instagram.svg");
+  -webkit-mask: url("../../assets/instagram.svg") no-repeat center;
+  -webkit-mask-size: contain;
+  mask: url("../../assets/instagram.svg") no-repeat center;
+  mask-size: contain;
 }
 
 .soundcloud {
-  -webkit-mask-image: url("../../assets/soundcloud.svg");
-  mask-image: url("../../assets/soundcloud.svg");
+  -webkit-mask: url("../../assets/soundcloud.svg") no-repeat center;
+  -webkit-mask-size: contain;
+  mask: url("../../assets/soundcloud.svg") no-repeat center;
+  mask-size: contain;
+}
+
+.footer__copy {
+  font-family: "Fragment Mono", monospace;
+  font-size: 11px;
+  color: #888;
+  margin-top: clamp(36px, 5vw, 60px);
+  margin-bottom: 0;
 }
