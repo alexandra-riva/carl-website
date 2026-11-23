@@ -17,7 +17,7 @@ async function includePartials() {
   );
 }
 
-/* ===================== I18N (unchanged) ===================== */
+/* ===================== I18N ===================== */
 const I18N = {
   sv: {
     "nav.workshops": "WORKSHOPS",
@@ -40,17 +40,10 @@ const I18N = {
     "how.menu.dj": "DJ",
     "how.menu.murals": "MURALS",
 
-    "how.workshops.1": "Vi håller skapande workshops som bygger gemenskap: streetart, graffiti, återbruk, collage och klistermärken.",
-    "how.workshops.2": "Vi erbjuder även DJ-kurser samt foto/film-grunder och anpassar alltid efter deltagarnas förutsättningar – kom gärna med egna idéer.",
-
-    "how.events.1": "Vi producerar kulturevenemang från spelningar och utställningar till föreläsningar, fester och privata tillställningar – alltid skräddarsytt.",
-    "how.events.2": "Vid behov dokumenterar vi med video och skapar minnen som håller – vi samskapar gärna utifrån er vision.",
-
-    "how.dj.1": "Våra DJs anpassar musiken efter publik och plats – för klubbar, skolor, företagsevent, modevisningar, fester och mer.",
-    "how.dj.2": "Stort eller litet sammanhang: vi sätter rätt stämning. Hör av er för frågor och bokning.",
-
-    "how.murals.1": "Vi målar muraler och markmålningar som förvandlar miljöer – inklusive interaktiva hinderbanor för skolgårdar och gårdar.",
-    "how.murals.2": "Vi skapar motiv efter plats och behov – från väggar och containrar till barnrum – hållbart och unikt."
+    "how.workshops.render": "Vi håller skapande workshops som bygger gemenskap: streetart, graffiti, återbruk, collage och klistermärken.<p>Vi erbjuder även DJ-kurser samt foto/film-grunder och anpassar alltid efter deltagarnas förutsättningar – kom gärna med egna idéer.</p>",
+    "how.events.render": "Vi producerar kulturevenemang från spelningar och utställningar till föreläsningar, fester och privata tillställningar – alltid skräddarsytt.<p>Vid behov dokumenterar vi med video och skapar minnen som håller – vi samskapar gärna utifrån er vision.</p>",
+    "how.dj.render": "Våra DJs anpassar musiken efter publik och plats – för klubbar, skolor, företagsevent, modevisningar, fester och mer.<p>Stort eller litet sammanhang: vi sätter rätt stämning. Hör av er för frågor och bokning.</p>",
+    "how.murals.render": "Vi målar muraler och markmålningar som förvandlar miljöer – inklusive interaktiva hinderbanor för skolgårdar och gårdar.<p>Vi skapar motiv efter plats och behov – från väggar och containrar till barnrum – hållbart och unikt.</p>"
   },
   en: {
     "nav.workshops": "WORKSHOPS",
@@ -73,14 +66,10 @@ const I18N = {
     "how.menu.dj": "DJ",
     "how.menu.murals": "MURALS",
 
-    "how.workshops.1": "We run creative workshops that build community: street art, graffiti, reuse, collage, and stickers.",
-    "how.workshops.2": "We also offer DJ courses and photo/film basics, adapting to all abilities—bring your own ideas too.",
-    "how.events.1": "We produce cultural events—from gigs and exhibitions to talks, parties, and private gatherings—always tailored.",
-    "how.events.2": "We can film for lasting memories and co-create from your vision.",
-    "how.dj.1": "Our DJs tailor music to audience and venue—for clubs, schools, corporate events, fashion shows, parties, and more.",
-    "how.dj.2": "Big or small, we set the mood. Get in touch to book or ask questions.",
-    "how.murals.1": "We create murals and ground paintings that transform spaces—including interactive obstacle courses for schoolyards and courtyards.",
-    "how.murals.2": "Custom motifs for walls, containers, and children’s rooms—sustainable and unique."
+    "how.workshops.render": "We run creative workshops that build community: street art, graffiti, reuse, collage, and stickers.<p>We also offer DJ courses and photo/film basics, adapting to all abilities—bring your own ideas too.</p>",
+    "how.events.render": "We produce cultural events—from gigs and exhibitions to talks, parties, and private gatherings—always tailored.<p>We can film for lasting memories and co-create from your vision.</p>",
+    "how.dj.render": "Our DJs tailor music to audience and venue—for clubs, schools, corporate events, fashion shows, parties, and more.<p>Big or small, we set the mood. Get in touch to book or ask questions.</p>",
+    "how.murals.render": "We create murals and ground paintings that transform spaces—including interactive obstacle courses for schoolyards and courtyards.<p>Custom motifs for walls, containers, and children’s rooms—sustainable and unique.</p>"
   }
 };
 
@@ -93,53 +82,41 @@ function getInitialLang() {
   return browser === "sv" ? "sv" : "en";
 }
 
-function renderHowParagraphs(lang) {
-  const cats = ["workshops", "events", "dj", "murals"];
-  cats.forEach((cat) => {
-    const html = [1, 2]
-      .map((i) => I18N?.[lang]?.[`how.${cat}.${i}`])
-      .filter(Boolean)
-      .map((p) => `<p>${p}</p>`)
-      .join("");
-    const node = document.querySelector(`[data-i18n="how.${cat}.render"]`);
-    if (node) node.innerHTML = html;
-  });
-}
+function applyTranslations(lang) {
+  const dict = I18N[lang] || I18N.sv;
+  document.documentElement.lang = lang;
 
-function applyI18n(lang) {
-  document.documentElement.setAttribute("lang", lang);
-  document.querySelectorAll("[data-i18n]").forEach((node) => {
-    const key = node.getAttribute("data-i18n");
-    const val = I18N?.[lang]?.[key];
-    if (!val) return;
-    const attr = node.getAttribute("data-i18n-attr") || "text";
-    if (attr === "html") node.innerHTML = val;
-    else node.textContent = val;
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    const val = dict[key];
+    if (val == null) return;
+    const mode = el.getAttribute("data-i18n-attr");
+    if (mode === "html") {
+      el.innerHTML = val;
+    } else {
+      el.textContent = val;
+    }
   });
-  renderHowParagraphs(lang);
 
-  // Update gallery heading if present
-  const opened = document.querySelector(".how-card__btn[aria-expanded='true']")?.dataset.cat || "workshops";
-  const titleKey = `how.menu.${opened}`;
-  const titleEl = document.getElementById("how-gallery-title");
-  if (titleEl && I18N?.[lang]?.[titleKey]) titleEl.textContent = I18N[lang][titleKey];
+  const sw = document.getElementById("lang-toggle");
+  if (sw) sw.textContent = lang === "sv" ? "EN" : "SV";
 }
 
 function initI18n() {
-  let lang = getInitialLang();
-  applyI18n(lang);
+  let currentLang = getInitialLang();
+  applyTranslations(currentLang);
 
-  const btn = document.getElementById("langswitch");
-  if (btn) {
-    btn.textContent = lang.toUpperCase();
-    btn.addEventListener("click", () => {
-      lang = lang === "sv" ? "en" : "sv";
-      localStorage.setItem("lang", lang);
-      applyI18n(lang);
-      btn.textContent = lang.toUpperCase();
+  const sw = document.getElementById("lang-toggle");
+  if (sw) {
+    sw.addEventListener("click", () => {
+      currentLang = currentLang === "sv" ? "en" : "sv";
+      localStorage.setItem("lang", currentLang);
+      applyTranslations(currentLang);
+      const params = new URLSearchParams(location.search);
+      params.set("lang", currentLang);
+      history.replaceState(null, "", `${location.pathname}?${params.toString()}${location.hash}`);
     });
   }
-  window.__getLang = () => lang;
 }
 
 /* ===================== 3) HOW — flip cards ===================== */
@@ -156,7 +133,6 @@ function initHowFlipCards() {
     });
   }
 
-  // Gallery show/hide helpers (works with CSS classes .is-visible and .is-closing)
   function getGalleryEls() {
     return {
       gallery: document.getElementById("how-gallery"),
@@ -169,9 +145,7 @@ function initHowFlipCards() {
     const { gallery } = getGalleryEls();
     if (!gallery) return;
     gallery.classList.remove("is-closing");
-    // force reflow for reliable transition
-    // eslint-disable-next-line no-unused-expressions
-    gallery.offsetHeight;
+    gallery.offsetHeight; // force reflow
     gallery.classList.add("is-visible");
   }
 
@@ -179,7 +153,6 @@ function initHowFlipCards() {
     const { gallery, grid, status } = getGalleryEls();
     if (!gallery) return;
 
-    // If gallery is not visible, just ensure cleared
     if (!gallery.classList.contains("is-visible")) {
       if (clearAfter && grid) grid.innerHTML = "";
       if (status) status.textContent = "";
@@ -187,53 +160,59 @@ function initHowFlipCards() {
       return;
     }
 
-    // Start closing animation
     gallery.classList.add("is-closing");
     gallery.classList.remove("is-visible");
 
-    // When transition ends, clear DOM (only once)
-    const onEnd = (e) => {
-      if (e.target !== gallery) return;
-      gallery.removeEventListener("transitionend", onEnd);
+    const resetDom = () => {
       gallery.classList.remove("is-closing");
       if (clearAfter && grid) grid.innerHTML = "";
       if (status) status.textContent = "";
+      // Reset gallery back inside shell if it was relocated on mobile
+      const shell = document.querySelector("#how-we-work .shell");
+      if (shell && gallery.parentElement !== shell) {
+        shell.appendChild(gallery);
+      }
+    };
+
+    const onEnd = (e) => {
+      if (e.target !== gallery) return;
+      gallery.removeEventListener("transitionend", onEnd);
+      resetDom();
     };
     gallery.addEventListener("transitionend", onEnd);
 
-    // fallback: if browser doesn't fire transitionend, clear after timeout
     setTimeout(() => {
       if (gallery.classList.contains("is-closing")) {
-        gallery.classList.remove("is-closing");
-        if (clearAfter && grid) grid.innerHTML = "";
-        if (status) status.textContent = "";
+        resetDom();
       }
-    }, 700);
+    }, 550);
   }
 
-  // Toggle behaviour:
-  // - clicking closed card opens gallery and renders images
-  // - clicking the same open card closes gallery
-  // - clicking a different card updates images (keeps gallery open)
   function toggle(btn) {
     const isOpen = btn.getAttribute("aria-expanded") === "true";
     const cat = btn.dataset.cat;
 
     if (isOpen) {
-      // if already open, close it (click again hides gallery)
       btn.setAttribute("aria-expanded", "false");
       hideGallery();
       return;
     }
 
-    // otherwise open the clicked card and show images for it
     collapseAll(btn);
     btn.setAttribute("aria-expanded", "true");
 
-    // render images then show gallery
     renderCategoryGallery(cat).then(() => {
       showGallery();
       updateGalleryTitle(cat);
+
+      // On mobile screens: place gallery directly underneath opened card
+      if (window.innerWidth <= 700) {
+        const parentCard = btn.closest(".how-card");
+        const gallery = document.getElementById("how-gallery");
+        if (parentCard && gallery) {
+          parentCard.insertAdjacentElement("afterend", gallery);
+        }
+      }
     });
   }
 
@@ -250,7 +229,7 @@ function initHowFlipCards() {
     if (!target) return;
     collapseAll(target);
     target.setAttribute("aria-expanded", "true");
-    // render and ensure gallery visible
+
     renderCategoryGallery(cat).then(() => {
       showGallery();
       updateGalleryTitle(cat);
@@ -263,114 +242,52 @@ function initHowFlipCards() {
   return api;
 }
 
-/* ===================== 4) Category Gallery ===================== */
-
-const CATEGORY_ASSETS = {
-  workshops: [
-    "assets/w1.jpg", "assets/w2.jpg", "assets/w3.jpg", "assets/w4.jpg",
-    "assets/w5.jpg", "assets/w6.jpg", "assets/w7.jpg", "assets/w8.jpg", "assets/w10.jpg"
-  ],
-  events: [
-    "assets/e1.JPG", "assets/e2.JPG", "assets/e3.JPG", "assets/e4.jpg",
-    "assets/e5.jpg", "assets/e6.jpg", "assets/e7.jpg"
-  ],
-  dj: [
-    "assets/dj1.jpg", "assets/dj2.jpg", "assets/dj3.jpg", "assets/dj4.jpg", "assets/dj5.jpg"
-  ],
-  murals: [
-    "assets/m1.jpg", "assets/m2.jpg", "assets/m3.jpg", "assets/m4.jpg",
-    "assets/m5.jpg", "assets/m6.jpg", "assets/m7.jpg"
-  ]
-};
-
-const PREFIX_MAP = { workshops: "w", events: "e", dj: "dj", murals: "m" };
-
 function updateGalleryTitle(cat) {
-  const lang = window.__getLang ? window.__getLang() : "sv";
   const titleEl = document.getElementById("how-gallery-title");
   const key = `how.menu.${cat}`;
+  const lang = document.documentElement.lang || "sv";
   if (titleEl && I18N?.[lang]?.[key]) titleEl.textContent = I18N[lang][key];
 }
 
-/**
- * Render category images:
- * - shuffle order each render (Fisher-Yates)
- * - staggered pop-in animation using transitionDelay
- */
+/* ===================== 4) Category Gallery =====================
+   Displays the single dedicated high-res picture for each category:
+   Workshops -> w1.jpg
+   Events    -> e1.JPG
+   DJ        -> dj1.jpg
+   Murals    -> m6.jpg
+================================================================ */
 async function renderCategoryGallery(cat) {
   const grid = document.getElementById("how-gallery-grid");
   const status = document.getElementById("how-gallery-status");
   if (!grid) return [];
 
-  // clear previous immediately to avoid stacking duplicates while loading new ones
   grid.innerHTML = "";
-  if (status) status.textContent = "Loading images…";
+  if (status) status.textContent = "";
 
-  let imgs = await loadCategoryImages(cat);
+  const MAP = {
+    workshops: "assets/w1.jpg",
+    events: "assets/e1.JPG",
+    dj: "assets/dj1.jpg",
+    murals: "assets/m6.jpg"
+  };
 
-  if (!imgs.length) {
-    if (status) status.textContent = "No images found.";
-    return [];
-  }
+  const src = MAP[cat] || "assets/w1.jpg";
 
-  // Shuffle images (Fisher-Yates)
-  for (let i = imgs.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [imgs[i], imgs[j]] = [imgs[j], imgs[i]];
-  }
+  const fig = document.createElement("figure");
+  fig.className = "how-gallery__item how-gallery__item--single";
 
-  const frag = document.createDocumentFragment();
-  const baseDelay = 55; // ms, tweakable
+  const img = new Image();
+  img.src = src;
+  img.className = "how-gallery__img is-loaded how-gallery__img--large";
+  img.alt = cat;
 
-  imgs.forEach((src, idx) => {
-    const fig = document.createElement("figure");
-    fig.className = "how-gallery__item";
-    // set per-item stagger delay
-    fig.style.transitionDelay = `${idx * baseDelay}ms`;
+  fig.appendChild(img);
+  grid.appendChild(fig);
 
-    const img = new Image();
-    img.decoding = "async";
-    img.loading = "lazy";
-    img.className = "how-gallery__img";
-    img.alt = `${cat} ${idx + 1}`;
-    img.src = src;
-
-    // when image loads, add both image fade and figure pop-in
-    img.addEventListener("load", () => {
-      img.classList.add("is-loaded");
-      // small timeout to let transitionDelay apply reliably
-      requestAnimationFrame(() => {
-        fig.classList.add("pop-in");
-      });
-    }, { once: true });
-
-    img.addEventListener("error", () => {
-      img.classList.add("is-loaded");
-      img.alt = `${cat} image ${idx + 1} failed to load`;
-      requestAnimationFrame(() => {
-        fig.classList.add("pop-in");
-      });
-    }, { once: true });
-
-    fig.appendChild(img);
-    frag.appendChild(fig);
-  });
-
-  grid.appendChild(frag);
-  if (status) status.textContent = `${imgs.length} image${imgs.length === 1 ? "" : "s"}`;
-
-  return imgs;
+  return [src];
 }
 
-/**
- * Try to discover files by prefix, e.g., "w1.jpg", "w2.jpg" ... (and .JPG)
- * We stop after encountering 'stopAfter' consecutive misses or after 'maxTries'.
- */
-async function loadCategoryImages(cat) {
-  return CATEGORY_ASSETS[cat] ? [...CATEGORY_ASSETS[cat]] : [];
-}
-
-/* ========== 5) Wire header links (data-goto-how="workshops|events|dj|murals") ========== */
+/* ========== 5) Wire header links ========== */
 function wireHeaderToHow(howAPI) {
   const links = document.querySelectorAll("[data-goto-how]");
   if (!links.length || !howAPI) return;
@@ -394,7 +311,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const howAPI = initHowFlipCards();
   wireHeaderToHow(howAPI);
 
-  // ensure gallery isn't forced visible on boot
   const gallery = document.getElementById("how-gallery");
   if (gallery) {
     gallery.classList.remove("is-visible", "is-closing");

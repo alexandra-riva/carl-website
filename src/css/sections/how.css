@@ -1,18 +1,19 @@
 /* ================= HOW WE WORK — Flip Cards + Gallery ================= */
 
 .how {
-  background: #ffffff;
-  padding-block: clamp(36px, 6vw, 64px);
+  background: #fff;
+  padding-block: clamp(26px, 6vw, 40px);
 }
 
 .how__title {
-  margin: 0 0 clamp(28px, 5vw, 48px);
+  margin: clamp(18px, 3.5vw, 28px) 0 clamp(32px, 5vw, 56px);
   text-align: center;
   font-family: "Azeret Mono", ui-monospace, monospace;
-  font-size: clamp(38px, 6.5vw, 68px);
-  line-height: 0.95;
+  font-size: clamp(42px, 7vw, 72px);
+  line-height: 0.9;
   letter-spacing: .04em;
   text-transform: uppercase;
+  font-synthesis: none;
   color: #000;
 }
 
@@ -24,23 +25,13 @@
 
 /* Grid of cards */
 .how__cards {
+  --cols: 4;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(14px, 2vw, 22px);
+  grid-template-columns: repeat(var(--cols), minmax(220px, 1fr));
+  gap: clamp(12px, 2vw, 20px);
 }
-
-@media (max-width: 1024px) {
-  .how__cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 580px) {
-  .how__cards {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-}
+@media (max-width: 1100px) { .how__cards { --cols: 2; } }
+@media (max-width: 560px)  { .how__cards { --cols: 1; } }
 
 /* Card */
 .how-card {
@@ -54,132 +45,125 @@
   display: block;
   width: 100%;
   cursor: pointer;
-  border-radius: 6px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+  box-shadow: 0 6px 24px rgba(0,0,0,.06);
   background: transparent;
   outline: none;
-  transition: transform .25s ease, box-shadow .25s ease;
 }
 
 .how-card__inner {
   position: relative;
   transform-style: preserve-3d;
-  transition: transform .6s cubic-bezier(.2, .65, .2, 1);
-  min-height: clamp(230px, 32vw, 320px);
-  border-radius: 6px;
-  background: #fff;
+  transition: transform .6s cubic-bezier(.2,.65,.2,1);
+  min-height: clamp(220px, 36vw, 360px);
+  border-radius: 5px;
+  background: #f2f2f2;
 }
 
 .how-card__btn[aria-expanded="true"] .how-card__inner {
   transform: rotateY(180deg);
 }
 
+/* Card faces */
 .how-card__face {
   position: absolute;
   inset: 0;
-  padding: clamp(20px, 3vw, 28px);
-  border-radius: 6px;
+  padding: clamp(16px, 2.5vw, 26px);
+  border-radius: 5px;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
   box-sizing: border-box;
 }
 
 .how-card__front {
-  background: #f7f7f7;
-  border: 1px solid #e8e8e8;
-  position: relative;
+  background: #f2f2f2;
+  border: 1px solid #eee;
 }
 
 .how-card__title {
-  font-family: "Azeret Mono", ui-monospace, monospace;
+  font-family: 'Azeret Mono', ui-monospace, monospace;
   font-weight: 800;
-  font-size: clamp(24px, 3.2vw, 36px);
-  line-height: 1.15;
+  font-size: clamp(24px, 4vw, 42px);
+  line-height: 1.2;
   text-align: center;
   margin: 0;
 
-  /* Image-in-text using Carl's art */
-  display: block;
+  /* text filled with image */
   background-image: url("../../assets/art.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: #111;
+  color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
   -webkit-text-fill-color: transparent;
 }
 
 .how-card__hint {
   position: absolute;
-  font-size: 11px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  bottom: 14px;
-  right: 18px;
+  font-size: 12px;
+  bottom: 16px;
+  right: 16px;
   margin: 0;
-  font-family: "Fragment Mono", ui-monospace, monospace;
-  color: #888;
+  font-family: "Fragment Mono", monospace;
+  color: #777;
 }
 
 .how-card__back {
-  background: #0f0f0f;
+  background: #111;
   color: #fff;
   transform: rotateY(180deg);
-  border: 1px solid #1a1a1a;
+  border: 1px solid #111;
   text-align: left;
   align-items: flex-start;
   justify-content: flex-start;
   overflow-y: auto;
+  padding: clamp(20px, 3vw, 28px);
 }
 
 .how-card__desc {
   font-family: "Fragment Mono", ui-monospace, monospace;
-  font-size: clamp(12px, 1.15vw, 13.5px);
-  line-height: 1.65;
+  font-size: clamp(11.5px, 1.2vw, 13.5px);
+  line-height: 1.7;
   letter-spacing: .01em;
-  color: #eaeaea;
+  color: #f3f3f3;
 }
 
-.how-card__desc p {
-  margin: 0 0 10px;
-}
-
-.how-card__desc p:last-child {
-  margin-bottom: 0;
-}
+.how-card__desc p + p { margin-top: 10px; }
 
 .how-card__btn:focus-visible {
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
-  border-radius: 6px;
+  border-radius: 5px;
 }
 
 @media (hover: hover) {
-  .how-card__btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.09);
+  .how-card__btn:hover .how-card__front {
+    transform: translateY(-2px);
+    transition: transform .25s ease;
   }
 }
 
-/* ================= Category Gallery (Masonry) ================= */
+/* =========================== 
+      CATEGORY GALLERY 
+   =========================== */
 
 .how-gallery {
-  margin-top: clamp(28px, 5vw, 44px);
+  margin-top: clamp(22px, 5vw, 36px);
   background: #fff;
+
+  /* collapsed by default */
   max-height: 0;
   opacity: 0;
   overflow: hidden;
-  transition: max-height .5s cubic-bezier(.2, .8, .2, 1), opacity .35s ease;
+  transition: max-height .45s cubic-bezier(.2,.8,.2,1), opacity .35s ease;
 }
 
 .how-gallery.is-visible {
-  max-height: 2000px;
+  max-height: 1500px;
   opacity: 1;
   overflow: visible;
 }
@@ -190,85 +174,61 @@
   overflow: hidden;
 }
 
+/* HEADER (hidden) */
 .how-gallery__head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: clamp(14px, 2vw, 20px);
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--line);
+  display: none;
 }
 
-.how-gallery__title {
-  font-family: "Azeret Mono", monospace;
-  font-size: clamp(18px, 2.5vw, 24px);
-  font-weight: 800;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  margin: 0;
-
-  display: inline-block;
-  background-image: url("../../assets/art.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: #111;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
-
-.how-gallery__status {
-  font-family: "DM Mono", ui-monospace, monospace;
-  font-size: 12px;
-  color: #777;
-}
-
-/* Masonry columns */
+/* GRID → one big centered image */
 .how-gallery__grid {
-  column-gap: 16px;
-  column-count: 4;
-  padding-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0 30px;
 }
 
-@media (max-width: 1100px) { .how-gallery__grid { column-count: 3; } }
-@media (max-width: 768px)  { .how-gallery__grid { column-count: 2; } }
-@media (max-width: 480px)  { .how-gallery__grid { column-count: 1; } }
-
-.how-gallery__item {
-  break-inside: avoid;
-  margin: 0 0 16px 0;
-  border-radius: 6px;
+/* ITEM wrapper */
+.how-gallery__item--single {
+  width: 100%;
+  max-width: 1200px;
+  border-radius: 8px;
   overflow: hidden;
-  background: #f0f0f0;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-  opacity: 0;
-  transform: translateY(12px) scale(0.99);
-  transition: opacity .35s ease, transform .4s ease, box-shadow .25s ease;
+  margin: 0 auto;
 }
 
-.how-gallery__item.pop-in {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-}
-
-.how-gallery__img {
+/* ONE BIG IMAGE */
+.how-gallery__img--large {
   width: 100%;
   height: auto;
   display: block;
-  opacity: 0;
-  transition: opacity .3s ease;
+  opacity: 1 !important;
 }
 
-.how-gallery__img.is-loaded {
-  opacity: 1;
-}
+/* ============================
+      MOBILE BEHAVIOR
+   Gallery moves beneath card
+   ============================ */
 
-@media (hover: hover) {
-  .how-gallery__item.pop-in:hover {
-    transform: translateY(-3px) scale(1.01);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+@media (max-width: 700px) {
+  /* spacing when gallery moves under card */
+  .how-gallery {
+    margin-top: 16px;
+  }
+
+  .how-gallery__item--single {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .how-gallery__grid {
+    display: block;
+    padding-bottom: 10px;
+  }
+
+  .how-gallery {
+    transition: margin-top .25s ease, max-height .45s cubic-bezier(.2,.8,.2,1), opacity .35s ease;
+  }
+
+  .how-card {
+    margin-bottom: 14px;
   }
 }
